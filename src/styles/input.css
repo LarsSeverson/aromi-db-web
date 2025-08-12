@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+html, body {
+  @apply bg-background;
+}
+
+#root {
+  isolation: isolate;
+}
+
+* {
+  @apply border-surface;
+  /* @apply bg-inherit; */
+  @apply text-light font-inter;
+}
+
+input {
+  @apply bg-inherit;
+}
+
+*:focus-visible {
+  @apply outline outline-2 outline-light outline-offset-[-1px];
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  
+  50% {
+    opacity: 0.5;
+  }
+}
+
