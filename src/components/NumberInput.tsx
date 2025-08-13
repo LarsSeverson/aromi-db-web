@@ -20,6 +20,7 @@ const NumberInput = (props: NumberInputProps) => {
     <NumberField.Root
       min={Number(min)}
       max={Number(max)}
+      defaultValue={2025}
       format={{ useGrouping: false }}
       className={clsx(
         'flex flex-col items-start gap-1 w-full min-w-0'

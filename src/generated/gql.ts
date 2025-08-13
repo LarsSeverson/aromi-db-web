@@ -14,6 +14,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
+    "\n  fragment AccordSummaryFragment on Accord {\n    id\n    name\n    color\n  }\n": typeof types.AccordSummaryFragmentFragmentDoc,
+    "\n  query AccordsQuery(\n    $input: AccordPaginationInput\n  ) {\n    accords(input: $input) {\n      edges {\n        node {\n          ...AccordSummaryFragment \n        }\n      }\n      pageInfo {\n        ...PageInfoFragment\n      }\n    }\n  }\n": typeof types.AccordsQueryDocument,
     "\n  fragment AuthDeliveryResultFragment on AuthDeliveryResult {\n    isComplete\n\n    delivery {\n      attribute\n      destination\n      method\n    }\n  }\n": typeof types.AuthDeliveryResultFragmentFragmentDoc,
     "\n  fragment AuthTokenPayloadFragment on AuthTokenPayload {\n    idToken\n    accessToken\n    expiresIn\n  }\n": typeof types.AuthTokenPayloadFragmentFragmentDoc,
     "\n  mutation Refresh {\n    refresh {\n      ...AuthTokenPayloadFragment\n    }\n  }\n": typeof types.RefreshDocument,
@@ -24,10 +26,8 @@ type Documents = {
     "\n  mutation ResendSignUpCode(\n    $input: ResendSignUpCodeInput!\n  ) {\n    resendSignUpCode(input: $input) {\n      ...AuthDeliveryResultFragment\n    }\n  }\n": typeof types.ResendSignUpCodeDocument,
     "\n  mutation ForgotPassword(\n    $input: ForgotPasswordInput!\n  ) {\n    forgotPassword(input: $input) {\n      ...AuthDeliveryResultFragment\n    }\n  }\n": typeof types.ForgotPasswordDocument,
     "\n  mutation ConfirmForgotPassword(\n    $input: ConfirmForgotPasswordInput!\n  ) {\n    confirmForgotPassword(input: $input) \n  }\n": typeof types.ConfirmForgotPasswordDocument,
-    "\n  fragment LicenseSummaryFragment on License {\n    id\n    name\n    url\n  }\n": typeof types.LicenseSummaryFragmentFragmentDoc,
-    "\n  query Licenses {\n    licenses {\n      ...LicenseSummaryFragment\n    }\n  }\n": typeof types.LicensesDocument,
-    "\n  fragment TagSummaryFragment on Tag {\n    id\n    name\n    slug\n  }\n": typeof types.TagSummaryFragmentFragmentDoc,
-    "\n  query SearchTags(\n    $input: SearchTagsInput!\n  ) {\n    searchTags(input: $input) {\n      ...TagSummaryFragment\n    }\n  }\n": typeof types.SearchTagsDocument,
+    "\n  fragment NoteSummaryFragment on Note {\n    id\n    name\n    thumbnailUrl\n  }\n": typeof types.NoteSummaryFragmentFragmentDoc,
+    "\n  query Notes(\n    $input: NotePaginationInput\n  ) {\n    notes(input: $input) {\n      edges {\n        node {\n          ...NoteSummaryFragment\n        }\n      }\n      pageInfo {\n        ...PageInfoFragment\n      }\n    }\n  }\n": typeof types.NotesDocument,
     "\n  fragment UserSummaryFragment on User {\n    id\n    username\n    email\n\n    avatarSrc\n    avatarStatus\n  }\n": typeof types.UserSummaryFragmentFragmentDoc,
     "\n  mutation UpdateUser(\n    $input: UpdateUserInput!\n  ) {\n    updateUser(input: $input) {\n      ...UserSummaryFragment\n    }\n  }\n": typeof types.UpdateUserDocument,
     "\n  mutation UpdateUserAvatar(\n    $input: UpdateUserAvatarInput!\n  ) {\n    updateUserAvatar(input: $input) {\n      avatarId\n      uploadUrl\n      contentType\n    }\n  }\n": typeof types.UpdateUserAvatarDocument,
@@ -36,6 +36,8 @@ type Documents = {
     "\n  fragment PageInfoFragment on PageInfo {\n    hasPreviousPage\n    hasNextPage\n    startCursor\n    endCursor\n  }\n": typeof types.PageInfoFragmentFragmentDoc,
 };
 const documents: Documents = {
+    "\n  fragment AccordSummaryFragment on Accord {\n    id\n    name\n    color\n  }\n": types.AccordSummaryFragmentFragmentDoc,
+    "\n  query AccordsQuery(\n    $input: AccordPaginationInput\n  ) {\n    accords(input: $input) {\n      edges {\n        node {\n          ...AccordSummaryFragment \n        }\n      }\n      pageInfo {\n        ...PageInfoFragment\n      }\n    }\n  }\n": types.AccordsQueryDocument,
     "\n  fragment AuthDeliveryResultFragment on AuthDeliveryResult {\n    isComplete\n\n    delivery {\n      attribute\n      destination\n      method\n    }\n  }\n": types.AuthDeliveryResultFragmentFragmentDoc,
     "\n  fragment AuthTokenPayloadFragment on AuthTokenPayload {\n    idToken\n    accessToken\n    expiresIn\n  }\n": types.AuthTokenPayloadFragmentFragmentDoc,
     "\n  mutation Refresh {\n    refresh {\n      ...AuthTokenPayloadFragment\n    }\n  }\n": types.RefreshDocument,
@@ -46,10 +48,8 @@ const documents: Documents = {
     "\n  mutation ResendSignUpCode(\n    $input: ResendSignUpCodeInput!\n  ) {\n    resendSignUpCode(input: $input) {\n      ...AuthDeliveryResultFragment\n    }\n  }\n": types.ResendSignUpCodeDocument,
     "\n  mutation ForgotPassword(\n    $input: ForgotPasswordInput!\n  ) {\n    forgotPassword(input: $input) {\n      ...AuthDeliveryResultFragment\n    }\n  }\n": types.ForgotPasswordDocument,
     "\n  mutation ConfirmForgotPassword(\n    $input: ConfirmForgotPasswordInput!\n  ) {\n    confirmForgotPassword(input: $input) \n  }\n": types.ConfirmForgotPasswordDocument,
-    "\n  fragment LicenseSummaryFragment on License {\n    id\n    name\n    url\n  }\n": types.LicenseSummaryFragmentFragmentDoc,
-    "\n  query Licenses {\n    licenses {\n      ...LicenseSummaryFragment\n    }\n  }\n": types.LicensesDocument,
-    "\n  fragment TagSummaryFragment on Tag {\n    id\n    name\n    slug\n  }\n": types.TagSummaryFragmentFragmentDoc,
-    "\n  query SearchTags(\n    $input: SearchTagsInput!\n  ) {\n    searchTags(input: $input) {\n      ...TagSummaryFragment\n    }\n  }\n": types.SearchTagsDocument,
+    "\n  fragment NoteSummaryFragment on Note {\n    id\n    name\n    thumbnailUrl\n  }\n": types.NoteSummaryFragmentFragmentDoc,
+    "\n  query Notes(\n    $input: NotePaginationInput\n  ) {\n    notes(input: $input) {\n      edges {\n        node {\n          ...NoteSummaryFragment\n        }\n      }\n      pageInfo {\n        ...PageInfoFragment\n      }\n    }\n  }\n": types.NotesDocument,
     "\n  fragment UserSummaryFragment on User {\n    id\n    username\n    email\n\n    avatarSrc\n    avatarStatus\n  }\n": types.UserSummaryFragmentFragmentDoc,
     "\n  mutation UpdateUser(\n    $input: UpdateUserInput!\n  ) {\n    updateUser(input: $input) {\n      ...UserSummaryFragment\n    }\n  }\n": types.UpdateUserDocument,
     "\n  mutation UpdateUserAvatar(\n    $input: UpdateUserAvatarInput!\n  ) {\n    updateUserAvatar(input: $input) {\n      avatarId\n      uploadUrl\n      contentType\n    }\n  }\n": types.UpdateUserAvatarDocument,
@@ -72,6 +72,14 @@ const documents: Documents = {
  */
 export function gql(source: string): unknown;
 
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  fragment AccordSummaryFragment on Accord {\n    id\n    name\n    color\n  }\n"): (typeof documents)["\n  fragment AccordSummaryFragment on Accord {\n    id\n    name\n    color\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query AccordsQuery(\n    $input: AccordPaginationInput\n  ) {\n    accords(input: $input) {\n      edges {\n        node {\n          ...AccordSummaryFragment \n        }\n      }\n      pageInfo {\n        ...PageInfoFragment\n      }\n    }\n  }\n"): (typeof documents)["\n  query AccordsQuery(\n    $input: AccordPaginationInput\n  ) {\n    accords(input: $input) {\n      edges {\n        node {\n          ...AccordSummaryFragment \n        }\n      }\n      pageInfo {\n        ...PageInfoFragment\n      }\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -115,19 +123,11 @@ export function gql(source: "\n  mutation ConfirmForgotPassword(\n    $input: Co
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  fragment LicenseSummaryFragment on License {\n    id\n    name\n    url\n  }\n"): (typeof documents)["\n  fragment LicenseSummaryFragment on License {\n    id\n    name\n    url\n  }\n"];
+export function gql(source: "\n  fragment NoteSummaryFragment on Note {\n    id\n    name\n    thumbnailUrl\n  }\n"): (typeof documents)["\n  fragment NoteSummaryFragment on Note {\n    id\n    name\n    thumbnailUrl\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query Licenses {\n    licenses {\n      ...LicenseSummaryFragment\n    }\n  }\n"): (typeof documents)["\n  query Licenses {\n    licenses {\n      ...LicenseSummaryFragment\n    }\n  }\n"];
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function gql(source: "\n  fragment TagSummaryFragment on Tag {\n    id\n    name\n    slug\n  }\n"): (typeof documents)["\n  fragment TagSummaryFragment on Tag {\n    id\n    name\n    slug\n  }\n"];
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function gql(source: "\n  query SearchTags(\n    $input: SearchTagsInput!\n  ) {\n    searchTags(input: $input) {\n      ...TagSummaryFragment\n    }\n  }\n"): (typeof documents)["\n  query SearchTags(\n    $input: SearchTagsInput!\n  ) {\n    searchTags(input: $input) {\n      ...TagSummaryFragment\n    }\n  }\n"];
+export function gql(source: "\n  query Notes(\n    $input: NotePaginationInput\n  ) {\n    notes(input: $input) {\n      edges {\n        node {\n          ...NoteSummaryFragment\n        }\n      }\n      pageInfo {\n        ...PageInfoFragment\n      }\n    }\n  }\n"): (typeof documents)["\n  query Notes(\n    $input: NotePaginationInput\n  ) {\n    notes(input: $input) {\n      edges {\n        node {\n          ...NoteSummaryFragment\n        }\n      }\n      pageInfo {\n        ...PageInfoFragment\n      }\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

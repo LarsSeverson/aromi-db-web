@@ -8,7 +8,7 @@ const NewFragranceImageSection = () => {
       <DropZone
         hint='We recommend high-quality JPG files under 5MB'
         accept='image/png,image/jpeg,image/webp'
-        onRenderIcon={(
+        icon={(
           <FaRegArrowAltCircleUp
             size={32}
           />

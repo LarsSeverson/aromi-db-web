@@ -1,5 +1,6 @@
 import { ApolloClient, from, HttpLink, InMemoryCache, makeVar } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
+import { customRelayStylePagination } from './pagination'
 
 export const accessToken = makeVar<string | null>(null)
 
@@ -35,7 +36,10 @@ export const client = new ApolloClient({
   cache: new InMemoryCache({
     typePolicies: {
       Query: {
-
+        fields: {
+          accords: customRelayStylePagination(),
+          notes: customRelayStylePagination()
+        }
       }
     }
   })

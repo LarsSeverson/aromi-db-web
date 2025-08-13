@@ -1,24 +1,26 @@
-import SelectableAccordsGrid from '@/features/accords/components/SelectableAccordsGrid'
-import { useAccords } from '@/features/accords/hooks/useAccords'
+import SelectInput from '@/components/SelectInput'
+import SelectableNotesGrid from '@/features/notes/components/SelectableNotesGrid'
+import { useNotes } from '@/features/notes/hooks/useNotes'
+import { NOTE_LAYER_OPTIONS } from '@/features/notes/types'
 import clsx from 'clsx'
 import React, { useMemo, useState } from 'react'
 
-const NewFragranceAccordsSection = () => {
+const NewFragranceNotesSection = () => {
   const {
-    data: accords,
+    data: notes,
 
     loading,
     loadingMore,
     hasMore,
 
     loadMore
-  } = useAccords()
+  } = useNotes()
 
   const [isExpanded, setIsExpanded] = useState(false)
 
   const trimmed = useMemo(
-    () => isExpanded ? accords : accords.slice(0, 24),
-    [isExpanded, accords]
+    () => isExpanded ? notes : notes.slice(0, 24),
+    [isExpanded, notes]
   )
 
   const canShowMore = useMemo(
@@ -47,17 +49,26 @@ const NewFragranceAccordsSection = () => {
     <section
       className='max-w-4xl w-full self-center flex flex-col gap-5'
     >
-      <span
-        className='text-lg'
+      <div
+        className='flex items-center justify-between'
       >
-        Accords
-      </span>
+        <span
+          className='text-lg'
+        >
+          Notes
+        </span>
+
+        <SelectInput
+          options={NOTE_LAYER_OPTIONS}
+        />
+      </div>
 
       <div
         className='w-full flex flex-col'
       >
-        <SelectableAccordsGrid
-          accords={trimmed}
+
+        <SelectableNotesGrid
+          notes={trimmed}
           isLoading={loading || loadingMore}
         />
 
@@ -76,4 +87,4 @@ const NewFragranceAccordsSection = () => {
   )
 }
 
-export default NewFragranceAccordsSection
+export default NewFragranceNotesSection

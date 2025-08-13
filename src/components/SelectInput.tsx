@@ -25,14 +25,17 @@ const SelectInput = <T extends SelectInputOption, >(props: SelectInputProps<T>) 
         className='flex flex-col'
       >
         <span
-          className='text-md font-semibold mb-1'
+          className={clsx(
+            'text-md font-semibold',
+            label != null && 'mb-1'
+          )}
         >
           {label}
         </span>
 
         <Select.Trigger
           className={clsx(
-            'box-border flex items-center justify-between w-max min-w-36 max-w-[364px]',
+            'box-border w-full flex items-center justify-between min-w-36 max-w-[364px]',
             'gap-3 h-10 pl-[0.875rem] pr-3 m-0',
             'outline-0 border-2 rounded-md',
             'leading-6 text-light',

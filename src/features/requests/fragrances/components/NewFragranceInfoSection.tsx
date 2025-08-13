@@ -8,7 +8,7 @@ import { CONCENTRATION_OPTIONS, STATUS_OPTIONS } from '../types'
 const NewFragranceInfoSection = () => {
   return (
     <div
-      className='flex flex-col gap-4'
+      className='flex flex-col justify-between h-full'
     >
       <TextInput
         label='Name'

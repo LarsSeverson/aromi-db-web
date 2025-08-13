@@ -5,11 +5,12 @@ import NewFragranceInfoSection from '../components/NewFragranceInfoSection'
 import NewFragranceTraitsSection from '../components/NewFragranceTraitsSection'
 import NewFragranceGenderSection from '../components/NewFragranceGenderSection'
 import NewFragranceAccordsSection from '../components/NewFragranceAccordsSection'
+import NewFragranceNotesSection from '../components/NewFragranceNotesSection'
 
 const NewFragrancePage = () => {
   return (
     <div
-      className='flex flex-col gap-3'
+      className='flex flex-col gap-5'
     >
       <div
         className='max-w-5xl w-full self-center'
@@ -48,7 +49,19 @@ const NewFragrancePage = () => {
 
       <NewFragranceGenderSection />
 
+      <Divider
+        horizontal
+        className='max-w-4xl self-center'
+      />
+
       <NewFragranceAccordsSection />
+
+      <Divider
+        horizontal
+        className='max-w-4xl self-center'
+      />
+
+      <NewFragranceNotesSection />
 
       <NewFragranceTraitsSection />
     </div>
