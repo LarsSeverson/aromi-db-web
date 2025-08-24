@@ -19,7 +19,7 @@ html, body {
 * {
   @apply border-surface;
   /* @apply bg-inherit; */
-  @apply text-light font-inter;
+  @apply font-inter;
 }
 
 input {
@@ -27,7 +27,7 @@ input {
 }
 
 *:focus-visible {
-  @apply outline outline-2 outline-light outline-offset-[-1px];
+  @apply outline outline-2 outline-primary outline-offset-[-1px];
 }
 
 @keyframes blink {

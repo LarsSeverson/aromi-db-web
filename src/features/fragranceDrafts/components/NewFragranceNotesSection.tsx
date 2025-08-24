@@ -1,4 +1,3 @@
-import SelectInput from '@/components/SelectInput'
 import SelectableNotesGrid from '@/features/notes/components/SelectableNotesGrid'
 import { useNotes } from '@/features/notes/hooks/useNotes'
 import { NOTE_LAYER_OPTIONS } from '@/features/notes/types'

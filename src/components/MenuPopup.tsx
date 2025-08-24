@@ -12,10 +12,15 @@ const MenuPopup = (props: MenuPopupProps) => {
   return (
     <Menu.Popup
       className={clsx(
-        'box-border rounded-md py-1',
-        'bg-surface text-white outline-surface2 outline outline-1',
-        'origin-[var(--transform-origin)] transition-[transform,scale,opacity] duration-150',
-        'data-[starting-style]:opacity-0 data-[starting-style]:scale-90 data-[ending-style]:opacity-0 data-[ending-style]:scale-90'
+        'origin-[var(--transform-origin)]',
+        'rounded-md bg-[canvas] py-1',
+        'text-gray-900',
+        'shadow-lg shadow-gray-200',
+        'outline outline-1 outline-gray-200',
+        'transition-[transform,scale,opacity]',
+        'data-[ending-style]:scale-90 data-[ending-style]:opacity-0',
+        'data-[starting-style]:scale-90 data-[starting-style]:opacity-0',
+        'dark:shadow-none dark:-outline-offset-1 dark:outline-gray-300'
       )}
     >
       {children}

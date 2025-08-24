@@ -1,5 +1,5 @@
 import { NAV } from '@/common/nav'
-import NewRequestMenu from '@/features/requests/components/NewRequestMenu'
+import NewRequestMenu from '@/features/fragranceDrafts/components/NewRequestMenu'
 import { Link, useRouterState } from '@tanstack/react-router'
 import clsx from 'clsx'
 import React from 'react'
@@ -43,7 +43,9 @@ const SideNavigation = () => {
                   {section.heading}
                 </div>
 
-                <ul>
+                <ul
+                  className='flex flex-col gap-1'
+                >
                   {section
                     .items
                     .map(item => {
@@ -60,8 +62,8 @@ const SideNavigation = () => {
                             data-active={active ?? undefined}
                             className={clsx(
                               'flex items-center justify-between rounded-md px-3 ml-4 py-[6.5px] text-sm text-light',
-                              'hover:bg-background2 hover:outline hover:outline-1 hover:outline-surface',
-                              active && 'bg-background2 text-foreground outline outline-1 outline-surface'
+                              'hover:bg-background2 hover:outline hover:outline-1 hover:outline-surface2',
+                              active && 'bg-background2 text-foreground outline outline-1 outline-surface2'
                             )}
                           >
                             <span>

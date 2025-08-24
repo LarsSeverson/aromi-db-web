@@ -8,7 +8,7 @@ const SignUpButton = () => {
       className={clsx(
         'flex h-[33px] items-center justify-center px-3.5 select-none align-middle',
         'rounded-md bg-primary',
-        'text-sm font-medium leading-none',
+        'text-sm font-medium leading-none text-white',
         'hover:bg-primaryHover active:bg-primaryHover',
         'focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1'
       )}

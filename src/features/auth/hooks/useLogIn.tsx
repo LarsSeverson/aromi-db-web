@@ -2,7 +2,7 @@ import { type LogInInput } from '@/generated/graphql'
 import { LOG_IN_MUTATION } from '../graphql/mutations'
 import { useMutation } from '@apollo/client'
 import { ResultAsync } from 'neverthrow'
-import { toApolloError } from '@/common/error'
+import { checkNullFetchResponse, toApolloError } from '@/common/error'
 
 export const useLogIn = () => {
   const [
@@ -18,6 +18,7 @@ export const useLogIn = () => {
         logInInner({ variables: { input } }),
         toApolloError
       )
+      .andThen(({ data }) => checkNullFetchResponse(data?.logIn))
   }
 
   return {

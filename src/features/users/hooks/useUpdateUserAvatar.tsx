@@ -1,8 +1,8 @@
 import { useMutation } from '@apollo/client'
 import { UPDATE_USER_AVATAR_MUTATION } from '../graphql/mutations'
-import { type UpdateUserAvatarInput } from '@/generated/graphql'
-import { errAsync, okAsync, ResultAsync } from 'neverthrow'
-import { toApolloError } from '@/common/error'
+import { ResultAsync } from 'neverthrow'
+import { checkNullFetchResponse, toApolloError } from '@/common/error'
+import { type StageAssetInput } from '@/generated/graphql'
 
 export const useUpdateUserAvatar = () => {
   const [
@@ -10,18 +10,13 @@ export const useUpdateUserAvatar = () => {
     { data, loading, error }
   ] = useMutation(UPDATE_USER_AVATAR_MUTATION)
 
-  const updateUserAvatar = (input: UpdateUserAvatarInput) => {
+  const updateUserAvatar = (input: StageAssetInput) => {
     return ResultAsync
       .fromPromise(
         updateUserAvatarInner({ variables: { input } }),
         toApolloError
       )
-      .andThen(({ data }) => {
-        if (data?.updateUserAvatar == null) {
-          return errAsync()
-        }
-        return okAsync(data.updateUserAvatar)
-      })
+      .andThen(({ data }) => checkNullFetchResponse(data?.updateUserAvatar))
   }
 
   return {

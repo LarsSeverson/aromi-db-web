@@ -1,6 +1,6 @@
 import React from 'react'
-import SegmentedTraitField from './SegmentedTraitField'
-import { GENDER_OPTIONS } from '../types'
+import DraftSegmentedTraitField from './DraftSegmentedTraitField'
+import { GENDER_OPTIONS } from '../../requests/types'
 import GenderSvg from '@/features/fragrances/components/GenderSvg'
 
 const NewFragranceGenderSection = () => {
@@ -14,7 +14,7 @@ const NewFragranceGenderSection = () => {
         Gender
       </span>
 
-      <SegmentedTraitField
+      <DraftSegmentedTraitField
         name='Gender'
         options={GENDER_OPTIONS}
         icon={(

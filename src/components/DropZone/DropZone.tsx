@@ -1,28 +1,37 @@
 import clsx from 'clsx'
-import React, { useCallback, useRef, useState } from 'react'
-import { RiPencilFill, RiUploadCloudLine } from 'react-icons/ri'
+import React, { useEffect, useRef, useState } from 'react'
+import DropeZoneImagePreview from './DropeZoneImagePreview'
+import DropZoneContent from './DropZoneContent'
+import { Field } from '@base-ui-components/react'
 
 export interface DropZoneProps {
-  hint?: string
+  text?: string
+  subtext?: string
   isDisabled?: boolean
+  showPreview?: boolean
   accept?: string
-  onFile?: (file: File) => void
   icon?: React.ReactNode
+  className?: string
+  onFile?: (file: File) => void
 }
 
 const DropZone = (props: DropZoneProps) => {
   const {
-    hint,
+    text,
+    subtext,
     isDisabled = false,
+    showPreview = true,
     accept,
-    onFile,
-    icon
+    icon,
+    className,
+    onFile
   } = props
 
   const inputRef = useRef<HTMLInputElement>(null)
 
   const [isDraggingOver, setIsDraggingOver] = useState(false)
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
+  const canShowPreview = showPreview && previewUrl != null
 
   const handlePick = (file: File | undefined | null) => {
     if (file == null) return
@@ -76,55 +85,37 @@ const DropZone = (props: DropZoneProps) => {
     handlePick(file)
   }
 
-  const onRenderZone = useCallback(() => {
-    if (previewUrl != null) {
-      return (
-        <div
-          className='w-full h-full relative'
-        >
-          <img
-            src={previewUrl}
-            alt='Preview'
-            className='w-full h-full object-cover'
-          />
+  useEffect(
+    () => {
+      return () => {
+        if (previewUrl != null) {
+          URL.revokeObjectURL(previewUrl)
+        }
+      }
+    },
+    [previewUrl]
+  )
 
-          <button
-            className={clsx(
-              'absolute hidden bottom-2 right-2 p-2 rounded-md bg-background ',
-              'border group-hover:inline group-focus:inline'
-            )}
-          >
-            <RiPencilFill />
-          </button>
-        </div>
+  const onRenderZone = () => {
+    if (canShowPreview) {
+      return (
+        <DropeZoneImagePreview
+          previewUrl={previewUrl}
+          isDisabled={isDisabled}
+          className={className}
+        />
       )
     }
 
     return (
-      <div
-        className='h-full flex flex-col gap-3 items-center justify-center relative'
-      >
-        {icon ??
-        (
-          <RiUploadCloudLine
-            size={26}
-          />
-        )}
-
-        <span
-          className='text-center text-md'
-        >
-          Choose a file or drag it here
-        </span>
-
-        <span
-          className='text-[13px]'
-        >
-          {hint}
-        </span>
-      </div>
+      <DropZoneContent
+        text={text}
+        subtext={subtext}
+        icon={icon}
+        className={className}
+      />
     )
-  }, [icon, previewUrl, hint])
+  }
 
   return (
     <div
@@ -137,21 +128,22 @@ const DropZone = (props: DropZoneProps) => {
       onDragLeave={(handleOnDragLeave)}
       onDrop={handleOnDrop}
       className={clsx(
-        'rounded-lg text-center cursor-pointer select-none overflow-hidden',
-        'border group',
+        'rounded-lg text-center select-none overflow-hidden',
+        'border-2 group',
         'aspect-[4/5] min-w-52 hover:border-surface4',
+        isDisabled && 'cursor-default',
         isDraggingOver ? 'border-surface4 bg-surface2' : 'bg-surface border-surface3',
-        previewUrl == null && 'border-dashed'
+        !canShowPreview && 'border-dashed'
       )}
     >
-
       {onRenderZone()}
 
-      <input
+      <Field.Control
         ref={inputRef}
         type='file'
+        disabled={isDisabled}
         accept={accept}
-        className='hidden'
+        className='sr-only'
         onChange={handleOnFileChange}
       />
     </div>

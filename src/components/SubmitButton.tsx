@@ -16,7 +16,7 @@ const SubmitButton = (props: SubmitButtonProps) => {
       disabled={isLoading}
       className={clsx(
         'w-full rounded-3xl h-full py-2 flex items-center justify-center',
-        'bg-primary hover:bg-primaryHover font-medium'
+        'bg-primary hover:bg-primaryHover font-medium text-white'
       )}
     >
       {isLoading ?? false

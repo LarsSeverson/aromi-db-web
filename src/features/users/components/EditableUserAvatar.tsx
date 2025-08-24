@@ -1,14 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { type IUserSummary } from '../types'
 import UserAvatar from './UserAvatar'
 import { FiEdit2 } from 'react-icons/fi'
 import { usePollAvatarStatus } from '../hooks/usePollAvatarStatus'
 import { useUpdateUserAvatar } from '../hooks/useUpdateUserAvatar'
 import ErrorFeedback from '@/components/ErrorFeedback'
-import { usePresignedUrl } from '@/hooks/usePresignedUrl'
 import clsx from 'clsx'
 import Spinner from '@/components/Spinner'
 import { useToastMessage } from '@/hooks/useToastMessage'
+import { usePresignedUpload } from '@/hooks/usePresignedUpload'
 
 export interface EditableUserAvatarProps {
   user: IUserSummary
@@ -17,7 +17,7 @@ export interface EditableUserAvatarProps {
 const EditableUserAvatar = (props: EditableUserAvatarProps) => {
   const { user } = props
 
-  const { upload } = usePresignedUrl()
+  const { upload } = usePresignedUpload()
   const { toastMessage } = useToastMessage()
   const { start, stop } = usePollAvatarStatus()
   const { updateUserAvatar } = useUpdateUserAvatar()
@@ -50,8 +50,12 @@ const EditableUserAvatar = (props: EditableUserAvatarProps) => {
     setError(null)
     setIsLoading(true)
 
-    await updateUserAvatar({ contentType: file.type })
-      .andThen(({ uploadUrl }) => upload(uploadUrl, file))
+    const fileName = file.name
+    const contentType = file.type
+    const contentSize = file.size
+
+    await updateUserAvatar({ id: user.id, fileName, contentType, contentSize })
+      .andThen(presigned => upload(presigned, file))
       .match(
         () => {
           handlePollAvatarStatus()
@@ -75,13 +79,6 @@ const EditableUserAvatar = (props: EditableUserAvatarProps) => {
     if (isLoading) return
     fileInputRef.current?.click()
   }
-
-  useEffect(() => {
-    return () => {
-      stop()
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   return (
     <div

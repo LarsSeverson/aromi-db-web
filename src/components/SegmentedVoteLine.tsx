@@ -51,7 +51,7 @@ const SegmentedVoteLine = <T extends SegmentedVoteLineOption, >(
                 onClick={() => { handleSelect(o.score) }}
                 className={clsx(
                   'h-8 flex-1 min-w-0 transition-colors',
-                  checked ? 'bg-surface4' : 'bg-surface2/30 hover:bg-surface2/60',
+                  checked ? 'bg-primary border-primary' : 'bg-surface2/30 hover:bg-surface2/60',
                   i !== 0 && 'border-l border-surface2'
                 )}
               />

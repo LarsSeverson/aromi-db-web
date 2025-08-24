@@ -8,24 +8,25 @@ import { useConfirmForgotPassword } from './useConfirmForgotPassword'
 import { useSignUp } from './useSignUp'
 import { useConfirmSignUp } from './useConfirmSignUp'
 import { useResendSignUpCode } from './useResendSignUpCode'
-import { type AuthTokenPayload } from '@/generated/graphql'
+import { type LogInInput, type AuthTokenPayload } from '@/generated/graphql'
+import { useTimer } from '@/hooks/useTimer'
+import { okAsync } from 'neverthrow'
 
 const useAuth = () => {
   const payload = useRef<AuthTokenPayload | undefined>(null)
-  const timer = useRef<ReturnType<typeof setTimeout>>(null)
+  const { start, clear } = useTimer()
 
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [hasInitialized, setHasInitialized] = useState(false)
 
   const {
     loading: refreshLoading,
-    refresh
+    refresh: refreshInner
   } = useRefresh()
 
   const {
-    data: logInData,
     loading: logInLoading,
-    logIn
+    logIn: logInInner
   } = useLogIn()
 
   const {
@@ -52,59 +53,82 @@ const useAuth = () => {
     resendSignUpCode
   } = useResendSignUpCode()
 
-  const handleTokenExpiration = useCallback(() => {
+  const getAccessTokenExpiration = () => {
     const data = payload.current
     if (data?.expiresIn == null) return
 
     const expMs = data.expiresIn * 1000
     const msToRefresh = expMs - Date.now() - 60 * 1000 // 1min before
 
-    if (timer.current != null) clearTimeout(timer.current)
+    return msToRefresh
+  }
 
-    timer.current = setTimeout(() => { void refresh() }, msToRefresh)
-  }, [refresh])
-
-  const handleNewPayload = useCallback((newPayload: AuthTokenPayload | null | undefined) => {
+  const applyNewPayload = (newPayload?: AuthTokenPayload | null) => {
     payload.current = newPayload
 
     setClientAcessToken(newPayload?.accessToken)
     setIsAuthenticated(newPayload != null)
+  }
 
-    handleTokenExpiration()
-  }, [handleTokenExpiration])
+  const refresh = () => {
+    return refreshInner()
+      .andTee(payload => {
+        applyNewPayload(payload)
+        const delay = getAccessTokenExpiration()
+
+        if (delay != null) {
+          start(
+            () => {
+              void refresh()
+            },
+            delay
+          )
+        }
+      })
+  }
+
+  const logIn = (input: LogInInput) => {
+    return logInInner(input)
+      .andTee(payload => {
+        applyNewPayload(payload)
+        const delay = getAccessTokenExpiration()
+
+        if (delay != null) {
+          start(
+            () => {
+              void refresh()
+            },
+            delay
+          )
+        }
+      })
+  }
+
+  const logOut = () => {
+    return logOutInner()
+      .andTee(cleanAuth)
+  }
+
+  const initialize = () => {
+    if (hasInitialized) {
+      return okAsync(payload.current)
+    }
+
+    return refresh()
+      .andTee(() => {
+        setHasInitialized(true)
+      })
+      .orTee(() => {
+        setHasInitialized(true)
+      })
+  }
 
   const cleanAuth = useCallback(() => {
-    if (timer.current != null) clearTimeout(timer.current)
     payload.current = null
     setIsAuthenticated(false)
     setClientAcessToken(undefined)
-  }, [])
-
-  const logOut = useCallback(() => {
-    return logOutInner().andTee(cleanAuth)
-  }, [logOutInner, cleanAuth])
-
-  useEffect(() => {
-    const newPayload = logInData?.logIn
-    if (newPayload == null) return
-
-    handleNewPayload(newPayload)
-  }, [logInData, handleNewPayload])
-
-  useEffect(() => {
-    if (hasInitialized) return
-
-    void refresh()
-      .match(
-        ({ data }) => {
-          handleNewPayload(data?.refresh)
-          setHasInitialized(true)
-        },
-        () => {
-          setHasInitialized(true)
-        }
-      )
-  }, [hasInitialized, handleNewPayload, refresh])
+    clear()
+  }, [clear])
 
   useEffect(() => cleanAuth, [cleanAuth])
 
@@ -114,7 +138,7 @@ const useAuth = () => {
     hasInitialized,
     loading: logInLoading || refreshLoading,
 
-    refresh,
+    initialize,
     logIn,
     logOut,
 

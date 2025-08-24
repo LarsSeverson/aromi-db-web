@@ -12,12 +12,10 @@ export const UPDATE_USER_MUTATION = gql(/* GraphQL */`
 
 export const UPDATE_USER_AVATAR_MUTATION = gql(/* GraphQL */`
   mutation UpdateUserAvatar(
-    $input: UpdateUserAvatarInput!
+    $input: StageAssetInput!
   ) {
     updateUserAvatar(input: $input) {
-      avatarId
-      uploadUrl
-      contentType
+      ...PresignedUploadFragment
     }
   }
 `)

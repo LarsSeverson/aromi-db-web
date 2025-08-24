@@ -24,7 +24,7 @@ const MainLayout = () => {
         </aside>
 
         <main
-          className='flex-1 p-5'
+          className='flex-1'
         >
           <Outlet />
         </main>

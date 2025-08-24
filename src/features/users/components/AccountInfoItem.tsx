@@ -37,7 +37,7 @@ const AccountInfoItem = (props: AccountInfoItemProps) => {
           </span>
 
           <span
-            className='font-light text-gray-300 mt-1'
+            className='font-light text-dark/80 mt-1'
           >
             {email}
           </span>

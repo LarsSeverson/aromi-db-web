@@ -1,7 +1,7 @@
 import { ResultAsync } from 'neverthrow'
 import { REFRESH_MUTATION } from '../graphql/mutations'
 import { useMutation } from '@apollo/client'
-import { toApolloError } from '@/common/error'
+import { checkNullFetchResponse, toApolloError } from '@/common/error'
 
 export const useRefresh = () => {
   const [
@@ -15,6 +15,7 @@ export const useRefresh = () => {
         refreshInner(),
         toApolloError
       )
+      .andThen(({ data }) => checkNullFetchResponse(data?.refresh))
   }
 
   return {

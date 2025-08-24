@@ -1,5 +1,5 @@
 import { useLazyQuery } from '@apollo/client'
-import { useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { MY_QUERY } from '../graphql/queries'
 import { ResultAsync } from 'neverthrow'
 import { toApolloError } from '@/common/error'
@@ -45,13 +45,21 @@ export const usePollAvatarStatus = () => {
     void tick()
   }
 
-  const stop = () => {
-    running.current = false
-    if (timer.current == null) return
+  const stop = useCallback(
+    () => {
+      running.current = false
+      if (timer.current == null) return
 
-    clearInterval(timer.current)
-    timer.current = null
-  }
+      clearInterval(timer.current)
+      timer.current = null
+    },
+    []
+  )
+
+  useEffect(
+    () => stop,
+    [stop]
+  )
 
   return {
     start,

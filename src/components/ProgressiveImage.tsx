@@ -32,12 +32,16 @@ const ProgressiveImage = (props: ProgressiveImageProps) => {
         src={src ?? fallbackImage}
         alt={alt}
         loading='lazy'
-        className='object-cover absolute w-full h-full bg-transparent'
+        className='object-cover absolute w-full h-full'
         onLoad={() => { setIsLoading(false) }}
         onError={({ currentTarget }) => {
           currentTarget.onerror = null
           currentTarget.src = fallbackImage
         }}
+      />
+
+      <div
+        className='bg-gray-400 w-full h-full absolute opacity-10'
       />
     </div>
   )

@@ -11,8 +11,8 @@ const NewRequestMenu = () => {
     <Menu.Root>
       <Menu.Trigger
         className={clsx(
-          'text-sm font-medium border border-surface2 px-4 py-2 rounded-md bg-background2 w-full',
-          'flex items-center gap-2 hover:bg-surface2'
+          'text-sm font-medium px-4 py-2 rounded-md bg-primary w-full',
+          'flex items-center gap-2 hover:bg-primaryHover text-white'
         )}
       >
         <TbSquarePlus
@@ -29,11 +29,12 @@ const NewRequestMenu = () => {
       <Menu.Portal>
         <Menu.Positioner
           sideOffset={8}
+          className='outline-none'
         >
           <MenuPopup>
             <Menu.Arrow
               className={clsx(
-                'data-[side=right]:left-[-13px] data-[side=right]:-rotate-90 ',
+                'data-[side=right]:left-[-13px] data-[side=right]:-rotate-90',
                 'data-[side=bottom]:top-[-8px] data-[side=left]:right-[-13px] data-[side=left]:rotate-90',
                 'data-[side=top]:bottom-[-8px] data-[side=top]:rotate-180'
               )}

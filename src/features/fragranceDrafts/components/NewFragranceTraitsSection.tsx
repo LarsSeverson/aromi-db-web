@@ -1,6 +1,6 @@
 import React from 'react'
-import SegmentedTraitField from './SegmentedTraitField'
-import { APPEAL_OPTIONS, BALANCE_OPTIONS, COMPLEXITY_OPTIONS, LONGEVITY_OPTIONS, PROJECTION_OPTIONS } from '../types'
+import DraftSegmentedTraitField from './DraftSegmentedTraitField'
+import { APPEAL_OPTIONS, BALANCE_OPTIONS, COMPLEXITY_OPTIONS, LONGEVITY_OPTIONS, PROJECTION_OPTIONS } from '../../requests/types'
 import LongevitySvg from '@/features/fragrances/components/LongevitySvg'
 import ProjectionSvg from '@/features/fragrances/components/ProjectionSvg'
 import ComplexitySvg from '@/features/fragrances/components/ComplexitySvg'
@@ -18,7 +18,7 @@ const NewFragranceTraitsSection = () => {
         Traits
       </span>
 
-      <SegmentedTraitField
+      <DraftSegmentedTraitField
         name='Longevity'
         label='Longevity'
         options={LONGEVITY_OPTIONS}
@@ -30,7 +30,7 @@ const NewFragranceTraitsSection = () => {
         )}
       />
 
-      <SegmentedTraitField
+      <DraftSegmentedTraitField
         name='Projection'
         label='Projection'
         options={PROJECTION_OPTIONS}
@@ -42,7 +42,7 @@ const NewFragranceTraitsSection = () => {
         )}
       />
 
-      <SegmentedTraitField
+      <DraftSegmentedTraitField
         name='Balance'
         label='Balance'
         options={BALANCE_OPTIONS}
@@ -54,7 +54,7 @@ const NewFragranceTraitsSection = () => {
         )}
       />
 
-      <SegmentedTraitField
+      <DraftSegmentedTraitField
         name='Complexity'
         label='Complexity'
         options={COMPLEXITY_OPTIONS}
@@ -66,7 +66,7 @@ const NewFragranceTraitsSection = () => {
         )}
       />
 
-      <SegmentedTraitField
+      <DraftSegmentedTraitField
         name='Appeal'
         label='Appeal'
         options={APPEAL_OPTIONS}
