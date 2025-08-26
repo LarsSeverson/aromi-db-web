@@ -1,10 +1,14 @@
+import clsx from 'clsx'
 import React from 'react'
 import Skeleton from 'react-loading-skeleton'
 
-const SelectableNoteCardSkeleton = () => {
+const DropZoneSkeleton = () => {
   return (
     <div
-      className='w-full aspect-square rounded-xl overflow-hidden'
+      className={clsx(
+        'rounded-lg select-none overflow-hidden',
+        'aspect-[4/5] min-w-52'
+      )}
     >
       <Skeleton
         height='100%'
@@ -18,4 +22,4 @@ const SelectableNoteCardSkeleton = () => {
   )
 }
 
-export default SelectableNoteCardSkeleton
+export default DropZoneSkeleton

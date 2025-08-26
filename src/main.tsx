@@ -12,7 +12,7 @@ import { Toaster } from './components/Toaster'
 import { MyProvider } from './features/users'
 import { Colors } from './styles/Colors'
 
-topbar.config({ barThickness: 2, barColors: { 0: Colors.light4 } })
+topbar.config({ barThickness: 2, barColors: { 0: Colors.primary } })
 
 export const router = createRouter({
   routeTree,

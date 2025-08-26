@@ -46,6 +46,7 @@ export const useFragranceDraftState = (props: UseFragranceDraftStateProps) => {
   useEffect(
     () => {
       if (id !== internalId.current) {
+        console.log(id, internalId.current)
         internalId.current = id
         version.current = initialVersion
         reset()

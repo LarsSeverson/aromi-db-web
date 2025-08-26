@@ -3,7 +3,8 @@ import SegmentedVoteLine, { type SegmentedVoteLineOption, type SegmentedVoteLine
 import clsx from 'clsx'
 import React, { useId, useRef } from 'react'
 
-export interface DraftSegmentedTraitFieldProps<T extends SegmentedVoteLineOption> extends Omit<SegmentedVoteLineProps<T>, 'onOptionChange'> {
+export interface DraftTraitInputProps<T extends SegmentedVoteLineOption>
+  extends Omit<SegmentedVoteLineProps<T>, 'onOptionChange'> {
   name: string
   label?: string
   icon?: React.ReactNode
@@ -11,8 +12,8 @@ export interface DraftSegmentedTraitFieldProps<T extends SegmentedVoteLineOption
   className?: string
 }
 
-const DraftSegmentedTraitField = <T extends SegmentedVoteLineOption, >(
-  props: DraftSegmentedTraitFieldProps<T>
+const DraftTraitInput = <T extends SegmentedVoteLineOption, >(
+  props: DraftTraitInputProps<T>
 ) => {
   const {
     options,
@@ -81,4 +82,4 @@ const DraftSegmentedTraitField = <T extends SegmentedVoteLineOption, >(
   )
 }
 
-export default DraftSegmentedTraitField
+export default DraftTraitInput

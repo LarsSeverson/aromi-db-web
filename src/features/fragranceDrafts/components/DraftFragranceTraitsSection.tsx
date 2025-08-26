@@ -1,5 +1,5 @@
 import React from 'react'
-import DraftSegmentedTraitField from './DraftSegmentedTraitField'
+import DraftTraitInput from './DraftTraitInput'
 import { APPEAL_OPTIONS, BALANCE_OPTIONS, COMPLEXITY_OPTIONS, LONGEVITY_OPTIONS, PROJECTION_OPTIONS } from '../../requests/types'
 import LongevitySvg from '@/features/fragrances/components/LongevitySvg'
 import ProjectionSvg from '@/features/fragrances/components/ProjectionSvg'
@@ -7,7 +7,7 @@ import ComplexitySvg from '@/features/fragrances/components/ComplexitySvg'
 import BalanceSvg from '@/features/fragrances/components/BalanceSvg'
 import AppealSvg from '@/features/fragrances/components/AppealSvg'
 
-const NewFragranceTraitsSection = () => {
+const DraftFragranceTraitsSection = () => {
   return (
     <section
       className='max-w-4xl w-full self-center flex flex-col gap-5'
@@ -18,7 +18,7 @@ const NewFragranceTraitsSection = () => {
         Traits
       </span>
 
-      <DraftSegmentedTraitField
+      <DraftTraitInput
         name='Longevity'
         label='Longevity'
         options={LONGEVITY_OPTIONS}
@@ -30,7 +30,7 @@ const NewFragranceTraitsSection = () => {
         )}
       />
 
-      <DraftSegmentedTraitField
+      <DraftTraitInput
         name='Projection'
         label='Projection'
         options={PROJECTION_OPTIONS}
@@ -42,7 +42,7 @@ const NewFragranceTraitsSection = () => {
         )}
       />
 
-      <DraftSegmentedTraitField
+      <DraftTraitInput
         name='Balance'
         label='Balance'
         options={BALANCE_OPTIONS}
@@ -54,7 +54,7 @@ const NewFragranceTraitsSection = () => {
         )}
       />
 
-      <DraftSegmentedTraitField
+      <DraftTraitInput
         name='Complexity'
         label='Complexity'
         options={COMPLEXITY_OPTIONS}
@@ -66,7 +66,7 @@ const NewFragranceTraitsSection = () => {
         )}
       />
 
-      <DraftSegmentedTraitField
+      <DraftTraitInput
         name='Appeal'
         label='Appeal'
         options={APPEAL_OPTIONS}
@@ -81,4 +81,4 @@ const NewFragranceTraitsSection = () => {
   )
 }
 
-export default NewFragranceTraitsSection
+export default DraftFragranceTraitsSection

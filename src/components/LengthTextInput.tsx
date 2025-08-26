@@ -4,10 +4,12 @@ import { Field } from '@base-ui-components/react'
 import clsx from 'clsx'
 
 export interface LengthTextInputProps extends TextInputProps {
+  name?: string
 }
 
 const LengthTextInput = (props: LengthTextInputProps) => {
   const {
+    name,
     maxLength = 0,
     onValueChange,
     ...rest
@@ -25,7 +27,7 @@ const LengthTextInput = (props: LengthTextInputProps) => {
 
   return (
     <Field.Root
-      name='Title'
+      name={name}
       className='flex flex-col'
     >
       <Field.Label

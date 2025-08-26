@@ -7,7 +7,7 @@ import { MdErrorOutline } from 'react-icons/md'
 import clsx from 'clsx'
 import { useNavigate } from '@tanstack/react-router'
 
-const NewFragranceImageSection = () => {
+const NewDraftImageSection = () => {
   const navigate = useNavigate()
   const { createDraftWithImage } = useCreateFragranceDraftWithImage()
 
@@ -84,4 +84,4 @@ const NewFragranceImageSection = () => {
   )
 }
 
-export default NewFragranceImageSection
+export default NewDraftImageSection

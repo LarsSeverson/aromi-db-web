@@ -1,7 +1,7 @@
 import { useParams } from '@tanstack/react-router'
 import React, { useMemo } from 'react'
 import { useFragranceDrafts } from '../hooks/useFragranceDrafts'
-import FragranceDraftItemCard from './FragranceDraftItemCard'
+import DraftListItemCard from './DraftListItemCard'
 
 const FragranceDraftsSidebarList = () => {
   // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
@@ -19,7 +19,7 @@ const FragranceDraftsSidebarList = () => {
     >
       {fragranceDrafts
         .map(draft => (
-          <FragranceDraftItemCard
+          <DraftListItemCard
             key={draft.id}
             draft={draft}
             isSelected={selectedDraft?.id === draft.id}

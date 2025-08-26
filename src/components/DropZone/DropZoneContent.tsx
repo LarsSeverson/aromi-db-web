@@ -20,7 +20,8 @@ const DropZoneContent = (props: DropZoneContentProps) => {
   return (
     <div
       className={clsx(
-        'h-full flex flex-col gap-3 items-center justify-center relative',
+        'h-full flex flex-col gap-3 items-center justify-center relative ',
+        'group-hover:bg-surface2',
         className
       )}
     >

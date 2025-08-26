@@ -1,7 +1,7 @@
 import Divider from '@/components/Divider'
 import React from 'react'
-import NewFragranceImageSection from '../components/NewFragranceImageSection'
-import NewFragranceInfoSection from '../components/NewFragranceInfoSection'
+import NewDraftImageSection from '../components/NewDraftImageSection'
+import NewDraftInfoSection from '../components/NewDraftInfoSection'
 import { Fieldset, Form } from '@base-ui-components/react'
 
 const NewFragranceDraftPage = () => {
@@ -27,18 +27,19 @@ const NewFragranceDraftPage = () => {
       <Form
         className='flex flex-wrap max-w-4xl min-w-96 self-center w-full gap-10 '
       >
-        <NewFragranceImageSection />
+        <NewDraftImageSection />
 
         <Fieldset.Root
           disabled
           className='flex-1 opacity-50'
         >
-          <NewFragranceInfoSection />
+          <NewDraftInfoSection />
         </Fieldset.Root>
 
         <Divider
           horizontal
         />
+
       </Form>
     </div>
   )

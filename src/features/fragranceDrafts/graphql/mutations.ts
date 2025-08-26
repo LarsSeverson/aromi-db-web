@@ -45,7 +45,7 @@ export const FINALIZE_FRAGRANCE_DRAFT_IMAGE_MUTATION = gql(/* GraphQL */`
     $input: FinalizeFragranceDraftImageInput!
   ) {
     finalizeFragranceDraftImage(input: $input) {
-      ...FragranceDraftSummary
+      ...FragranceDraftPreview
     }
   }
 `)

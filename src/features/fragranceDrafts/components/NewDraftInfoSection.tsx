@@ -7,7 +7,7 @@ import NumberInput from '@/components/NumberInput'
 import SelectInput from '@/components/SelectInput'
 import { CONCENTRATION_OPTIONS, STATUS_OPTIONS } from '@/features/requests/types'
 
-const NewFragranceInfoSection = () => {
+const NewDraftInfoSection = () => {
   return (
     <section
       className='flex-1 flex flex-col h-full gap-4'
@@ -82,4 +82,4 @@ const NewFragranceInfoSection = () => {
   )
 }
 
-export default NewFragranceInfoSection
+export default NewDraftInfoSection

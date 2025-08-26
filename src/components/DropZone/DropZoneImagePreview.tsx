@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import React from 'react'
 import { RiPencilFill } from 'react-icons/ri'
+import ProgressiveImage from '../ProgressiveImage'
 
 export interface DropZoneImagePreviewProps {
   previewUrl: string
@@ -8,7 +9,7 @@ export interface DropZoneImagePreviewProps {
   className?: string
 }
 
-const DropeZoneImagePreview = (props: DropZoneImagePreviewProps) => {
+const DropZoneImagePreview = (props: DropZoneImagePreviewProps) => {
   const {
     previewUrl,
     isDisabled = false,
@@ -18,20 +19,25 @@ const DropeZoneImagePreview = (props: DropZoneImagePreviewProps) => {
   return (
     <div
       className={clsx(
-        'w-full h-full relative',
-        className
+        'w-full h-full relative'
       )}
     >
-      <img
+      <ProgressiveImage
         src={previewUrl}
         alt='Preview'
-        className='w-full h-full object-cover'
+      />
+
+      <div
+        className={clsx(
+          'absolute inset-0',
+          className
+        )}
       />
 
       <button
         disabled={isDisabled}
         className={clsx(
-          'absolute hidden bottom-2 right-2 p-2 rounded-md bg-background ',
+          'absolute hidden bottom-2 right-2 p-2 rounded-md bg-background',
           'border group-hover:inline group-focus:inline',
           isDisabled && 'opacity-0'
         )}
@@ -42,4 +48,4 @@ const DropeZoneImagePreview = (props: DropZoneImagePreviewProps) => {
   )
 }
 
-export default DropeZoneImagePreview
+export default DropZoneImagePreview

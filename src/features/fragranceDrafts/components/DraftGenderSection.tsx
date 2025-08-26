@@ -1,9 +1,9 @@
 import React from 'react'
-import DraftSegmentedTraitField from './DraftSegmentedTraitField'
+import DraftTraitInput from './DraftTraitInput'
 import { GENDER_OPTIONS } from '../../requests/types'
 import GenderSvg from '@/features/fragrances/components/GenderSvg'
 
-const NewFragranceGenderSection = () => {
+const DraftGenderSection = () => {
   return (
     <section
       className='max-w-4xl w-full self-center flex flex-col gap-5'
@@ -14,7 +14,7 @@ const NewFragranceGenderSection = () => {
         Gender
       </span>
 
-      <DraftSegmentedTraitField
+      <DraftTraitInput
         name='Gender'
         options={GENDER_OPTIONS}
         icon={(
@@ -28,4 +28,4 @@ const NewFragranceGenderSection = () => {
   )
 }
 
-export default NewFragranceGenderSection
+export default DraftGenderSection

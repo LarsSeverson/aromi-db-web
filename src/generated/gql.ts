@@ -34,7 +34,7 @@ type Documents = {
     "\n  mutation UpdateFragranceDraft(\n    $input: UpdateFragranceDraftInput!\n  ) {\n    updateFragranceDraft(input: $input) {\n      ...FragranceDraftSummary\n    }\n  }\n": typeof types.UpdateFragranceDraftDocument,
     "\n  mutation DeleteFragranceDraft(\n    $input: DeleteFragranceDraftInput!\n  ) {\n    deleteFragranceDraft(input: $input) {\n      ...FragranceDraftSummary\n    }\n  }\n": typeof types.DeleteFragranceDraftDocument,
     "\n  mutation StageFragranceDraftImage(\n    $input: StageAssetInput!\n  ) {\n    stageFragranceDraftImage(input: $input) {\n      ...PresignedUploadFragment\n    }\n  }\n": typeof types.StageFragranceDraftImageDocument,
-    "\n  mutation FinalizeFragranceDraftImage(\n    $input: FinalizeFragranceDraftImageInput!\n  ) {\n    finalizeFragranceDraftImage(input: $input) {\n      ...FragranceDraftSummary\n    }\n  }\n": typeof types.FinalizeFragranceDraftImageDocument,
+    "\n  mutation FinalizeFragranceDraftImage(\n    $input: FinalizeFragranceDraftImageInput!\n  ) {\n    finalizeFragranceDraftImage(input: $input) {\n      ...FragranceDraftPreview\n    }\n  }\n": typeof types.FinalizeFragranceDraftImageDocument,
     "\n  query FragranceDraftShell(\n    $id: ID!\n  ) {\n    fragranceDraft(id: $id) {\n      ...FragranceDraftShell\n    }\n  }\n": typeof types.FragranceDraftShellDocument,
     "\n  query FragranceDraft(\n    $id: ID!\n  ) {\n    fragranceDraft(id: $id) {\n      ...FragranceDraftSummary\n    }\n  }\n": typeof types.FragranceDraftDocument,
     "\n  query FragranceDraftPreview(\n    $id: ID!\n  ) {\n    fragranceDraft(id: $id) {\n      ...FragranceDraftPreview\n    }\n  }\n": typeof types.FragranceDraftPreviewDocument,
@@ -71,7 +71,7 @@ const documents: Documents = {
     "\n  mutation UpdateFragranceDraft(\n    $input: UpdateFragranceDraftInput!\n  ) {\n    updateFragranceDraft(input: $input) {\n      ...FragranceDraftSummary\n    }\n  }\n": types.UpdateFragranceDraftDocument,
     "\n  mutation DeleteFragranceDraft(\n    $input: DeleteFragranceDraftInput!\n  ) {\n    deleteFragranceDraft(input: $input) {\n      ...FragranceDraftSummary\n    }\n  }\n": types.DeleteFragranceDraftDocument,
     "\n  mutation StageFragranceDraftImage(\n    $input: StageAssetInput!\n  ) {\n    stageFragranceDraftImage(input: $input) {\n      ...PresignedUploadFragment\n    }\n  }\n": types.StageFragranceDraftImageDocument,
-    "\n  mutation FinalizeFragranceDraftImage(\n    $input: FinalizeFragranceDraftImageInput!\n  ) {\n    finalizeFragranceDraftImage(input: $input) {\n      ...FragranceDraftSummary\n    }\n  }\n": types.FinalizeFragranceDraftImageDocument,
+    "\n  mutation FinalizeFragranceDraftImage(\n    $input: FinalizeFragranceDraftImageInput!\n  ) {\n    finalizeFragranceDraftImage(input: $input) {\n      ...FragranceDraftPreview\n    }\n  }\n": types.FinalizeFragranceDraftImageDocument,
     "\n  query FragranceDraftShell(\n    $id: ID!\n  ) {\n    fragranceDraft(id: $id) {\n      ...FragranceDraftShell\n    }\n  }\n": types.FragranceDraftShellDocument,
     "\n  query FragranceDraft(\n    $id: ID!\n  ) {\n    fragranceDraft(id: $id) {\n      ...FragranceDraftSummary\n    }\n  }\n": types.FragranceDraftDocument,
     "\n  query FragranceDraftPreview(\n    $id: ID!\n  ) {\n    fragranceDraft(id: $id) {\n      ...FragranceDraftPreview\n    }\n  }\n": types.FragranceDraftPreviewDocument,
@@ -185,7 +185,7 @@ export function gql(source: "\n  mutation StageFragranceDraftImage(\n    $input:
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation FinalizeFragranceDraftImage(\n    $input: FinalizeFragranceDraftImageInput!\n  ) {\n    finalizeFragranceDraftImage(input: $input) {\n      ...FragranceDraftSummary\n    }\n  }\n"): (typeof documents)["\n  mutation FinalizeFragranceDraftImage(\n    $input: FinalizeFragranceDraftImageInput!\n  ) {\n    finalizeFragranceDraftImage(input: $input) {\n      ...FragranceDraftSummary\n    }\n  }\n"];
+export function gql(source: "\n  mutation FinalizeFragranceDraftImage(\n    $input: FinalizeFragranceDraftImageInput!\n  ) {\n    finalizeFragranceDraftImage(input: $input) {\n      ...FragranceDraftPreview\n    }\n  }\n"): (typeof documents)["\n  mutation FinalizeFragranceDraftImage(\n    $input: FinalizeFragranceDraftImageInput!\n  ) {\n    finalizeFragranceDraftImage(input: $input) {\n      ...FragranceDraftPreview\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

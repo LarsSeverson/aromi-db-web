@@ -4,7 +4,7 @@ import { NOTE_LAYER_OPTIONS } from '@/features/notes/types'
 import clsx from 'clsx'
 import React, { useMemo, useState } from 'react'
 
-const NewFragranceNotesSection = () => {
+const DraftFragranceNotesSection = () => {
   const {
     data: notes,
 
@@ -86,4 +86,4 @@ const NewFragranceNotesSection = () => {
   )
 }
 
-export default NewFragranceNotesSection
+export default DraftFragranceNotesSection

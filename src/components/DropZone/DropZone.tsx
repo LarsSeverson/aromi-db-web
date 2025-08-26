@@ -1,14 +1,17 @@
 import clsx from 'clsx'
 import React, { useEffect, useRef, useState } from 'react'
-import DropeZoneImagePreview from './DropeZoneImagePreview'
+import DropZoneImagePreview from './DropZoneImagePreview'
 import DropZoneContent from './DropZoneContent'
 import { Field } from '@base-ui-components/react'
+import DropZoneSkeleton from './DropZoneSkeleton'
 
 export interface DropZoneProps {
+  defaultUrl?: string
   text?: string
   subtext?: string
   isDisabled?: boolean
   showPreview?: boolean
+  showSkeleton?: boolean
   accept?: string
   icon?: React.ReactNode
   className?: string
@@ -17,10 +20,12 @@ export interface DropZoneProps {
 
 const DropZone = (props: DropZoneProps) => {
   const {
+    defaultUrl,
     text,
     subtext,
     isDisabled = false,
     showPreview = true,
+    showSkeleton = false,
     accept,
     icon,
     className,
@@ -30,7 +35,7 @@ const DropZone = (props: DropZoneProps) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const [isDraggingOver, setIsDraggingOver] = useState(false)
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null)
+  const [previewUrl, setPreviewUrl] = useState<string | null>(defaultUrl ?? null)
   const canShowPreview = showPreview && previewUrl != null
 
   const handlePick = (file: File | undefined | null) => {
@@ -87,19 +92,25 @@ const DropZone = (props: DropZoneProps) => {
 
   useEffect(
     () => {
+      if (!showSkeleton) {
+        if (previewUrl == null) {
+          setPreviewUrl(defaultUrl ?? null)
+        }
+      }
+
       return () => {
         if (previewUrl != null) {
           URL.revokeObjectURL(previewUrl)
         }
       }
     },
-    [previewUrl]
+    [previewUrl, showSkeleton, defaultUrl]
   )
 
   const onRenderZone = () => {
     if (canShowPreview) {
       return (
-        <DropeZoneImagePreview
+        <DropZoneImagePreview
           previewUrl={previewUrl}
           isDisabled={isDisabled}
           className={className}
@@ -115,6 +126,10 @@ const DropZone = (props: DropZoneProps) => {
         className={className}
       />
     )
+  }
+
+  if (showSkeleton) {
+    return <DropZoneSkeleton />
   }
 
   return (

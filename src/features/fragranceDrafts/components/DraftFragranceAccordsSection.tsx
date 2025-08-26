@@ -3,7 +3,7 @@ import { useAccords } from '@/features/accords/hooks/useAccords'
 import clsx from 'clsx'
 import React, { useMemo, useState } from 'react'
 
-const NewFragranceAccordsSection = () => {
+const DraftFragranceAccordsSection = () => {
   const {
     data: accords,
 
@@ -76,4 +76,4 @@ const NewFragranceAccordsSection = () => {
   )
 }
 
-export default NewFragranceAccordsSection
+export default DraftFragranceAccordsSection

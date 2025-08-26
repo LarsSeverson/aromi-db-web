@@ -23,6 +23,7 @@ import { Route as NewFragranceRouteRouteImport } from './routes/new/fragrance/ro
 import { Route as UserIdIndexRouteImport } from './routes/user/$id/index'
 import { Route as NewFragranceIndexRouteImport } from './routes/new/fragrance/index'
 import { Route as DraftsFragranceIndexRouteImport } from './routes/drafts/fragrance/index'
+import { Route as DraftsFragranceIdRouteRouteImport } from './routes/drafts/fragrance/$id/route'
 import { Route as DraftsFragranceIdIndexRouteImport } from './routes/drafts/fragrance/$id/index'
 
 const NewRouteRoute = NewRouteRouteImport.update({
@@ -95,10 +96,15 @@ const DraftsFragranceIndexRoute = DraftsFragranceIndexRouteImport.update({
   path: '/fragrance/',
   getParentRoute: () => DraftsRouteRoute,
 } as any)
-const DraftsFragranceIdIndexRoute = DraftsFragranceIdIndexRouteImport.update({
-  id: '/fragrance/$id/',
-  path: '/fragrance/$id/',
+const DraftsFragranceIdRouteRoute = DraftsFragranceIdRouteRouteImport.update({
+  id: '/fragrance/$id',
+  path: '/fragrance/$id',
   getParentRoute: () => DraftsRouteRoute,
+} as any)
+const DraftsFragranceIdIndexRoute = DraftsFragranceIdIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DraftsFragranceIdRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -113,10 +119,11 @@ export interface FileRoutesByFullPath {
   '/new/': typeof NewIndexRoute
   '/notes': typeof NotesIndexRoute
   '/user': typeof UserIndexRoute
+  '/drafts/fragrance/$id': typeof DraftsFragranceIdRouteRouteWithChildren
   '/drafts/fragrance': typeof DraftsFragranceIndexRoute
   '/new/fragrance/': typeof NewFragranceIndexRoute
   '/user/$id/': typeof UserIdIndexRoute
-  '/drafts/fragrance/$id': typeof DraftsFragranceIdIndexRoute
+  '/drafts/fragrance/$id/': typeof DraftsFragranceIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -145,6 +152,7 @@ export interface FileRoutesById {
   '/new/': typeof NewIndexRoute
   '/notes/': typeof NotesIndexRoute
   '/user/': typeof UserIndexRoute
+  '/drafts/fragrance/$id': typeof DraftsFragranceIdRouteRouteWithChildren
   '/drafts/fragrance/': typeof DraftsFragranceIndexRoute
   '/new/fragrance/': typeof NewFragranceIndexRoute
   '/user/$id/': typeof UserIdIndexRoute
@@ -164,10 +172,11 @@ export interface FileRouteTypes {
     | '/new/'
     | '/notes'
     | '/user'
+    | '/drafts/fragrance/$id'
     | '/drafts/fragrance'
     | '/new/fragrance/'
     | '/user/$id/'
-    | '/drafts/fragrance/$id'
+    | '/drafts/fragrance/$id/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -195,6 +204,7 @@ export interface FileRouteTypes {
     | '/new/'
     | '/notes/'
     | '/user/'
+    | '/drafts/fragrance/$id'
     | '/drafts/fragrance/'
     | '/new/fragrance/'
     | '/user/$id/'
@@ -313,24 +323,45 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DraftsFragranceIndexRouteImport
       parentRoute: typeof DraftsRouteRoute
     }
-    '/drafts/fragrance/$id/': {
-      id: '/drafts/fragrance/$id/'
+    '/drafts/fragrance/$id': {
+      id: '/drafts/fragrance/$id'
       path: '/fragrance/$id'
       fullPath: '/drafts/fragrance/$id'
-      preLoaderRoute: typeof DraftsFragranceIdIndexRouteImport
+      preLoaderRoute: typeof DraftsFragranceIdRouteRouteImport
       parentRoute: typeof DraftsRouteRoute
+    }
+    '/drafts/fragrance/$id/': {
+      id: '/drafts/fragrance/$id/'
+      path: '/'
+      fullPath: '/drafts/fragrance/$id/'
+      preLoaderRoute: typeof DraftsFragranceIdIndexRouteImport
+      parentRoute: typeof DraftsFragranceIdRouteRoute
     }
   }
 }
 
-interface DraftsRouteRouteChildren {
-  DraftsFragranceIndexRoute: typeof DraftsFragranceIndexRoute
+interface DraftsFragranceIdRouteRouteChildren {
   DraftsFragranceIdIndexRoute: typeof DraftsFragranceIdIndexRoute
 }
 
+const DraftsFragranceIdRouteRouteChildren: DraftsFragranceIdRouteRouteChildren =
+  {
+    DraftsFragranceIdIndexRoute: DraftsFragranceIdIndexRoute,
+  }
+
+const DraftsFragranceIdRouteRouteWithChildren =
+  DraftsFragranceIdRouteRoute._addFileChildren(
+    DraftsFragranceIdRouteRouteChildren,
+  )
+
+interface DraftsRouteRouteChildren {
+  DraftsFragranceIdRouteRoute: typeof DraftsFragranceIdRouteRouteWithChildren
+  DraftsFragranceIndexRoute: typeof DraftsFragranceIndexRoute
+}
+
 const DraftsRouteRouteChildren: DraftsRouteRouteChildren = {
+  DraftsFragranceIdRouteRoute: DraftsFragranceIdRouteRouteWithChildren,
   DraftsFragranceIndexRoute: DraftsFragranceIndexRoute,
-  DraftsFragranceIdIndexRoute: DraftsFragranceIdIndexRoute,
 }
 
 const DraftsRouteRouteWithChildren = DraftsRouteRoute._addFileChildren(
