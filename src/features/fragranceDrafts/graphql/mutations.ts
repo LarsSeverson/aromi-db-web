@@ -49,3 +49,23 @@ export const FINALIZE_FRAGRANCE_DRAFT_IMAGE_MUTATION = gql(/* GraphQL */`
     }
   }
 `)
+
+export const SET_FRAGRANCE_DRAFT_TRAIT_MUTATION = gql(/* GraphQL */`
+  mutation SetFragranceDraftTrait(
+    $input: SetFragranceDraftTraitInput!
+  ) {
+    setFragranceDraftTrait(input: $input) {
+      ...FragranceDraftTraitsFragment
+    }
+  }
+`)
+
+export const SET_FRAGRANCE_DRAFT_ACCORDS_MUTATION = gql(/* GraphQL */`
+  mutation SetFragranceDraftAccords(
+    $input: SetFragranceDraftAccordsInput!
+  ) {
+    setFragranceDraftAccords(input: $input) {
+      ...FragranceDraftAccordsFragment
+    }
+  }
+`)

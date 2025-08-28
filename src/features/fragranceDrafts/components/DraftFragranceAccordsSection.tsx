@@ -1,7 +1,13 @@
-import SelectableAccordsGrid from '@/features/accords/components/SelectableAccordsGrid'
+import { AccordionHeader } from '@/components/Accordion/AccordionHeader'
+import { AccordionIcon } from '@/components/Accordion/AccordionIcon'
+import { AccordionItem } from '@/components/Accordion/AccordionItem'
+import { AccordionPanel } from '@/components/Accordion/AccordionPanel'
+import { AccordionRoot } from '@/components/Accordion/AccordionRoot'
+import { AccordionTrigger } from '@/components/Accordion/AccordionTrigger'
 import { useAccords } from '@/features/accords/hooks/useAccords'
 import clsx from 'clsx'
 import React, { useMemo, useState } from 'react'
+import DraftAccordsGrid from './DraftAccordsGrid'
 
 const DraftFragranceAccordsSection = () => {
   const {
@@ -47,31 +53,46 @@ const DraftFragranceAccordsSection = () => {
     <section
       className='max-w-4xl w-full self-center flex flex-col gap-5'
     >
-      <span
-        className='text-lg'
+      <AccordionRoot
+        defaultValue={['accords']}
+        className='w-full'
       >
-        Accords
-      </span>
-
-      <div
-        className='w-full flex flex-col'
-      >
-        <SelectableAccordsGrid
-          accords={trimmed}
-          isLoading={loading || loadingMore}
-        />
-
-        <button
-          className={clsx(
-            'font-semibold text-md border self-center min-w-52',
-            'px-3 py-2 rounded-sm mt-3',
-            hasMore && 'hover:bg-surface'
-          )}
-          onClick={handleOnShowMoreOrNotHasMore}
+        <AccordionItem
+          value='accords'
         >
-          {canShowMore ? 'Show More' : 'Show Less'}
-        </button>
-      </div>
+          <AccordionHeader
+            className='flex'
+          >
+            <AccordionTrigger
+              className='text-lg rounded-sm'
+              rightSlot={<AccordionIcon />}
+            >
+              Accords
+            </AccordionTrigger>
+          </AccordionHeader>
+
+          <AccordionPanel
+            className='w-full flex flex-col'
+          >
+            <DraftAccordsGrid
+              accords={trimmed}
+              isLoading={loading || loadingMore}
+            />
+
+            <button
+              type='button'
+              className={clsx(
+                'font-semibold text-md border self-center min-w-52',
+                'px-3 py-2 rounded-sm mt-3 self-center',
+                hasMore && 'hover:bg-surface'
+              )}
+              onClick={handleOnShowMoreOrNotHasMore}
+            >
+              {canShowMore ? 'Show More' : 'Show Less'}
+            </button>
+          </AccordionPanel>
+        </AccordionItem>
+      </AccordionRoot>
     </section>
   )
 }

@@ -4,14 +4,19 @@ import clsx from 'clsx'
 
 export interface SelectableAccordCardProps {
   accord: IAccordSummary
+  defaultSelected?: boolean
   onSelected?: (accord: IAccordSummary, value: boolean) => void
 }
 
 const SelectableAccordCard = (props: SelectableAccordCardProps) => {
-  const { accord, onSelected } = props
+  const {
+    accord,
+    defaultSelected = false,
+    onSelected
+  } = props
   const { name, color } = accord
 
-  const [isSelected, setIsSelected] = useState(false)
+  const [isSelected, setIsSelected] = useState(defaultSelected)
 
   const handleOnClick = (event: React.SyntheticEvent) => {
     event.preventDefault()

@@ -1,7 +1,8 @@
 import React from 'react'
 import { useFragranceDraftContext } from '../contexts/FragranceDraftContext'
-import { MAX_FRAGRANCE_NAME_LENGTH } from '../types'
+import { MAX_FRAGRANCE_NAME_LENGTH, ValidName } from '../types'
 import LengthTextInput from '@/components/LengthTextInput'
+import { useDebounce } from '@/hooks/useDebounce'
 
 export interface DraftNameInputProps {
   name?: string | null
@@ -9,11 +10,16 @@ export interface DraftNameInputProps {
 
 const DraftNameInput = (props: DraftNameInputProps) => {
   const { name } = props
-  const { id, updateDraft } = useFragranceDraftContext()
+  const { updateDraft } = useFragranceDraftContext()
 
-  const handleOnValueChange = (value: string) => {
-
-  }
+  const handleOnValueChange = useDebounce(
+    (value: string) => {
+      const { data, success } = ValidName.safeParse(value)
+      if (success) {
+        void updateDraft({ name: data })
+      }
+    }
+  )
 
   return (
     <LengthTextInput

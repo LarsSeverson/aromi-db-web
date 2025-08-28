@@ -18,7 +18,7 @@ const SelectableNotesGrid = (props: SelectableNotesGridProps) => {
     <div
       className={clsx(
         'grid grid-cols-[repeat(auto-fit,minmax(60px,128px))]',
-        'gap-3 w-full justify-center'
+        'gap-3 w-full justify-center py-3'
       )}
     >
       {notes

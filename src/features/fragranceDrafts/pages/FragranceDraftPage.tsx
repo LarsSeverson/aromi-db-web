@@ -5,8 +5,15 @@ import DraftImageSection from '../components/DraftImageSection'
 import Divider from '@/components/Divider'
 import SubmitButton from '@/components/SubmitButton'
 import DraftInfoSection from '../components/DraftInfoSection'
+import { useFragranceDraftContext } from '../contexts/FragranceDraftContext'
+import DraftGenderSection from '../components/DraftGenderSection'
+import DraftFragranceAccordsSection from '../components/DraftFragranceAccordsSection'
+import DraftFragranceNotesSection from '../components/DraftFragranceNotesSection'
+import DraftFragranceTraitsSection from '../components/DraftFragranceTraitsSection'
 
 const FragranceDraftPage = () => {
+  const { id } = useFragranceDraftContext()
+
   return (
     <div
       className='flex flex-col gap-5'
@@ -14,6 +21,7 @@ const FragranceDraftPage = () => {
       <FragranceDraftHeading />
 
       <Form
+        key={id}
         className='w-full flex flex-col gap-5'
       >
         <div
@@ -39,9 +47,28 @@ const FragranceDraftPage = () => {
         <div
           className='flex flex-col gap-16 max-w-4xl w-full self-center'
         >
+          <DraftGenderSection />
+
+          <Divider
+            horizontal
+          />
+
+          <DraftFragranceAccordsSection />
+
+          <Divider
+            horizontal
+          />
+
+          <DraftFragranceNotesSection />
+
+          <Divider
+            horizontal
+          />
+
+          <DraftFragranceTraitsSection />
 
           <div
-            className='w-full max-w-xs'
+            className='w-full max-w-xs self-center'
           >
             <SubmitButton />
           </div>

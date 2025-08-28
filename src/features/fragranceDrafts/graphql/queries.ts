@@ -46,3 +46,38 @@ export const FRAGRANCE_DRAFTS_QUERY = gql(/* GraphQL */`
     }
   }
 `)
+
+export const FRAGRANCE_DRAFT_TRAIT_QUERY = gql(/* GraphQL */`
+  query FragranceDraftTrait(
+    $id: ID!
+    $type: TraitTypeEnum!
+  ) {
+    fragranceDraft(id: $id) {
+      id
+      version
+      trait(type: $type) {
+        ...FragranceDraftTraitFragment
+      }
+    }
+  }
+`)
+
+export const FRAGRANCE_DRAFT_TRAITS_QUERY = gql(/* GraphQL */`
+  query FragranceDraftTraits(
+    $id: ID!
+  ) {
+    fragranceDraft(id: $id) {
+      ...FragranceDraftTraitsFragment
+    }
+  }
+`)
+
+export const FRAGRANCE_DRAFT_ACCORDS_QUERY = gql(/* GraphQL */`
+  query FragranceDraftAccords(
+    $id: ID!
+  ) {
+    fragranceDraft(id: $id) {
+      ...FragranceDraftAccordsFragment
+    }
+  }
+`)

@@ -4,6 +4,7 @@ import { useFinalizeFragranceDraftImage } from './useFinalizeFragranceDraftImage
 import { useStageFragranceDraftImage } from './useStageFragranceDraftImage'
 import { useDeleteFragranceDraft } from './useDeleteFragranceDraft'
 import { errAsync } from 'neverthrow'
+import { client } from '@/common/client'
 
 export interface CreateDraftWithImageInput {
   file: File
@@ -11,7 +12,7 @@ export interface CreateDraftWithImageInput {
 }
 
 export const useCreateFragranceDraftWithImage = () => {
-  const { createDraft } = useCreateFragranceDraft()
+  const { createDraft, updateCache } = useCreateFragranceDraft()
   const { deleteDraft } = useDeleteFragranceDraft()
   const { stageImage } = useStageFragranceDraftImage()
   const { finalizeImage } = useFinalizeFragranceDraftImage()
@@ -41,6 +42,7 @@ export const useCreateFragranceDraftWithImage = () => {
             return errAsync(error)
           })
       )
+      .andTee(({ id }) => { updateCache(client.cache, id) })
   }
 
   return { createDraftWithImage }

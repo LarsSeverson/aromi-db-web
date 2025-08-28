@@ -56,7 +56,6 @@ const DraftImageSection = () => {
       className='flex-1 relative'
     >
       <DropZone
-        key={id}
         defaultUrl={url}
         isDisabled={isLoading}
         showPreview={showPreview}

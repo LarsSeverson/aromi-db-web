@@ -9,8 +9,6 @@ const SelectableAccordCardSkeleton = () => {
       <Skeleton
         height='100%'
         enableAnimation={false}
-        baseColor='#2c2c2c'
-        highlightColor='#6a6a6a'
         style={{
           display: 'block',
           animation: 'blink 2s infinite'

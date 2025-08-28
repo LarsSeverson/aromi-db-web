@@ -1,11 +1,10 @@
 import React from 'react'
 import LengthTextInput from '@/components/LengthTextInput'
-import { MAX_FRAGRANCE_DESCRIPTION_LENGTH, MAX_FRAGRANCE_NAME_LENGTH, MAX_RELEASE_YEAR, MIN_RELEASE_YEAR, RELEASE_YEAR_PLACEHOLDER } from '../types'
+import { MAX_FRAGRANCE_DESCRIPTION_LENGTH, MAX_FRAGRANCE_NAME_LENGTH, MAX_RELEASE_YEAR, MIN_RELEASE_YEAR, RELEASE_YEAR_PLACEHOLDER, CONCENTRATION_OPTIONS, STATUS_OPTIONS } from '../types'
 import { Field } from '@base-ui-components/react'
 import clsx from 'clsx'
 import NumberInput from '@/components/NumberInput'
 import SelectInput from '@/components/SelectInput'
-import { CONCENTRATION_OPTIONS, STATUS_OPTIONS } from '@/features/requests/types'
 
 const NewDraftInfoSection = () => {
   return (

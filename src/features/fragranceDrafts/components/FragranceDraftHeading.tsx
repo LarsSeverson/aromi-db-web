@@ -18,19 +18,19 @@ const FragranceDraftHeading = () => {
 
   return (
     <div
-      className='max-w-5xl w-full self-center'
+      className='max-w-5xl w-full self-center min-w-0'
     >
       <div
-        className='flex items-center justify-between'
+        className='flex items-center min-w-0 justify-between'
       >
         <span
-          className='text-xl'
+          className='text-xl truncate'
         >
           {name ?? 'New Fragrance'}
         </span>
 
         <span
-          className='text-sm text-light/80'
+          className='text-sm text-light/80 text-nowrap'
         >
           {DRAFT_STATUS_TEXT[status]}
         </span>

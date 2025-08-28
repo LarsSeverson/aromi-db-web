@@ -42,6 +42,7 @@ const LengthTextInput = (props: LengthTextInputProps) => {
           'bg-inherit'
         )}
         {...rest}
+        maxLength={maxLength}
         value={value}
         onValueChange={handleOnValueChange}
       />

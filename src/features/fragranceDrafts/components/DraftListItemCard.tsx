@@ -19,7 +19,7 @@ const DraftListItemCard = (props: DraftListItemCardProps) => {
   return (
     <div
       className={clsx(
-        'select-none flex p-2 rounded-md bg-inherit box-border group',
+        'select-none flex p-2 rounded-md bg-inherit box-border group min-w-0',
         'hover:bg-surface transition-[background-color] duration-100',
         isSelected && 'bg-surface'
       )}
@@ -28,7 +28,7 @@ const DraftListItemCard = (props: DraftListItemCardProps) => {
         to='/drafts/fragrance/$id'
         params={{ id }}
         className={clsx(
-          'flex flex-1 gap-2'
+          'flex flex-1 gap-2 overflow-hidden'
         )}
       >
         <div
@@ -47,13 +47,12 @@ const DraftListItemCard = (props: DraftListItemCardProps) => {
             : (
               <TbPerfume
                 size={28}
-                fill='black'
               />
               )}
         </div>
 
         <div
-          className='flex items-center overflow-hidden'
+          className='flex items-center min-w-0'
         >
           <span
             className='text-sm truncate'

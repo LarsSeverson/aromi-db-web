@@ -28,19 +28,28 @@ type Documents = {
     "\n  mutation ConfirmForgotPassword(\n    $input: ConfirmForgotPasswordInput!\n  ) {\n    confirmForgotPassword(input: $input) \n  }\n": typeof types.ConfirmForgotPasswordDocument,
     "\n  fragment FragranceDraftShell on FragranceDraft {\n    id\n    version\n  }\n": typeof types.FragranceDraftShellFragmentDoc,
     "\n  fragment FragranceDraftSummary on FragranceDraft {\n    id\n    version\n\n    name\n    description\n    releaseYear\n    concentration\n    status\n  }\n": typeof types.FragranceDraftSummaryFragmentDoc,
-    "\n  fragment FragranceDraftPreview on FragranceDraft {\n    ...FragranceDraftSummary\n    image {\n      ...FragranceDraftImageSummary\n    }\n  }\n": typeof types.FragranceDraftPreviewFragmentDoc,
+    "\n  fragment FragranceDraftPreview on FragranceDraft {\n    ...FragranceDraftShell\n    image {\n      ...FragranceDraftImageSummary\n    }\n  }\n": typeof types.FragranceDraftPreviewFragmentDoc,
+    "\n  fragment FragranceDraftTraitsFragment on FragranceDraft { \n    ...FragranceDraftShell\n    traits {\n      ...FragranceDraftTraitFragment\n    }\n  }\n": typeof types.FragranceDraftTraitsFragmentFragmentDoc,
+    "\n  fragment FragranceDraftAccordsFragment on FragranceDraft { \n    ...FragranceDraftShell\n    accords {\n      ...AccordSummaryFragment\n    }\n  }\n": typeof types.FragranceDraftAccordsFragmentFragmentDoc,
     "\n  fragment FragranceDraftImageSummary on FragranceDraftImage {\n    id\n    url\n    type\n  }\n": typeof types.FragranceDraftImageSummaryFragmentDoc,
+    "\n  fragment FragranceDraftTraitFragment on FragranceDraftTrait {\n    traitType\n    selectedOption {\n      ...TraitOptionFragment\n    }\n  }\n": typeof types.FragranceDraftTraitFragmentFragmentDoc,
     "\n  mutation CreateFragranceDraft(\n    $input: CreateFragranceDraftInput!\n  ) {\n    createFragranceDraft(input: $input) {\n      ...FragranceDraftSummary\n    }\n  }\n": typeof types.CreateFragranceDraftDocument,
     "\n  mutation UpdateFragranceDraft(\n    $input: UpdateFragranceDraftInput!\n  ) {\n    updateFragranceDraft(input: $input) {\n      ...FragranceDraftSummary\n    }\n  }\n": typeof types.UpdateFragranceDraftDocument,
     "\n  mutation DeleteFragranceDraft(\n    $input: DeleteFragranceDraftInput!\n  ) {\n    deleteFragranceDraft(input: $input) {\n      ...FragranceDraftSummary\n    }\n  }\n": typeof types.DeleteFragranceDraftDocument,
     "\n  mutation StageFragranceDraftImage(\n    $input: StageAssetInput!\n  ) {\n    stageFragranceDraftImage(input: $input) {\n      ...PresignedUploadFragment\n    }\n  }\n": typeof types.StageFragranceDraftImageDocument,
     "\n  mutation FinalizeFragranceDraftImage(\n    $input: FinalizeFragranceDraftImageInput!\n  ) {\n    finalizeFragranceDraftImage(input: $input) {\n      ...FragranceDraftPreview\n    }\n  }\n": typeof types.FinalizeFragranceDraftImageDocument,
+    "\n  mutation SetFragranceDraftTrait(\n    $input: SetFragranceDraftTraitInput!\n  ) {\n    setFragranceDraftTrait(input: $input) {\n      ...FragranceDraftTraitsFragment\n    }\n  }\n": typeof types.SetFragranceDraftTraitDocument,
+    "\n  mutation SetFragranceDraftAccords(\n    $input: SetFragranceDraftAccordsInput!\n  ) {\n    setFragranceDraftAccords(input: $input) {\n      ...FragranceDraftAccordsFragment\n    }\n  }\n": typeof types.SetFragranceDraftAccordsDocument,
     "\n  query FragranceDraftShell(\n    $id: ID!\n  ) {\n    fragranceDraft(id: $id) {\n      ...FragranceDraftShell\n    }\n  }\n": typeof types.FragranceDraftShellDocument,
     "\n  query FragranceDraft(\n    $id: ID!\n  ) {\n    fragranceDraft(id: $id) {\n      ...FragranceDraftSummary\n    }\n  }\n": typeof types.FragranceDraftDocument,
     "\n  query FragranceDraftPreview(\n    $id: ID!\n  ) {\n    fragranceDraft(id: $id) {\n      ...FragranceDraftPreview\n    }\n  }\n": typeof types.FragranceDraftPreviewDocument,
     "\n  query FragranceDrafts(\n    $input: DraftPaginationInput\n  ) {\n    fragranceDrafts(input: $input) {\n      edges {\n        node {\n          ...FragranceDraftPreview\n        }\n      }\n      pageInfo {\n        ...PageInfoFragment\n      }\n    }\n  }\n": typeof types.FragranceDraftsDocument,
+    "\n  query FragranceDraftTrait(\n    $id: ID!\n    $type: TraitTypeEnum!\n  ) {\n    fragranceDraft(id: $id) {\n      id\n      version\n      trait(type: $type) {\n        ...FragranceDraftTraitFragment\n      }\n    }\n  }\n": typeof types.FragranceDraftTraitDocument,
+    "\n  query FragranceDraftTraits(\n    $id: ID!\n  ) {\n    fragranceDraft(id: $id) {\n      ...FragranceDraftTraitsFragment\n    }\n  }\n": typeof types.FragranceDraftTraitsDocument,
+    "\n  query FragranceDraftAccords(\n    $id: ID!\n  ) {\n    fragranceDraft(id: $id) {\n      ...FragranceDraftAccordsFragment\n    }\n  }\n": typeof types.FragranceDraftAccordsDocument,
     "\n  fragment NoteSummaryFragment on Note {\n    id\n    name\n    thumbnailUrl\n  }\n": typeof types.NoteSummaryFragmentFragmentDoc,
     "\n  query Notes(\n    $input: NotePaginationInput\n  ) {\n    notes(input: $input) {\n      edges {\n        node {\n          ...NoteSummaryFragment\n        }\n      }\n      pageInfo {\n        ...PageInfoFragment\n      }\n    }\n  }\n": typeof types.NotesDocument,
+    "\n  fragment TraitOptionFragment on TraitOption {\n    id\n    label\n    score\n  }\n": typeof types.TraitOptionFragmentFragmentDoc,
     "\n  fragment UserSummaryFragment on User {\n    id\n    username\n    email\n\n    avatarSrc\n    avatarStatus\n  }\n": typeof types.UserSummaryFragmentFragmentDoc,
     "\n  mutation UpdateUser(\n    $input: UpdateUserInput!\n  ) {\n    updateUser(input: $input) {\n      ...UserSummaryFragment\n    }\n  }\n": typeof types.UpdateUserDocument,
     "\n  mutation UpdateUserAvatar(\n    $input: StageAssetInput!\n  ) {\n    updateUserAvatar(input: $input) {\n      ...PresignedUploadFragment\n    }\n  }\n": typeof types.UpdateUserAvatarDocument,
@@ -65,19 +74,28 @@ const documents: Documents = {
     "\n  mutation ConfirmForgotPassword(\n    $input: ConfirmForgotPasswordInput!\n  ) {\n    confirmForgotPassword(input: $input) \n  }\n": types.ConfirmForgotPasswordDocument,
     "\n  fragment FragranceDraftShell on FragranceDraft {\n    id\n    version\n  }\n": types.FragranceDraftShellFragmentDoc,
     "\n  fragment FragranceDraftSummary on FragranceDraft {\n    id\n    version\n\n    name\n    description\n    releaseYear\n    concentration\n    status\n  }\n": types.FragranceDraftSummaryFragmentDoc,
-    "\n  fragment FragranceDraftPreview on FragranceDraft {\n    ...FragranceDraftSummary\n    image {\n      ...FragranceDraftImageSummary\n    }\n  }\n": types.FragranceDraftPreviewFragmentDoc,
+    "\n  fragment FragranceDraftPreview on FragranceDraft {\n    ...FragranceDraftShell\n    image {\n      ...FragranceDraftImageSummary\n    }\n  }\n": types.FragranceDraftPreviewFragmentDoc,
+    "\n  fragment FragranceDraftTraitsFragment on FragranceDraft { \n    ...FragranceDraftShell\n    traits {\n      ...FragranceDraftTraitFragment\n    }\n  }\n": types.FragranceDraftTraitsFragmentFragmentDoc,
+    "\n  fragment FragranceDraftAccordsFragment on FragranceDraft { \n    ...FragranceDraftShell\n    accords {\n      ...AccordSummaryFragment\n    }\n  }\n": types.FragranceDraftAccordsFragmentFragmentDoc,
     "\n  fragment FragranceDraftImageSummary on FragranceDraftImage {\n    id\n    url\n    type\n  }\n": types.FragranceDraftImageSummaryFragmentDoc,
+    "\n  fragment FragranceDraftTraitFragment on FragranceDraftTrait {\n    traitType\n    selectedOption {\n      ...TraitOptionFragment\n    }\n  }\n": types.FragranceDraftTraitFragmentFragmentDoc,
     "\n  mutation CreateFragranceDraft(\n    $input: CreateFragranceDraftInput!\n  ) {\n    createFragranceDraft(input: $input) {\n      ...FragranceDraftSummary\n    }\n  }\n": types.CreateFragranceDraftDocument,
     "\n  mutation UpdateFragranceDraft(\n    $input: UpdateFragranceDraftInput!\n  ) {\n    updateFragranceDraft(input: $input) {\n      ...FragranceDraftSummary\n    }\n  }\n": types.UpdateFragranceDraftDocument,
     "\n  mutation DeleteFragranceDraft(\n    $input: DeleteFragranceDraftInput!\n  ) {\n    deleteFragranceDraft(input: $input) {\n      ...FragranceDraftSummary\n    }\n  }\n": types.DeleteFragranceDraftDocument,
     "\n  mutation StageFragranceDraftImage(\n    $input: StageAssetInput!\n  ) {\n    stageFragranceDraftImage(input: $input) {\n      ...PresignedUploadFragment\n    }\n  }\n": types.StageFragranceDraftImageDocument,
     "\n  mutation FinalizeFragranceDraftImage(\n    $input: FinalizeFragranceDraftImageInput!\n  ) {\n    finalizeFragranceDraftImage(input: $input) {\n      ...FragranceDraftPreview\n    }\n  }\n": types.FinalizeFragranceDraftImageDocument,
+    "\n  mutation SetFragranceDraftTrait(\n    $input: SetFragranceDraftTraitInput!\n  ) {\n    setFragranceDraftTrait(input: $input) {\n      ...FragranceDraftTraitsFragment\n    }\n  }\n": types.SetFragranceDraftTraitDocument,
+    "\n  mutation SetFragranceDraftAccords(\n    $input: SetFragranceDraftAccordsInput!\n  ) {\n    setFragranceDraftAccords(input: $input) {\n      ...FragranceDraftAccordsFragment\n    }\n  }\n": types.SetFragranceDraftAccordsDocument,
     "\n  query FragranceDraftShell(\n    $id: ID!\n  ) {\n    fragranceDraft(id: $id) {\n      ...FragranceDraftShell\n    }\n  }\n": types.FragranceDraftShellDocument,
     "\n  query FragranceDraft(\n    $id: ID!\n  ) {\n    fragranceDraft(id: $id) {\n      ...FragranceDraftSummary\n    }\n  }\n": types.FragranceDraftDocument,
     "\n  query FragranceDraftPreview(\n    $id: ID!\n  ) {\n    fragranceDraft(id: $id) {\n      ...FragranceDraftPreview\n    }\n  }\n": types.FragranceDraftPreviewDocument,
     "\n  query FragranceDrafts(\n    $input: DraftPaginationInput\n  ) {\n    fragranceDrafts(input: $input) {\n      edges {\n        node {\n          ...FragranceDraftPreview\n        }\n      }\n      pageInfo {\n        ...PageInfoFragment\n      }\n    }\n  }\n": types.FragranceDraftsDocument,
+    "\n  query FragranceDraftTrait(\n    $id: ID!\n    $type: TraitTypeEnum!\n  ) {\n    fragranceDraft(id: $id) {\n      id\n      version\n      trait(type: $type) {\n        ...FragranceDraftTraitFragment\n      }\n    }\n  }\n": types.FragranceDraftTraitDocument,
+    "\n  query FragranceDraftTraits(\n    $id: ID!\n  ) {\n    fragranceDraft(id: $id) {\n      ...FragranceDraftTraitsFragment\n    }\n  }\n": types.FragranceDraftTraitsDocument,
+    "\n  query FragranceDraftAccords(\n    $id: ID!\n  ) {\n    fragranceDraft(id: $id) {\n      ...FragranceDraftAccordsFragment\n    }\n  }\n": types.FragranceDraftAccordsDocument,
     "\n  fragment NoteSummaryFragment on Note {\n    id\n    name\n    thumbnailUrl\n  }\n": types.NoteSummaryFragmentFragmentDoc,
     "\n  query Notes(\n    $input: NotePaginationInput\n  ) {\n    notes(input: $input) {\n      edges {\n        node {\n          ...NoteSummaryFragment\n        }\n      }\n      pageInfo {\n        ...PageInfoFragment\n      }\n    }\n  }\n": types.NotesDocument,
+    "\n  fragment TraitOptionFragment on TraitOption {\n    id\n    label\n    score\n  }\n": types.TraitOptionFragmentFragmentDoc,
     "\n  fragment UserSummaryFragment on User {\n    id\n    username\n    email\n\n    avatarSrc\n    avatarStatus\n  }\n": types.UserSummaryFragmentFragmentDoc,
     "\n  mutation UpdateUser(\n    $input: UpdateUserInput!\n  ) {\n    updateUser(input: $input) {\n      ...UserSummaryFragment\n    }\n  }\n": types.UpdateUserDocument,
     "\n  mutation UpdateUserAvatar(\n    $input: StageAssetInput!\n  ) {\n    updateUserAvatar(input: $input) {\n      ...PresignedUploadFragment\n    }\n  }\n": types.UpdateUserAvatarDocument,
@@ -161,11 +179,23 @@ export function gql(source: "\n  fragment FragranceDraftSummary on FragranceDraf
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  fragment FragranceDraftPreview on FragranceDraft {\n    ...FragranceDraftSummary\n    image {\n      ...FragranceDraftImageSummary\n    }\n  }\n"): (typeof documents)["\n  fragment FragranceDraftPreview on FragranceDraft {\n    ...FragranceDraftSummary\n    image {\n      ...FragranceDraftImageSummary\n    }\n  }\n"];
+export function gql(source: "\n  fragment FragranceDraftPreview on FragranceDraft {\n    ...FragranceDraftShell\n    image {\n      ...FragranceDraftImageSummary\n    }\n  }\n"): (typeof documents)["\n  fragment FragranceDraftPreview on FragranceDraft {\n    ...FragranceDraftShell\n    image {\n      ...FragranceDraftImageSummary\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  fragment FragranceDraftTraitsFragment on FragranceDraft { \n    ...FragranceDraftShell\n    traits {\n      ...FragranceDraftTraitFragment\n    }\n  }\n"): (typeof documents)["\n  fragment FragranceDraftTraitsFragment on FragranceDraft { \n    ...FragranceDraftShell\n    traits {\n      ...FragranceDraftTraitFragment\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  fragment FragranceDraftAccordsFragment on FragranceDraft { \n    ...FragranceDraftShell\n    accords {\n      ...AccordSummaryFragment\n    }\n  }\n"): (typeof documents)["\n  fragment FragranceDraftAccordsFragment on FragranceDraft { \n    ...FragranceDraftShell\n    accords {\n      ...AccordSummaryFragment\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  fragment FragranceDraftImageSummary on FragranceDraftImage {\n    id\n    url\n    type\n  }\n"): (typeof documents)["\n  fragment FragranceDraftImageSummary on FragranceDraftImage {\n    id\n    url\n    type\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  fragment FragranceDraftTraitFragment on FragranceDraftTrait {\n    traitType\n    selectedOption {\n      ...TraitOptionFragment\n    }\n  }\n"): (typeof documents)["\n  fragment FragranceDraftTraitFragment on FragranceDraftTrait {\n    traitType\n    selectedOption {\n      ...TraitOptionFragment\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -189,6 +219,14 @@ export function gql(source: "\n  mutation FinalizeFragranceDraftImage(\n    $inp
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function gql(source: "\n  mutation SetFragranceDraftTrait(\n    $input: SetFragranceDraftTraitInput!\n  ) {\n    setFragranceDraftTrait(input: $input) {\n      ...FragranceDraftTraitsFragment\n    }\n  }\n"): (typeof documents)["\n  mutation SetFragranceDraftTrait(\n    $input: SetFragranceDraftTraitInput!\n  ) {\n    setFragranceDraftTrait(input: $input) {\n      ...FragranceDraftTraitsFragment\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation SetFragranceDraftAccords(\n    $input: SetFragranceDraftAccordsInput!\n  ) {\n    setFragranceDraftAccords(input: $input) {\n      ...FragranceDraftAccordsFragment\n    }\n  }\n"): (typeof documents)["\n  mutation SetFragranceDraftAccords(\n    $input: SetFragranceDraftAccordsInput!\n  ) {\n    setFragranceDraftAccords(input: $input) {\n      ...FragranceDraftAccordsFragment\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function gql(source: "\n  query FragranceDraftShell(\n    $id: ID!\n  ) {\n    fragranceDraft(id: $id) {\n      ...FragranceDraftShell\n    }\n  }\n"): (typeof documents)["\n  query FragranceDraftShell(\n    $id: ID!\n  ) {\n    fragranceDraft(id: $id) {\n      ...FragranceDraftShell\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -205,11 +243,27 @@ export function gql(source: "\n  query FragranceDrafts(\n    $input: DraftPagina
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function gql(source: "\n  query FragranceDraftTrait(\n    $id: ID!\n    $type: TraitTypeEnum!\n  ) {\n    fragranceDraft(id: $id) {\n      id\n      version\n      trait(type: $type) {\n        ...FragranceDraftTraitFragment\n      }\n    }\n  }\n"): (typeof documents)["\n  query FragranceDraftTrait(\n    $id: ID!\n    $type: TraitTypeEnum!\n  ) {\n    fragranceDraft(id: $id) {\n      id\n      version\n      trait(type: $type) {\n        ...FragranceDraftTraitFragment\n      }\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query FragranceDraftTraits(\n    $id: ID!\n  ) {\n    fragranceDraft(id: $id) {\n      ...FragranceDraftTraitsFragment\n    }\n  }\n"): (typeof documents)["\n  query FragranceDraftTraits(\n    $id: ID!\n  ) {\n    fragranceDraft(id: $id) {\n      ...FragranceDraftTraitsFragment\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query FragranceDraftAccords(\n    $id: ID!\n  ) {\n    fragranceDraft(id: $id) {\n      ...FragranceDraftAccordsFragment\n    }\n  }\n"): (typeof documents)["\n  query FragranceDraftAccords(\n    $id: ID!\n  ) {\n    fragranceDraft(id: $id) {\n      ...FragranceDraftAccordsFragment\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function gql(source: "\n  fragment NoteSummaryFragment on Note {\n    id\n    name\n    thumbnailUrl\n  }\n"): (typeof documents)["\n  fragment NoteSummaryFragment on Note {\n    id\n    name\n    thumbnailUrl\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  query Notes(\n    $input: NotePaginationInput\n  ) {\n    notes(input: $input) {\n      edges {\n        node {\n          ...NoteSummaryFragment\n        }\n      }\n      pageInfo {\n        ...PageInfoFragment\n      }\n    }\n  }\n"): (typeof documents)["\n  query Notes(\n    $input: NotePaginationInput\n  ) {\n    notes(input: $input) {\n      edges {\n        node {\n          ...NoteSummaryFragment\n        }\n      }\n      pageInfo {\n        ...PageInfoFragment\n      }\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  fragment TraitOptionFragment on TraitOption {\n    id\n    label\n    score\n  }\n"): (typeof documents)["\n  fragment TraitOptionFragment on TraitOption {\n    id\n    label\n    score\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

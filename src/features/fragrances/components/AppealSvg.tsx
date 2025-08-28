@@ -2,7 +2,7 @@ import { type SvgProps } from '@/components/Svg'
 import React from 'react'
 
 const AppealSvg = (props: SvgProps) => {
-  const { width = 32, height = 32, color = 'white' } = props
+  const { width = 32, height = 32, color = 'black' } = props
 
   return (
     <svg

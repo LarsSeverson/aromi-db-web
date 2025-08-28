@@ -9,12 +9,14 @@ const FragranceDraftLayout = () => {
       className='flex'
     >
       <div
-        className='flex-1 p-5'
+        className='flex-1 w-0 min-w-0 p-5'
       >
         <Outlet />
       </div>
 
-      <div>
+      <div
+        className='shrink-0'
+      >
         <Divider />
       </div>
 

@@ -20,6 +20,9 @@ const NumberInput = (props: NumberInputProps) => {
   return (
     <NumberField.Root
       value={value}
+      snapOnStep
+      min={Number(rest.min)}
+      max={Number(rest.max)}
       onValueChange={onValueChange}
       format={{ useGrouping: false }}
       className={clsx(

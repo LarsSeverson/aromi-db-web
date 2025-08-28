@@ -63,10 +63,10 @@ const SelectInput = <Value, >(props: SelectInputProps<Value>) => {
             className={clsx(
               'group box-border p-2 rounded-md bg-background',
               'max-h-[var(--available-height)] origin-[var(--transform-origin)]',
-              'overflow-y-auto transition-[transform,scale,opacity]',
-              'data-[ending-style]:scale-90 data-[ending-style]:opacity-0',
-              'data-[side=none]:data-[ending-style]:transition-none data-[starting-style]:scale-90',
-              'data-[starting-style]:opacity-0 data-[side=none]:data-[starting-style]:scale-100',
+              'overflow-y-auto transition-[transform,opacity]',
+              'data-[ending-style]:opacity-0',
+              'data-[side=none]:data-[ending-style]:transition-none',
+              'data-[starting-style]:opacity-0',
               'data-[side=none]:data-[starting-style]:opacity-100 data-[side=none]:data-[starting-style]:transition-none',
               'outline outline-1 outline-surface2'
             )}

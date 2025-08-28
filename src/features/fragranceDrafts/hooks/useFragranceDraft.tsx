@@ -1,10 +1,12 @@
-import { type UpdateFragranceDraftInput } from '@/generated/graphql'
+import { type SetFragranceDraftAccordsInput, type SetFragranceDraftTraitInput, type UpdateFragranceDraftInput } from '@/generated/graphql'
 import { useFragranceDraftShell } from './useFragranceDraftShell'
 import { useFragranceDraftState } from './useFragranceDraftState'
 import { useUpdateFragranceDraft } from './useUpdateFragranceDraft'
 import { useStageFragranceDraftImage } from './useStageFragranceDraftImage'
 import { useFinalizeFragranceDraftImage } from './useFinalizeFragranceDraftImage'
 import { usePresignedUpload } from '@/hooks/usePresignedUpload'
+import { useSetFragranceDraftTrait } from './useSetFragranceDraftTrait'
+import { useSetFragranceDraftAccords } from './useSetFragranceDraftAccords'
 
 export interface UseFragranceDraftProps {
   id: string
@@ -37,6 +39,14 @@ export const useFragranceDraft = (props: UseFragranceDraftProps) => {
   const {
     finalizeImage
   } = useFinalizeFragranceDraftImage()
+
+  const {
+    setTrait
+  } = useSetFragranceDraftTrait()
+
+  const {
+    setAccords
+  } = useSetFragranceDraftAccords()
 
   const {
     upload
@@ -77,11 +87,29 @@ export const useFragranceDraft = (props: UseFragranceDraftProps) => {
       )
   }
 
+  const updateTrait = (
+    input: Omit<SetFragranceDraftTraitInput, 'draftId' | 'version'>
+  ) => {
+    return update(version =>
+      setTrait({ ...input, draftId: id, version })
+    )
+  }
+
+  const updateAccords = (
+    input: Omit<SetFragranceDraftAccordsInput, 'draftId' | 'version'>
+  ) => {
+    return update(version =>
+      setAccords({ ...input, draftId: id, version })
+    )
+  }
+
   return {
     id,
     status,
 
     updateDraft,
-    updateImage
+    updateImage,
+    updateTrait,
+    updateAccords
   }
 }

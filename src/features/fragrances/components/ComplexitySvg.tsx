@@ -2,7 +2,7 @@ import React from 'react'
 import { type SvgProps } from '../../../components/Svg'
 
 const ComplexitySvg = (props: SvgProps) => {
-  const { width = 32, height = 32, color = 'white' } = props
+  const { width = 32, height = 32, color = 'black' } = props
 
   return (
     <svg

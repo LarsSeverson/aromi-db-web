@@ -2,7 +2,9 @@ import NumberInput from '@/components/NumberInput'
 import { Field } from '@base-ui-components/react'
 import clsx from 'clsx'
 import React, { useState } from 'react'
-import { DEFAULT_RELEASE_YEAR, MAX_RELEASE_YEAR, MIN_RELEASE_YEAR, RELEASE_YEAR_PLACEHOLDER } from '../types'
+import { DEFAULT_RELEASE_YEAR, MAX_RELEASE_YEAR, MIN_RELEASE_YEAR, RELEASE_YEAR_PLACEHOLDER, ValidReleaseYear } from '../types'
+import { useFragranceDraftContext } from '../contexts/FragranceDraftContext'
+import { useDebounce } from '@/hooks/useDebounce'
 
 export interface DraftReleaseYearInputProps {
   releaseYear?: number | null
@@ -11,7 +13,25 @@ export interface DraftReleaseYearInputProps {
 const DraftReleaseYearInput = (props: DraftReleaseYearInputProps) => {
   const { releaseYear } = props
 
+  const { updateDraft } = useFragranceDraftContext()
+
   const [value, setValue] = useState(releaseYear ?? DEFAULT_RELEASE_YEAR)
+
+  const handleUpdateDraft = useDebounce(
+    (releaseYear: number) => {
+      const { data, success } = ValidReleaseYear.safeParse(releaseYear)
+      if (success) {
+        void updateDraft({ releaseYear: data })
+      }
+    }
+  )
+
+  const handleOnValueChange = (value: number | null) => {
+    if (value == null) return
+
+    setValue(value)
+    handleUpdateDraft(value)
+  }
 
   return (
     <Field.Root
@@ -31,6 +51,7 @@ const DraftReleaseYearInput = (props: DraftReleaseYearInputProps) => {
         min={MIN_RELEASE_YEAR}
         max={MAX_RELEASE_YEAR}
         placeholder={RELEASE_YEAR_PLACEHOLDER}
+        onValueChange={handleOnValueChange}
       />
     </Field.Root>
   )

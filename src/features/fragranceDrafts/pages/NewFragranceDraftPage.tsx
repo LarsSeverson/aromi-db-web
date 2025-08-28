@@ -39,7 +39,6 @@ const NewFragranceDraftPage = () => {
         <Divider
           horizontal
         />
-
       </Form>
     </div>
   )
