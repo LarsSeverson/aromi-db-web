@@ -1,6 +1,6 @@
 import React from 'react'
-import { client } from '@/common/client'
-import { toApolloError } from '@/common/error'
+import { client } from '@/utils/client'
+import { toApolloError } from '@/utils/error'
 import { FRAGRANCE_DRAFT_SHELL_QUERY } from '@/features/fragranceDrafts/graphql/queries'
 import { createFileRoute } from '@tanstack/react-router'
 import { ResultAsync } from 'neverthrow'

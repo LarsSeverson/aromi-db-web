@@ -69,3 +69,14 @@ export const SET_FRAGRANCE_DRAFT_ACCORDS_MUTATION = gql(/* GraphQL */`
     }
   }
 `)
+
+export const SET_FRAGRANCE_DRAFT_NOTES_MUTATION = gql(/* GraphQL */`
+  mutation SetFragranceDraftNotes(
+    $input: SetFragranceDraftNotesInput!
+    $layer: NoteLayer!
+  ) {
+    setFragranceDraftNotes(input: $input) {
+      ...FragranceDraftNotesFragment
+    }
+  }
+`)

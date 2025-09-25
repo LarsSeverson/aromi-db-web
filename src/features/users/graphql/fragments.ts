@@ -1,12 +1,22 @@
 import { gql } from '@/generated'
 
-export const UserSummaryFragment = gql(/* GraphQL */ `
-  fragment UserSummaryFragment on User {
+export const UserFragment = gql(/* GraphQL */ `
+  fragment UserFragment on User {
     id
     username
     email
+    avatar {
+      ...AssetPreviewFragment
+    }
+  }
+`)
 
-    avatarSrc
-    avatarStatus
+export const UserPreviewFragment = gql(/* GraphQL */ `
+  fragment UserPreviewFragment on User {
+    id
+    username
+    avatar {
+      ...AssetPreviewFragment
+    }
   }
 `)

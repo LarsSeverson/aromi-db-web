@@ -4,7 +4,7 @@ import { useFinalizeFragranceDraftImage } from './useFinalizeFragranceDraftImage
 import { useStageFragranceDraftImage } from './useStageFragranceDraftImage'
 import { useDeleteFragranceDraft } from './useDeleteFragranceDraft'
 import { errAsync } from 'neverthrow'
-import { client } from '@/common/client'
+import { client } from '@/utils/client'
 
 export interface CreateDraftWithImageInput {
   file: File

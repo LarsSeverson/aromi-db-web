@@ -1,5 +1,5 @@
 import { type TraitTypeEnum } from '@/generated/graphql'
-import { useQuery } from '@apollo/client'
+import { useQuery } from "@apollo/client/react";
 import { FRAGRANCE_DRAFT_TRAIT_QUERY } from '../graphql/queries'
 
 export const useFragranceDraftTrait = (

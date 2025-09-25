@@ -81,3 +81,14 @@ export const FRAGRANCE_DRAFT_ACCORDS_QUERY = gql(/* GraphQL */`
     }
   }
 `)
+
+export const FRAGRANCE_DRAFT_NOTES_QUERY = gql(/* GraphQL */`
+  query FragranceDraftNotes(
+    $id: ID!,
+    $layer: NoteLayer!
+  ) {
+    fragranceDraft(id: $id) {
+      ...FragranceDraftNotesFragment 
+    }
+  }
+`)

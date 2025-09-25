@@ -1,4 +1,4 @@
-import { type ApolloError } from '@apollo/client'
+import { type ApolloError } from "@apollo/client/v4-migration";
 import { Toast } from '@base-ui-components/react'
 
 export const useToastMessage = () => {

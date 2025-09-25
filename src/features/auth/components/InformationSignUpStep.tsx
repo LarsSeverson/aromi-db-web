@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { Form } from '@base-ui-components/react'
 import { useAuthContext } from '@/features/auth'
-import { getFieldErrors } from '@/common/validation'
+import { getFieldErrors } from '@/utils/validation'
 import { SignUpSchema } from '../utils/validation'
 import AuthDialogHeading from './AuthDialogHeading'
 import PasswordInput from '@/features/auth/components/PasswordInput'
 import EmailInput from './EmailInput'
 import { Link } from '@tanstack/react-router'
-import { extractGraphQLError } from '@/common/error'
+import { extractGraphQLError } from '@/utils/error'
 import SubmitButton from '@/components/SubmitButton'
 
 export interface InformationSignUpStepProps {

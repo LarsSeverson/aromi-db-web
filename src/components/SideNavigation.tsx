@@ -1,4 +1,4 @@
-import { NAV } from '@/common/nav'
+import { NAV } from '@/utils/nav'
 import NewRequestMenu from '@/features/fragranceDrafts/components/NewRequestMenu'
 import { Link, useRouterState } from '@tanstack/react-router'
 import clsx from 'clsx'

@@ -1,8 +1,9 @@
 import { type DraftPaginationInput } from '@/generated/graphql'
-import { NetworkStatus, useQuery } from '@apollo/client'
+import { NetworkStatus } from '@apollo/client';
+import { useQuery } from "@apollo/client/react";
 import { FRAGRANCE_DRAFTS_QUERY } from '../graphql/queries'
-import { flatten, validatePagination } from '@/common/pagination'
-import { noRes, toApolloError } from '@/common/error'
+import { flatten, validatePagination } from '@/utils/pagination'
+import { noRes, toApolloError } from '@/utils/error'
 import { ResultAsync } from 'neverthrow'
 import { useMemo } from 'react'
 

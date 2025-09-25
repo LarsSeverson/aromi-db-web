@@ -1,7 +1,7 @@
-import { useQuery } from '@apollo/client'
+import { useQuery } from "@apollo/client/react";
 import { FRAGRANCE_DRAFT_SHELL_QUERY } from '../graphql/queries'
 import { ResultAsync } from 'neverthrow'
-import { toApolloError } from '@/common/error'
+import { toApolloError } from '@/utils/error'
 
 export const useFragranceDraftShell = (id: string) => {
   const { data, loading, error, refetch } = useQuery(FRAGRANCE_DRAFT_SHELL_QUERY, { variables: { id } })

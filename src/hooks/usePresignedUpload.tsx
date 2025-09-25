@@ -1,4 +1,4 @@
-import { toApolloError } from '@/common/error'
+import { toApolloError } from '@/utils/error'
 import { type PresignedUpload } from '@/generated/graphql'
 import axios from 'axios'
 import { ResultAsync } from 'neverthrow'

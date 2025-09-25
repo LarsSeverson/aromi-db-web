@@ -5,11 +5,11 @@ import { AccordionPanel } from '@/components/Accordion/AccordionPanel'
 import { AccordionRoot } from '@/components/Accordion/AccordionRoot'
 import { AccordionTrigger } from '@/components/Accordion/AccordionTrigger'
 import SelectInput from '@/components/SelectInput'
-import SelectableNotesGrid from '@/features/notes/components/SelectableNotesGrid'
 import { useNotes } from '@/features/notes/hooks/useNotes'
 import { NOTE_LAYER_OPTIONS } from '@/features/notes/types'
 import clsx from 'clsx'
 import React, { useMemo, useState } from 'react'
+import DraftNotesGrid from './DraftNotesGrid'
 
 const DraftFragranceNotesSection = () => {
   const {
@@ -23,6 +23,7 @@ const DraftFragranceNotesSection = () => {
   } = useNotes()
 
   const [isExpanded, setIsExpanded] = useState(false)
+  const [selectedLayer, setSelectedLayer] = useState(NOTE_LAYER_OPTIONS[0].value)
 
   const trimmed = useMemo(
     () => isExpanded ? notes : notes.slice(0, 24),
@@ -80,7 +81,9 @@ const DraftFragranceNotesSection = () => {
             >
               <div>
                 <SelectInput
+                  value={selectedLayer}
                   items={NOTE_LAYER_OPTIONS}
+                  onValueChange={setSelectedLayer}
                 />
               </div>
             </div>
@@ -88,8 +91,10 @@ const DraftFragranceNotesSection = () => {
             <div
               className='w-full flex flex-col'
             >
-              <SelectableNotesGrid
+              <DraftNotesGrid
+                key={selectedLayer}
                 notes={trimmed}
+                layer={selectedLayer}
                 isLoading={loading || loadingMore}
               />
 

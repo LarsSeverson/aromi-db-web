@@ -1,8 +1,8 @@
 import { type LogInInput } from '@/generated/graphql'
 import { LOG_IN_MUTATION } from '../graphql/mutations'
-import { useMutation } from '@apollo/client'
+import { useMutation } from "@apollo/client/react";
 import { ResultAsync } from 'neverthrow'
-import { checkNullFetchResponse, toApolloError } from '@/common/error'
+import { checkNullFetchResponse, toApolloError } from '@/utils/error'
 
 export const useLogIn = () => {
   const [

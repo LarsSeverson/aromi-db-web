@@ -1,8 +1,8 @@
-import { useLazyQuery } from '@apollo/client'
+import { useLazyQuery } from "@apollo/client/react";
 import { useCallback, useEffect, useRef } from 'react'
 import { MY_QUERY } from '../graphql/queries'
 import { ResultAsync } from 'neverthrow'
-import { toApolloError } from '@/common/error'
+import { toApolloError } from '@/utils/error'
 import { type IUserSummary } from '../types'
 
 const INTERVAL = 2000

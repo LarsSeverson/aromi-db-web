@@ -10,7 +10,13 @@ import DraftStatusInput from './DraftStatusInput'
 const DraftInfoSection = () => {
   const { id } = useFragranceDraftContext()
   const { summary, loading } = useFragranceDraftSummary(id)
-  const { name, description, releaseYear, concentration } = summary ?? {}
+  const {
+    name,
+    description,
+    releaseYear,
+    concentration,
+    status
+  } = summary ?? {}
 
   if (loading) {
     return null
@@ -36,7 +42,9 @@ const DraftInfoSection = () => {
         concentration={concentration}
       />
 
-      <DraftStatusInput />
+      <DraftStatusInput
+        status={status}
+      />
     </section>
   )
 }

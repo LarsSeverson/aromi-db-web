@@ -1,8 +1,8 @@
-import { useMutation } from '@apollo/client'
+import { useMutation } from "@apollo/client/react";
 import { SET_FRAGRANCE_DRAFT_TRAIT_MUTATION } from '../graphql/mutations'
 import { type SetFragranceDraftTraitInput } from '@/generated/graphql'
 import { ResultAsync } from 'neverthrow'
-import { checkNullFetchResponse, toApolloError } from '@/common/error'
+import { checkNullFetchResponse, toApolloError } from '@/utils/error'
 
 export const useSetFragranceDraftTrait = () => {
   const [setTraitInner] = useMutation(SET_FRAGRANCE_DRAFT_TRAIT_MUTATION)

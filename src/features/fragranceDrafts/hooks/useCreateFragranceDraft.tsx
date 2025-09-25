@@ -1,9 +1,10 @@
-import { type ApolloCache, makeReference, type Reference, useMutation } from '@apollo/client'
+import { type ApolloCache, type Reference } from '@apollo/client';
+import { useMutation } from "@apollo/client/react";
 import { CREATE_FRAGRANCE_DRAFT_MUTATION } from '../graphql/mutations'
 import { type CreateFragranceDraftInput } from '@/generated/graphql'
 import { ResultAsync } from 'neverthrow'
-import { checkNullFetchResponse, toApolloError } from '@/common/error'
-import { type NodeWithEdges } from '@/common/pagination'
+import { checkNullFetchResponse, toApolloError } from '@/utils/error'
+import { type NodeWithEdges } from '@/utils/pagination'
 
 export const useCreateFragranceDraft = () => {
   const [createDraftInner] = useMutation(CREATE_FRAGRANCE_DRAFT_MUTATION)

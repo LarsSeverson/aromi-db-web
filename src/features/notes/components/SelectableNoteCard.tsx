@@ -1,47 +1,50 @@
+import React from 'react'
 import clsx from 'clsx'
 import { type INoteSummary } from '../types'
-
-import React, { useState } from 'react'
 import ProgressiveImage from '@/components/ProgressiveImage'
 
 export interface SelectableNoteCardProps {
   note: INoteSummary
-  onSelected?: (note: INoteSummary, value: boolean) => void
+  value?: boolean
+  onValueChange?: (value?: boolean) => void
 }
 
 const SelectableNoteCard = (props: SelectableNoteCardProps) => {
-  const { note, onSelected } = props
-  const { name, thumbnailUrl } = note
+  const {
+    note,
+    value = false,
+    onValueChange
+  } = props
 
-  const [isSelected, setIsSelected] = useState(false)
+  const {
+    name,
+    thumbnailUrl
+  } = note
 
   const handleOnClick = (event: React.SyntheticEvent) => {
     event.preventDefault()
     event.stopPropagation()
 
-    const nextSelected = !isSelected
-    setIsSelected(nextSelected)
-
-    onSelected?.(note, nextSelected)
+    onValueChange?.(!value)
   }
 
   return (
     <button
-      className='flex flex-col group'
+      className='flex flex-col group box-border'
       onClick={handleOnClick}
     >
       <div
         className={clsx(
-          'w-full aspect-square rounded-xl overflow-hidden',
+          'w-full aspect-square rounded-xl overflow-hidden box-border',
           'transition-all duration-100',
-          'group-hover:outline-primary outline outline-none outline-2',
-          isSelected && 'outline-primary'
+          'group-hover:border-primary border-2',
+          value && 'border-primary'
         )}
       >
         <div
           className={clsx(
             'w-full aspect-square rounded-xl overflow-hidden',
-            isSelected && 'scale-[0.95]'
+            value && 'scale-[0.95]'
           )}
         >
           <ProgressiveImage

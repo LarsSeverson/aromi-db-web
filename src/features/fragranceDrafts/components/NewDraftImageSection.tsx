@@ -1,6 +1,6 @@
 import DropZone from '@/components/DropZone/DropZone'
 import React, { useState } from 'react'
-import { extractGraphQLError, extractGraphQLErrorStatuses } from '@/common/error'
+import { extractGraphQLError, extractGraphQLErrorStatuses } from '@/utils/error'
 import { useCreateFragranceDraftWithImage } from '../hooks/useCreateFragranceDraftWithImage'
 import ProgressSpinner from '@/components/ProgressSpinner'
 import { MdErrorOutline } from 'react-icons/md'

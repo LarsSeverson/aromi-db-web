@@ -1,8 +1,8 @@
-import { useMutation } from '@apollo/client'
+import { useMutation } from "@apollo/client/react";
 import { UPDATE_FRAGRANCE_DRAFT_MUTATION } from '../graphql/mutations'
 import { type UpdateFragranceDraftInput } from '@/generated/graphql'
 import { ResultAsync } from 'neverthrow'
-import { checkNullFetchResponse, toApolloError } from '@/common/error'
+import { checkNullFetchResponse, toApolloError } from '@/utils/error'
 
 export const useUpdateFragranceDraft = () => {
   const [updateInner] = useMutation(UPDATE_FRAGRANCE_DRAFT_MUTATION)

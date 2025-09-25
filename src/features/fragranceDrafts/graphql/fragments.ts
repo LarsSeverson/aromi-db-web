@@ -47,6 +47,15 @@ export const FRAGRANCE_DRAFT_ACCORDS_FRAGMENT = gql(/* GraphQL */`
   }
 `)
 
+export const FRAGRANCE_DRAFT_NOTES_FRAGMENT = gql(/* GraphQL */`
+  fragment FragranceDraftNotesFragment on FragranceDraft { 
+    ...FragranceDraftShell
+    notes(layer: $layer) {
+      ...NoteSummaryFragment
+    }
+  }
+`)
+
 export const FRAGRANCE_DRAFT_IMAGE_SUMMARY_FRAGMENT = gql(/* GraphQL */`
   fragment FragranceDraftImageSummary on FragranceDraftImage {
     id

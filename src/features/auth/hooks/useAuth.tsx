@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRefresh } from './useRefresh'
 import { useLogIn } from './useLogIn'
-import { accessToken as setClientAcessToken } from '@/common/client'
+import { accessToken as setClientAcessToken } from '@/utils/client'
 import { useLogOut } from './useLogOut'
 import { useForgotPassword } from './useForgotPassword'
 import { useConfirmForgotPassword } from './useConfirmForgotPassword'

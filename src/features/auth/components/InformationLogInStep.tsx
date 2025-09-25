@@ -5,9 +5,9 @@ import EmailInput from './EmailInput'
 import PasswordInput from './PasswordInput'
 import { Link } from '@tanstack/react-router'
 import { useAuthContext } from '../contexts/AuthContext'
-import { getFieldErrors } from '@/common/validation'
+import { getFieldErrors } from '@/utils/validation'
 import { LogInSchema } from '../utils/validation'
-import { extractGraphQLError } from '@/common/error'
+import { extractGraphQLError } from '@/utils/error'
 import SubmitButton from '@/components/SubmitButton'
 
 export interface InformationLogInStepProps {

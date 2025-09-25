@@ -1,26 +1,21 @@
-import { type AccordPaginationInput } from '@/generated/graphql'
-import { NetworkStatus, useQuery } from '@apollo/client'
+import type { AccordPaginationInput } from '@/generated/graphql'
+import { NetworkStatus } from '@apollo/client'
+import { useQuery } from '@apollo/client/react'
 import { ACCORDS_QUERY } from '../graphql/queries'
-import { flatten, validatePagination } from '@/common/pagination'
-import { noRes } from '@/common/util'
+import { flatten, validatePagination } from '@/utils/pagination'
+import { noRes } from '@/utils/util'
 import { ResultAsync } from 'neverthrow'
-import { toApolloError } from '@/common/error'
 import { useMemo } from 'react'
+import { getServerErrorInfo } from '@/utils/error'
 
 export const useAccords = (input?: AccordPaginationInput) => {
   const {
     data, loading, error, networkStatus,
     refetch, fetchMore
-  } = useQuery(ACCORDS_QUERY, {
-    variables: { input },
-    notifyOnNetworkStatusChange: true
-  })
+  } = useQuery(ACCORDS_QUERY, { variables: { input } })
 
   const loadMore = () => {
-    const endCursor = validatePagination(
-      data?.accords.pageInfo,
-      networkStatus
-    )
+    const endCursor = validatePagination(data?.accords.pageInfo, networkStatus)
 
     if (endCursor == null) return noRes
 
@@ -34,7 +29,7 @@ export const useAccords = (input?: AccordPaginationInput) => {
     return ResultAsync
       .fromPromise(
         fetchMore({ variables }),
-        toApolloError
+        getServerErrorInfo
       )
       .map(result => result.data.accords)
   }

@@ -1,10 +1,10 @@
-import { ApolloClient, from, HttpLink, InMemoryCache, makeVar } from '@apollo/client'
-import { setContext } from '@apollo/client/link/context'
+import { ApolloClient, HttpLink, InMemoryCache, makeVar, ApolloLink } from '@apollo/client'
+import { SetContextLink } from '@apollo/client/link/context'
 import { customRelayStylePagination } from './pagination'
 
 export const accessToken = makeVar<string | null>(null)
 
-const authLink = setContext(() => {
+const authLink = new SetContextLink(() => {
   const token = accessToken()
   return {
     headers: {
@@ -32,7 +32,8 @@ const httpLink = new HttpLink({
 // })
 
 export const client = new ApolloClient({
-  link: from([authLink, /* logLink, */ httpLink]),
+  link: ApolloLink.from([authLink, /* logLink, */ httpLink]),
+
   cache: new InMemoryCache({
     typePolicies: {
       Query: {

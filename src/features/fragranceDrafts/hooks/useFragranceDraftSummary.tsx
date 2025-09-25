@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client'
+import { useQuery } from "@apollo/client/react";
 import { FRAGRANCE_DRAFT_SUMMARY_QUERY } from '../graphql/queries'
 
 export const useFragranceDraftSummary = (id: string) => {

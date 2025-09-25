@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useAuthContext } from '../contexts/AuthContext'
-import { extractGraphQLError } from '@/common/error'
+import { extractGraphQLError } from '@/utils/error'
 import { Form } from '@base-ui-components/react'
 import CodeInput from './CodeInput'
 import PasswordInput from './PasswordInput'

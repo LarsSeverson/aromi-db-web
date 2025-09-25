@@ -4,7 +4,7 @@ import Spinner from '@/components/Spinner'
 import clsx from 'clsx'
 import { Form } from '@base-ui-components/react'
 import { useAuthContext } from '../contexts/AuthContext'
-import { extractGraphQLError } from '@/common/error'
+import { extractGraphQLError } from '@/utils/error'
 import SubmitButton from '@/components/SubmitButton'
 import ErrorFeedback from '@/components/ErrorFeedback'
 

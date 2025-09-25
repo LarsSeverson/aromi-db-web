@@ -1,9 +1,10 @@
-import { type ApolloCache, type FetchResult, type Reference, useMutation } from '@apollo/client'
+import { type ApolloCache, type Reference, type ApolloLink } from '@apollo/client';
+import { useMutation } from "@apollo/client/react";
 import { DELETE_FRAGRANCE_DRAFT_MUTATION } from '../graphql/mutations'
 import { type DeleteFragranceDraftMutation, type DeleteFragranceDraftInput } from '@/generated/graphql'
 import { ResultAsync } from 'neverthrow'
-import { checkNullFetchResponse, toApolloError } from '@/common/error'
-import { type NodeWithEdges } from '@/common/pagination'
+import { checkNullFetchResponse, toApolloError } from '@/utils/error'
+import { type NodeWithEdges } from '@/utils/pagination'
 import { type ReadFieldFunction } from '@apollo/client/cache/core/types/common'
 
 export const useDeleteFragranceDraft = () => {
@@ -29,7 +30,7 @@ export const useDeleteFragranceDraft = () => {
 
   const handleUpdateCache = (
     cache: ApolloCache<unknown>,
-    result: FetchResult<DeleteFragranceDraftMutation>
+    result: ApolloLink.Result<DeleteFragranceDraftMutation>
   ) => {
     const incoming = result.data?.deleteFragranceDraft
 

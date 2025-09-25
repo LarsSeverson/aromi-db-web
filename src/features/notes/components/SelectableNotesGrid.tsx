@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { type INoteSummary } from '../types'
 import clsx from 'clsx'
 import SelectableNoteCard from './SelectableNoteCard'
@@ -7,12 +7,44 @@ import SelectableNoteCardSkeleton from './SelectableNoteCardSkeleton'
 export interface SelectableNotesGridProps {
   notes: INoteSummary[]
   isLoading?: boolean
+  selectedIds?: Set<string>
+  onSelectedChange?: (id: string, value: boolean) => void
 }
 
 const SelectableNotesGrid = (props: SelectableNotesGridProps) => {
-  const { notes, isLoading = false } = props
+  const {
+    notes,
+    isLoading = false,
+    selectedIds,
+    onSelectedChange
+  } = props
 
   const skeletons = Array.from({ length: 12 })
+
+  const handleOnSelected = useCallback(
+    (note: INoteSummary, value: boolean) => {
+      onSelectedChange?.(note.id, value)
+    },
+    [onSelectedChange]
+  )
+
+  const onRenderNoteCard = useCallback(
+    (note: INoteSummary) => {
+      const handleOnValueChange = (value?: boolean) => {
+        handleOnSelected(note, value ?? false)
+      }
+
+      return (
+        <SelectableNoteCard
+          key={note.id}
+          note={note}
+          value={selectedIds?.has(note.id)}
+          onValueChange={handleOnValueChange}
+        />
+      )
+    },
+    [handleOnSelected, selectedIds]
+  )
 
   return (
     <div
@@ -21,13 +53,7 @@ const SelectableNotesGrid = (props: SelectableNotesGridProps) => {
         'gap-3 w-full justify-center py-3'
       )}
     >
-      {notes
-        .map(note => (
-          <SelectableNoteCard
-            key={note.id}
-            note={note}
-          />
-        ))}
+      {notes.map(onRenderNoteCard)}
 
       {isLoading && skeletons
         .map((_, index) => (

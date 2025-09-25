@@ -1,8 +1,8 @@
-import { useMutation } from '@apollo/client'
+import { useMutation } from "@apollo/client/react";
 import { FINALIZE_FRAGRANCE_DRAFT_IMAGE_MUTATION } from '../graphql/mutations'
 import { type FinalizeFragranceDraftImageInput } from '@/generated/graphql'
 import { ResultAsync } from 'neverthrow'
-import { checkNullFetchResponse, toApolloError } from '@/common/error'
+import { checkNullFetchResponse, toApolloError } from '@/utils/error'
 
 export const useFinalizeFragranceDraftImage = () => {
   const [finalizeImageInner] = useMutation(FINALIZE_FRAGRANCE_DRAFT_IMAGE_MUTATION)

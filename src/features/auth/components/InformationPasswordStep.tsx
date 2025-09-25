@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import EmailInput from './EmailInput'
 import SubmitButton from '@/components/SubmitButton'
 import { useAuthContext } from '../contexts/AuthContext'
-import { extractGraphQLError } from '@/common/error'
+import { extractGraphQLError } from '@/utils/error'
 import ErrorFeedback from '@/components/ErrorFeedback'
 
 export interface InformationPasswordStepProps {

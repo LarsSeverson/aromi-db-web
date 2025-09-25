@@ -1,7 +1,7 @@
-import { useMutation } from '@apollo/client'
+import { useMutation } from "@apollo/client/react";
 import { UPDATE_USER_AVATAR_MUTATION } from '../graphql/mutations'
 import { ResultAsync } from 'neverthrow'
-import { checkNullFetchResponse, toApolloError } from '@/common/error'
+import { checkNullFetchResponse, toApolloError } from '@/utils/error'
 import { type StageAssetInput } from '@/generated/graphql'
 
 export const useUpdateUserAvatar = () => {

@@ -1,7 +1,7 @@
 import { ResultAsync } from 'neverthrow'
 import { LOG_OUT_MUTATION } from '../graphql/mutations'
-import { useMutation } from '@apollo/client'
-import { toApolloError } from '@/common/error'
+import { useMutation } from "@apollo/client/react";
+import { toApolloError } from '@/utils/error'
 
 export const useLogOut = () => {
   const [

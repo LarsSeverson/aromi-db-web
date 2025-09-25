@@ -1,6 +1,6 @@
 import React from 'react'
 import { createFileRoute } from '@tanstack/react-router'
-import { client } from '@/common/client'
+import { client } from '@/utils/client'
 import { USER_QUERY } from '@/features/users'
 import UserPage from '@/features/users/pages/UserPage'
 import topbar from 'topbar'

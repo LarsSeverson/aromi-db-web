@@ -1,9 +1,18 @@
-import { type PageInfo } from '@/generated/graphql'
-import { NetworkStatus, type Reference } from '@apollo/client'
-import { mergeDeep } from '@apollo/client/utilities'
-import { type TRelayEdge, type RelayFieldPolicy, type TRelayPageInfo } from '@apollo/client/utilities/policies/pagination'
+import type { Maybe, PageInfo } from '@/generated/graphql'
+import { type FieldPolicy, NetworkStatus, type Reference } from '@apollo/client'
 
-export const getExtras = (obj: unknown): object => ({})
+export interface RelayEdge<TNode> {
+  node: TNode
+  cursor?: Maybe<string>
+  __typename?: string
+}
+
+export interface RelayConnection<TNode> {
+  edges: Array<RelayEdge<TNode>>
+  pageInfo: PageInfo
+}
+
+export const getExtras = (_: unknown): object => ({})
 
 export const makeEmptyData = () => ({
   edges: [],
@@ -16,31 +25,29 @@ export const makeEmptyData = () => ({
 })
 
 export const customRelayStylePagination = <TNode extends Reference = Reference> (
-  keyArgs: RelayFieldPolicy<TNode>['keyArgs'] = false
-): RelayFieldPolicy<TNode> => {
+  keyArgs: FieldPolicy<RelayConnection<TNode>>['keyArgs'] = false
+): FieldPolicy<RelayConnection<TNode>> => {
   return {
     keyArgs,
 
-    read (existing, { canRead, readField }) {
+    read (existing, { canRead, readField, toReference }) {
       if (existing == null) return existing
 
-      const edges: Array<TRelayEdge<TNode>> = []
-
+      const edges: Array<RelayEdge<TNode>> = []
       let firstEdgeCursor = ''
       let lastEdgeCursor = ''
 
-      existing
-        .edges
-        .forEach(edge => {
-          const node = readField('node', edge)
-          if (canRead(node)) {
-            edges.push(edge)
-            if (edge.cursor != null) {
-              firstEdgeCursor = firstEdgeCursor ?? edge.cursor
-              lastEdgeCursor = edge.cursor
-            }
+      existing.edges.forEach(edge => {
+        const ref = toReference(edge.node)
+        const node = readField('node', ref)
+        if (canRead(node)) {
+          edges.push(edge)
+          if (edge.cursor != null) {
+            firstEdgeCursor ||= edge.cursor
+            lastEdgeCursor = edge.cursor
           }
-        })
+        }
+      })
 
       if (edges.length > 1 && firstEdgeCursor === lastEdgeCursor) {
         firstEdgeCursor = ''
@@ -59,44 +66,30 @@ export const customRelayStylePagination = <TNode extends Reference = Reference> 
       }
     },
 
-    merge (existing, incoming, { args, isReference, readField }) {
-      if (existing == null) {
-        existing = makeEmptyData()
-      }
+    merge (existing, incoming, { isReference, readField }) {
+      existing ??= makeEmptyData()
 
       if (incoming == null) return existing
 
-      const incomingEdges = incoming
-        .edges?.map(edge => {
-          if (isReference((edge = { ...edge }))) {
-            edge.cursor = readField('cursor', edge)
-          }
-
-          return edge
+      const incomingEdges = incoming.edges?.map(
+        edge => {
+          const copy = { ...edge }
+          if (isReference(copy)) copy.cursor = readField('cursor', copy)
+          return copy
         }) ?? []
 
-      if (incoming.pageInfo != null) {
-        const { pageInfo } = incoming
+      const firstEdge = incomingEdges[0]
+      const lastEdge = incomingEdges[incomingEdges.length - 1]
+      const { startCursor, endCursor } = incoming.pageInfo ?? {}
 
-        const { startCursor, endCursor } = pageInfo
-        const firstEdge = incomingEdges.at(0)
-        const lastEdge = incomingEdges.at(-1)
+      const startLength = startCursor?.length ?? 0
+      const endLength = endCursor?.length ?? 0
 
-        if (firstEdge != null && startCursor.length > 0) firstEdge.cursor = startCursor
-        if (lastEdge != null && endCursor.length > 0) lastEdge.cursor = endCursor
-
-        const firstCursor = firstEdge?.cursor
-        if ((firstCursor != null) && firstCursor.length > 0 && (startCursor.length === 0)) {
-          incoming = mergeDeep(incoming, { pageInfo: { startCursor: firstCursor } })
-        }
-        const lastCursor = lastEdge?.cursor
-        if ((lastCursor != null) && lastCursor.length > 0 && (endCursor.length === 0)) {
-          incoming = mergeDeep(incoming, { pageInfo: { endCursor: lastCursor } })
-        }
-      }
+      if (firstEdge && startLength > 0) firstEdge.cursor = startCursor
+      if (lastEdge && endLength > 0) lastEdge.cursor = endCursor
 
       const edges = existing.edges.concat(incomingEdges)
-      const pageInfo: TRelayPageInfo = { ...existing.pageInfo, ...incoming.pageInfo }
+      const pageInfo: PageInfo = { ...existing.pageInfo, ...incoming.pageInfo }
 
       return {
         ...getExtras(existing),
@@ -127,21 +120,16 @@ export const isEdgeNodeObject = <T>(value: unknown): value is NodeWithEdges<T> =
     value !== null &&
     typeof value === 'object' &&
     'edges' in value &&
-    Array
-      .isArray(value.edges) &&
-    value
-      .edges
-      .every(
-        (e) => typeof e === 'object' && e !== null && 'node' in e
-      )
+    Array.isArray((value as NodeWithEdges<T>).edges) &&
+    (value as NodeWithEdges<T>).edges.every(
+      e => typeof e === 'object' && e !== null && 'node' in e
+    )
   )
 }
 
 export const flatten = <T>(input: T): FlattenEdges<T> => {
   if (isEdgeNodeObject(input)) {
-    return input
-      .edges
-      .map(edge => flatten(edge.node)) as FlattenEdges<T>
+    return input.edges.map(edge => flatten(edge.node)) as FlattenEdges<T>
   }
 
   if (Array.isArray(input)) {
@@ -150,16 +138,13 @@ export const flatten = <T>(input: T): FlattenEdges<T> => {
 
   if (typeof input === 'object' && input !== null) {
     const result: Record<string, unknown> = {}
-
     for (const key in input) {
-      const value = input[key]
+      const value = (input as Record<string, unknown>)[key]
       const isValueAnEdgeObject = isEdgeNodeObject(value)
-
       result[key] = isValueAnEdgeObject
         ? value.edges.map(edge => flatten(edge.node))
         : flatten(value)
     }
-
     return result as FlattenEdges<T>
   }
 

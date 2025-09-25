@@ -1,4 +1,4 @@
-import { type ZodType } from 'zod'
+import { z, type ZodType } from 'zod'
 
 export const getFieldErrors = <T>(
   formData: FormData,
@@ -10,7 +10,7 @@ export const getFieldErrors = <T>(
   const result = schema.safeParse(parsed)
 
   if (!result.success) {
-    const formatted = result.error.flatten().fieldErrors
+    const formatted = z.flattenError(result.error)
     return formatted
   }
 

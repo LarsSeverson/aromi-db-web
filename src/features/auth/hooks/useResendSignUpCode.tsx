@@ -1,8 +1,8 @@
 import { type ResendSignUpCodeInput } from '@/generated/graphql'
 import { RESEND_SIGN_UP_CODE_MUTATION } from '../graphql/mutations'
-import { useMutation } from '@apollo/client'
+import { useMutation } from "@apollo/client/react";
 import { ResultAsync } from 'neverthrow'
-import { toApolloError } from '@/common/error'
+import { toApolloError } from '@/utils/error'
 
 export const useResendSignUpCode = () => {
   const [

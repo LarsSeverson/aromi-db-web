@@ -1,8 +1,8 @@
 import { type ConfirmForgotPasswordInput } from '@/generated/graphql'
 import { CONFIRM_FORGOT_PASSWORD_MUTATION } from '../graphql/mutations'
-import { useMutation } from '@apollo/client'
+import { useMutation } from "@apollo/client/react";
 import { ResultAsync } from 'neverthrow'
-import { toApolloError } from '@/common/error'
+import { toApolloError } from '@/utils/error'
 
 export const useConfirmForgotPassword = () => {
   const [

@@ -1,6 +1,5 @@
 import { errAsync, type ResultAsync } from 'neverthrow'
 import { type IFragranceDraftShell } from '../types'
-import { type ApolloError } from '@apollo/client'
 import { useWithStatus } from '@/hooks/useWithStatus'
 import { useResultAsyncQueue } from '@/hooks/useResultAsyncQueue'
 import { useCallback, useEffect, useRef } from 'react'

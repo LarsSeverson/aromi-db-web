@@ -3,8 +3,8 @@ import { createRoot } from 'react-dom/client'
 import { createRouter } from '@tanstack/react-router'
 import { routeTree } from './routeTree.gen'
 import App from './App'
-import { ApolloProvider } from '@apollo/client'
-import { client } from './common/client'
+import { ApolloProvider } from '@apollo/client/react'
+import { client } from './utils/client'
 import topbar from 'topbar'
 import { AuthProvider } from './features/auth'
 import { Toast } from '@base-ui-components/react'
@@ -23,7 +23,6 @@ export const router = createRouter({
   scrollRestoration: true,
   getScrollRestorationKey: location => {
     if (location.pathname === '/') return 'homeScrollPos'
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return location.state.key!
   },
   notFoundMode: 'root'

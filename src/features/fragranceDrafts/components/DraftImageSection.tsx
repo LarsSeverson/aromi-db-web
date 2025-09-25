@@ -5,7 +5,7 @@ import { MdErrorOutline } from 'react-icons/md'
 import clsx from 'clsx'
 import { useFragranceDraftContext } from '../contexts/FragranceDraftContext'
 import { useFragranceDraftPreview } from '../hooks/useFragranceDraftPreview'
-import { extractGraphQLError, extractGraphQLErrorStatuses } from '@/common/error'
+import { extractGraphQLError, extractGraphQLErrorStatuses } from '@/utils/error'
 
 const DraftImageSection = () => {
   const { id, updateImage } = useFragranceDraftContext()
