@@ -1,17 +1,14 @@
 import type { AccordPaginationInput } from '@/generated/graphql'
-import { NetworkStatus } from '@apollo/client'
 import { useQuery } from '@apollo/client/react'
 import { ACCORDS_QUERY } from '../graphql/queries'
 import { flatten, validatePagination } from '@/utils/pagination'
-import { noRes } from '@/utils/util'
-import { ResultAsync } from 'neverthrow'
+import { hasNextPage, isStatusLoadingMore, noRes, wrapQuery } from '@/utils/util'
 import { useMemo } from 'react'
-import { getServerErrorInfo } from '@/utils/error'
 
 export const useAccords = (input?: AccordPaginationInput) => {
   const {
-    data, loading, error, networkStatus,
-    refetch, fetchMore
+    data, loading: isLoading, error, networkStatus,
+    fetchMore
   } = useQuery(ACCORDS_QUERY, { variables: { input } })
 
   const loadMore = () => {
@@ -26,12 +23,7 @@ export const useAccords = (input?: AccordPaginationInput) => {
       }
     }
 
-    return ResultAsync
-      .fromPromise(
-        fetchMore({ variables }),
-        getServerErrorInfo
-      )
-      .map(result => result.data.accords)
+    return wrapQuery(fetchMore({ variables })).map(data => flatten(data.accords))
   }
 
   const accords = useMemo(
@@ -39,19 +31,18 @@ export const useAccords = (input?: AccordPaginationInput) => {
     [data?.accords]
   )
 
-  const loadingMore = networkStatus === NetworkStatus.fetchMore
-  const hasMore = data?.accords.pageInfo.hasNextPage ?? true
+  const isLoadingMore = isStatusLoadingMore(networkStatus)
+  const hasMore = hasNextPage(data?.accords.pageInfo)
 
   return {
-    data: accords,
+    accords,
 
-    loading,
-    loadingMore,
+    isLoading,
+    isLoadingMore,
     hasMore,
 
     error,
 
-    refetch,
     loadMore
   }
 }

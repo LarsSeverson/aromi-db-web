@@ -5,17 +5,17 @@ export const UPDATE_USER_MUTATION = gql(/* GraphQL */`
     $input: UpdateUserInput!
   ) {
     updateUser(input: $input) {
-      ...UserSummaryFragment
+      ...UserFragment
     }
   }
 `)
 
-export const UPDATE_USER_AVATAR_MUTATION = gql(/* GraphQL */`
-  mutation UpdateUserAvatar(
-    $input: StageAssetInput!
+export const SET_USER_AVATAR_MUTATION = gql(/* GraphQL */`
+  mutation SetUserAvatar(
+    $input: SetUserAvatarInput!
   ) {
-    updateUserAvatar(input: $input) {
-      ...PresignedUploadFragment
+    setUserAvatar(input: $input) {
+      ...UserFragment
     }
-  }
+  } 
 `)

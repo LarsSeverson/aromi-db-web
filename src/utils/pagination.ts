@@ -1,4 +1,4 @@
-import type { Maybe, PageInfo } from '@/generated/graphql'
+import type { Maybe, PageInfo, SearchPageInfo } from '@/generated/graphql'
 import { type FieldPolicy, NetworkStatus, type Reference } from '@apollo/client'
 
 export interface RelayEdge<TNode> {
@@ -85,8 +85,8 @@ export const customRelayStylePagination = <TNode extends Reference = Reference> 
       const startLength = startCursor?.length ?? 0
       const endLength = endCursor?.length ?? 0
 
-      if (firstEdge && startLength > 0) firstEdge.cursor = startCursor
-      if (lastEdge && endLength > 0) lastEdge.cursor = endCursor
+      if (firstEdge != null && startLength > 0) firstEdge.cursor = startCursor
+      if (lastEdge != null && endLength > 0) lastEdge.cursor = endCursor
 
       const edges = existing.edges.concat(incomingEdges)
       const pageInfo: PageInfo = { ...existing.pageInfo, ...incoming.pageInfo }
@@ -138,6 +138,7 @@ export const flatten = <T>(input: T): FlattenEdges<T> => {
 
   if (typeof input === 'object' && input !== null) {
     const result: Record<string, unknown> = {}
+    // eslint-disable-next-line guard-for-in
     for (const key in input) {
       const value = (input as Record<string, unknown>)[key]
       const isValueAnEdgeObject = isEdgeNodeObject(value)
@@ -162,4 +163,17 @@ export const validatePagination = (
   ) return null
 
   return pageInfo.endCursor
+}
+
+export const validateSearchPagination = (
+  pageInfo: SearchPageInfo | undefined,
+  networkStatus: NetworkStatus
+) => {
+  if (
+    networkStatus === NetworkStatus.fetchMore ||
+    pageInfo?.endOffset == null ||
+    !pageInfo.hasNextPage
+  ) return null
+
+  return pageInfo.endOffset
 }

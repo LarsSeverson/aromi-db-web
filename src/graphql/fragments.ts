@@ -9,6 +9,16 @@ export const PageInfoFragment = gql(/* GraphQL */`
   }
 `)
 
+export const SearchPageInfoFragment = gql(/* GraphQL */`
+  fragment SearchPageInfoFragment on SearchPageInfo {
+    hasPreviousPage
+    hasNextPage
+    startOffset
+    endOffset
+    pageSize
+  }
+`)
+
 export const VoteInfoFragment = gql(/* GraphQL */`
   fragment VoteInfoFragment on VoteInfo {
     upvotes 

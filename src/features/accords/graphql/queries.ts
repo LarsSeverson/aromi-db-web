@@ -33,7 +33,14 @@ export const SEARCH_ACCORDS_QUERY = gql(/* GraphQL */`
     $input: SearchInput
   ) {
     searchAccords(input: $input) {
-      ...AccordFragment
+      edges {
+        node {
+          ...AccordFragment 
+        }
+      } 
+      pageInfo {
+        ...SearchPageInfoFragment
+      }
     }
   }
 `)

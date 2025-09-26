@@ -32,7 +32,7 @@ export const CREATE_ACCORD_REQUEST_MUTATION = gql(/* GraphQL */`
   }
 `)
 
-export const UPDTE_ACCORD_REQUEST_MUTATION = gql(/* GraphQL */`
+export const UPDATE_ACCORD_REQUEST_MUTATION = gql(/* GraphQL */`
   mutation UpdateAccordRequestMutation(
     $input: UpdateAccordRequestInput!
   ) {
