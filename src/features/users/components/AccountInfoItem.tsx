@@ -1,6 +1,6 @@
 import React from 'react'
 import UserAvatar from './UserAvatar'
-import { type IUserSummary } from '../types'
+import type { IUserSummary } from '../types'
 import MenuItem from '@/components/MenuItem'
 import { Link } from '@tanstack/react-router'
 
@@ -20,7 +20,7 @@ const AccountInfoItem = (props: AccountInfoItemProps) => {
         className='flex py-2 pl-4 pr-8'
       >
         <div
-          className='h-16'
+          className='h-16 border rounded-full overflow-hidden'
         >
           <UserAvatar
             user={user}

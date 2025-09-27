@@ -1,5 +1,5 @@
+import type { SvgProps } from '@/components/Svg'
 import React from 'react'
-import { type SvgProps } from '../../../components/Svg'
 
 const ProjectionSvg = (props: SvgProps) => {
   const { width = 32, height = 32, color = 'black' } = props
@@ -17,7 +17,6 @@ const ProjectionSvg = (props: SvgProps) => {
         fill={color}
       />
     </svg>
-
   )
 }
 

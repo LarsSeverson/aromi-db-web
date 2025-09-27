@@ -106,6 +106,7 @@ type Documents = {
     "\n  query FragranceRequestsQuery(\n    $input: RequestPaginationInput\n  ) {\n    fragranceRequests(input: $input) {\n      edges {\n        node {\n          ...FragranceRequestPreviewFragment \n        }\n      }\n      pageInfo {\n        ...PageInfoFragment\n      }\n    }\n  }\n": typeof types.FragranceRequestsQueryDocument,
     "\n  query FragranceRequestAccordsQuery (\n    $id: ID!\n  ) {\n    fragranceRequest(id: $id) {\n      ...FragranceRequestPreviewFragment\n      accords {\n        ...AccordFragment\n      }\n    }\n  }\n": typeof types.FragranceRequestAccordsQueryDocument,
     "\n  query FragranceRequestNotesQuery (\n    $id: ID!\n  ) {\n    fragranceRequest(id: $id) { \n      ...FragranceRequestPreviewFragment\n      \n      topNotes: notes(layer: TOP) {\n        ...FragranceRequestNoteFragment\n      }\n\n      middleNotes: notes(layer: MIDDLE) {\n        ...FragranceRequestNoteFragment\n      }\n\n      baseNotes: notes(layer: BASE) {\n        ...FragranceRequestNoteFragment\n      }\n    }\n  }\n": typeof types.FragranceRequestNotesQueryDocument,
+    "\n  query FragranceRequestTraitQuery (\n    $id: ID!\n    $type: TraitTypeEnum!\n  ) {\n    fragranceRequest(id: $id) {\n      ...FragranceRequestPreviewFragment\n      trait(type: $type) {\n        ...FragranceRequestTraitFragment\n      }\n    }\n  }\n": typeof types.FragranceRequestTraitQueryDocument,
     "\n  fragment NoteFragment on Note { \n    id\n    name\n    thumbnail {\n      ...AssetFragment\n    }\n  }\n": typeof types.NoteFragmentFragmentDoc,
     "\n  fragment NotePreviewFragment on Note { \n    id\n    name\n    thumbnail {\n      ...AssetPreviewFragment\n    }\n  }\n": typeof types.NotePreviewFragmentFragmentDoc,
     "\n  fragment NoteEditFragment on NoteEdit { \n    id\n    status\n    reason\n\n    proposedName\n    proposedDescription\n    proposedThumbnail {\n      ...AssetPreviewFragment\n    }\n\n    note {\n      ...NotePreviewFragment\n    }\n    user {\n      ...UserPreviewFragment\n    }\n    reviewer {\n      ...UserPreviewFragment\n    }\n  }\n": typeof types.NoteEditFragmentFragmentDoc,
@@ -130,8 +131,8 @@ type Documents = {
     "\n  fragment TraitVoteFragment on TraitVote {\n    option {\n      ...TraitOptionFragment\n    } \n  }\n": typeof types.TraitVoteFragmentFragmentDoc,
     "\n  fragment UserFragment on User {\n    id\n    username\n    email\n    avatar {\n      ...AssetPreviewFragment\n    }\n  }\n": typeof types.UserFragmentFragmentDoc,
     "\n  fragment UserPreviewFragment on User {\n    id\n    username\n    avatar {\n      ...AssetPreviewFragment\n    }\n  }\n": typeof types.UserPreviewFragmentFragmentDoc,
-    "\n  mutation UpdateUser(\n    $input: UpdateUserInput!\n  ) {\n    updateUser(input: $input) {\n      ...UserFragment\n    }\n  }\n": typeof types.UpdateUserDocument,
-    "\n  mutation SetUserAvatar(\n    $input: SetUserAvatarInput!\n  ) {\n    setUserAvatar(input: $input) {\n      ...UserFragment\n    }\n  } \n": typeof types.SetUserAvatarDocument,
+    "\n  mutation UpdateMe(\n    $input: UpdateMeInput!\n  ) {\n    updateMe(input: $input) {\n      ...UserFragment\n    }\n  }\n": typeof types.UpdateMeDocument,
+    "\n  mutation SetMyAvatar(\n    $input: SetMyAvatarInput!\n  ) {\n    setMyAvatar(input: $input) {\n      ...UserFragment\n    }\n  }\n": typeof types.SetMyAvatarDocument,
     "\n  query Me {\n    me {\n      ...UserFragment\n    }\n  }\n": typeof types.MeDocument,
     "\n  query MyFragranceRequests(\n    $input: RequestPaginationInput\n  ) {\n    me {\n      ...UserPreviewFragment\n      fragranceRequests(input: $input) {\n        edges {\n          node {\n            ...FragranceRequestFragment \n          }\n        }\n        pageInfo {\n          ...PageInfoFragment\n        }\n      }\n    }\n  }\n": typeof types.MyFragranceRequestsDocument,
     "\n  query MyBrandRequests(\n    $input: RequestPaginationInput\n  ) {\n    me {\n      ...UserPreviewFragment\n      brandRequests(input: $input) {\n        edges {\n          node {\n            ...BrandRequestFragment \n          }\n        }\n        pageInfo {\n          ...PageInfoFragment\n        }\n      }\n    }\n  }\n": typeof types.MyBrandRequestsDocument,
@@ -239,6 +240,7 @@ const documents: Documents = {
     "\n  query FragranceRequestsQuery(\n    $input: RequestPaginationInput\n  ) {\n    fragranceRequests(input: $input) {\n      edges {\n        node {\n          ...FragranceRequestPreviewFragment \n        }\n      }\n      pageInfo {\n        ...PageInfoFragment\n      }\n    }\n  }\n": types.FragranceRequestsQueryDocument,
     "\n  query FragranceRequestAccordsQuery (\n    $id: ID!\n  ) {\n    fragranceRequest(id: $id) {\n      ...FragranceRequestPreviewFragment\n      accords {\n        ...AccordFragment\n      }\n    }\n  }\n": types.FragranceRequestAccordsQueryDocument,
     "\n  query FragranceRequestNotesQuery (\n    $id: ID!\n  ) {\n    fragranceRequest(id: $id) { \n      ...FragranceRequestPreviewFragment\n      \n      topNotes: notes(layer: TOP) {\n        ...FragranceRequestNoteFragment\n      }\n\n      middleNotes: notes(layer: MIDDLE) {\n        ...FragranceRequestNoteFragment\n      }\n\n      baseNotes: notes(layer: BASE) {\n        ...FragranceRequestNoteFragment\n      }\n    }\n  }\n": types.FragranceRequestNotesQueryDocument,
+    "\n  query FragranceRequestTraitQuery (\n    $id: ID!\n    $type: TraitTypeEnum!\n  ) {\n    fragranceRequest(id: $id) {\n      ...FragranceRequestPreviewFragment\n      trait(type: $type) {\n        ...FragranceRequestTraitFragment\n      }\n    }\n  }\n": types.FragranceRequestTraitQueryDocument,
     "\n  fragment NoteFragment on Note { \n    id\n    name\n    thumbnail {\n      ...AssetFragment\n    }\n  }\n": types.NoteFragmentFragmentDoc,
     "\n  fragment NotePreviewFragment on Note { \n    id\n    name\n    thumbnail {\n      ...AssetPreviewFragment\n    }\n  }\n": types.NotePreviewFragmentFragmentDoc,
     "\n  fragment NoteEditFragment on NoteEdit { \n    id\n    status\n    reason\n\n    proposedName\n    proposedDescription\n    proposedThumbnail {\n      ...AssetPreviewFragment\n    }\n\n    note {\n      ...NotePreviewFragment\n    }\n    user {\n      ...UserPreviewFragment\n    }\n    reviewer {\n      ...UserPreviewFragment\n    }\n  }\n": types.NoteEditFragmentFragmentDoc,
@@ -263,8 +265,8 @@ const documents: Documents = {
     "\n  fragment TraitVoteFragment on TraitVote {\n    option {\n      ...TraitOptionFragment\n    } \n  }\n": types.TraitVoteFragmentFragmentDoc,
     "\n  fragment UserFragment on User {\n    id\n    username\n    email\n    avatar {\n      ...AssetPreviewFragment\n    }\n  }\n": types.UserFragmentFragmentDoc,
     "\n  fragment UserPreviewFragment on User {\n    id\n    username\n    avatar {\n      ...AssetPreviewFragment\n    }\n  }\n": types.UserPreviewFragmentFragmentDoc,
-    "\n  mutation UpdateUser(\n    $input: UpdateUserInput!\n  ) {\n    updateUser(input: $input) {\n      ...UserFragment\n    }\n  }\n": types.UpdateUserDocument,
-    "\n  mutation SetUserAvatar(\n    $input: SetUserAvatarInput!\n  ) {\n    setUserAvatar(input: $input) {\n      ...UserFragment\n    }\n  } \n": types.SetUserAvatarDocument,
+    "\n  mutation UpdateMe(\n    $input: UpdateMeInput!\n  ) {\n    updateMe(input: $input) {\n      ...UserFragment\n    }\n  }\n": types.UpdateMeDocument,
+    "\n  mutation SetMyAvatar(\n    $input: SetMyAvatarInput!\n  ) {\n    setMyAvatar(input: $input) {\n      ...UserFragment\n    }\n  }\n": types.SetMyAvatarDocument,
     "\n  query Me {\n    me {\n      ...UserFragment\n    }\n  }\n": types.MeDocument,
     "\n  query MyFragranceRequests(\n    $input: RequestPaginationInput\n  ) {\n    me {\n      ...UserPreviewFragment\n      fragranceRequests(input: $input) {\n        edges {\n          node {\n            ...FragranceRequestFragment \n          }\n        }\n        pageInfo {\n          ...PageInfoFragment\n        }\n      }\n    }\n  }\n": types.MyFragranceRequestsDocument,
     "\n  query MyBrandRequests(\n    $input: RequestPaginationInput\n  ) {\n    me {\n      ...UserPreviewFragment\n      brandRequests(input: $input) {\n        edges {\n          node {\n            ...BrandRequestFragment \n          }\n        }\n        pageInfo {\n          ...PageInfoFragment\n        }\n      }\n    }\n  }\n": types.MyBrandRequestsDocument,
@@ -665,6 +667,10 @@ export function gql(source: "\n  query FragranceRequestNotesQuery (\n    $id: ID
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function gql(source: "\n  query FragranceRequestTraitQuery (\n    $id: ID!\n    $type: TraitTypeEnum!\n  ) {\n    fragranceRequest(id: $id) {\n      ...FragranceRequestPreviewFragment\n      trait(type: $type) {\n        ...FragranceRequestTraitFragment\n      }\n    }\n  }\n"): (typeof documents)["\n  query FragranceRequestTraitQuery (\n    $id: ID!\n    $type: TraitTypeEnum!\n  ) {\n    fragranceRequest(id: $id) {\n      ...FragranceRequestPreviewFragment\n      trait(type: $type) {\n        ...FragranceRequestTraitFragment\n      }\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function gql(source: "\n  fragment NoteFragment on Note { \n    id\n    name\n    thumbnail {\n      ...AssetFragment\n    }\n  }\n"): (typeof documents)["\n  fragment NoteFragment on Note { \n    id\n    name\n    thumbnail {\n      ...AssetFragment\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -761,11 +767,11 @@ export function gql(source: "\n  fragment UserPreviewFragment on User {\n    id\
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation UpdateUser(\n    $input: UpdateUserInput!\n  ) {\n    updateUser(input: $input) {\n      ...UserFragment\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateUser(\n    $input: UpdateUserInput!\n  ) {\n    updateUser(input: $input) {\n      ...UserFragment\n    }\n  }\n"];
+export function gql(source: "\n  mutation UpdateMe(\n    $input: UpdateMeInput!\n  ) {\n    updateMe(input: $input) {\n      ...UserFragment\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateMe(\n    $input: UpdateMeInput!\n  ) {\n    updateMe(input: $input) {\n      ...UserFragment\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation SetUserAvatar(\n    $input: SetUserAvatarInput!\n  ) {\n    setUserAvatar(input: $input) {\n      ...UserFragment\n    }\n  } \n"): (typeof documents)["\n  mutation SetUserAvatar(\n    $input: SetUserAvatarInput!\n  ) {\n    setUserAvatar(input: $input) {\n      ...UserFragment\n    }\n  } \n"];
+export function gql(source: "\n  mutation SetMyAvatar(\n    $input: SetMyAvatarInput!\n  ) {\n    setMyAvatar(input: $input) {\n      ...UserFragment\n    }\n  }\n"): (typeof documents)["\n  mutation SetMyAvatar(\n    $input: SetMyAvatarInput!\n  ) {\n    setMyAvatar(input: $input) {\n      ...UserFragment\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

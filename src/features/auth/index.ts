@@ -1,8 +1,8 @@
 export * from './graphql/fragments'
 export * from './graphql/mutations'
 
-export * from './contexts/AuthContext'
-export * from './contexts/AuthProvider'
+export * from './context/AuthContext'
+export * from './context/AuthProvider'
 
 export * from './hooks/useAuth'
 export * from './hooks/useConfirmForgotPassword'

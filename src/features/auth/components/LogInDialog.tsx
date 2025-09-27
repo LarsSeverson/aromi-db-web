@@ -73,14 +73,14 @@ const LogInDialog = () => {
               <InformationLogInStep
                 onNotConfirmed={handleOnNotConfirmed}
               />
-              )
+            )
             : (
               <ConfirmSignUpStep
                 text={`We sent a code to "${email}".`}
                 email={email}
                 password={password}
               />
-              )}
+            )}
         </DialogPopup>
       </Dialog.Portal>
     </Dialog.Root>

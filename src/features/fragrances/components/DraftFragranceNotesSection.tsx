@@ -5,52 +5,11 @@ import { AccordionPanel } from '@/components/Accordion/AccordionPanel'
 import { AccordionRoot } from '@/components/Accordion/AccordionRoot'
 import { AccordionTrigger } from '@/components/Accordion/AccordionTrigger'
 import SelectInput from '@/components/SelectInput'
-import { useNotes } from '@/features/notes/hooks/useNotes'
 import { NOTE_LAYER_OPTIONS } from '@/features/notes/types'
-import clsx from 'clsx'
-import React, { useMemo, useState } from 'react'
-import DraftNotesGrid from './DraftNotesGrid'
+import React, { useState } from 'react'
 
 const DraftFragranceNotesSection = () => {
-  const {
-    data: notes,
-
-    loading,
-    loadingMore,
-    hasMore,
-
-    loadMore
-  } = useNotes()
-
-  const [isExpanded, setIsExpanded] = useState(false)
   const [selectedLayer, setSelectedLayer] = useState(NOTE_LAYER_OPTIONS[0].value)
-
-  const trimmed = useMemo(
-    () => isExpanded ? notes : notes.slice(0, 24),
-    [isExpanded, notes]
-  )
-
-  const canShowMore = useMemo(
-    () => hasMore || (!hasMore && !isExpanded),
-    [hasMore, isExpanded]
-  )
-
-  const handeOnShowMore = () => {
-    setIsExpanded(true)
-    void loadMore()
-  }
-
-  const handleOnNotHasMore = () => {
-    setIsExpanded(prev => !prev)
-  }
-
-  const handleOnShowMoreOrNotHasMore = () => {
-    if (!hasMore) {
-      handleOnNotHasMore()
-    } else {
-      handeOnShowMore()
-    }
-  }
 
   return (
     <section
@@ -91,24 +50,6 @@ const DraftFragranceNotesSection = () => {
             <div
               className='w-full flex flex-col'
             >
-              <DraftNotesGrid
-                key={selectedLayer}
-                notes={trimmed}
-                layer={selectedLayer}
-                isLoading={loading || loadingMore}
-              />
-
-              <button
-                type='button'
-                className={clsx(
-                  'font-semibold text-md border self-center min-w-52',
-                  'px-3 py-2 rounded-sm mt-3',
-                  hasMore && 'hover:bg-surface'
-                )}
-                onClick={handleOnShowMoreOrNotHasMore}
-              >
-                {canShowMore ? 'Show More' : 'Show Less'}
-              </button>
             </div>
           </AccordionPanel>
         </AccordionItem>

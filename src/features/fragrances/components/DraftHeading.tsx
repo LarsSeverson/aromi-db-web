@@ -1,7 +1,7 @@
 import React from 'react'
-import { useFragranceDraftContext } from '../contexts/FragranceDraftContext'
 import Divider from '@/components/Divider'
-import { useFragranceDraftSummary } from '../hooks/useFragranceDraftSummary'
+import { useFragranceRequestDraftContext } from '../context/FragranceRequestDraftContext'
+import { useFragranceRequest } from '../hooks/useFragranceRequest'
 
 const DRAFT_STATUS_TEXT = {
   idle: null,
@@ -10,11 +10,11 @@ const DRAFT_STATUS_TEXT = {
   error: 'Unable to save changes'
 }
 
-const FragranceDraftHeading = () => {
-  const { id, status } = useFragranceDraftContext()
+const DraftHeading = () => {
+  const { id, status } = useFragranceRequestDraftContext()
 
-  const { summary } = useFragranceDraftSummary(id)
-  const { name } = summary ?? {}
+  const { fragranceRequest } = useFragranceRequest(id)
+  const { name } = fragranceRequest ?? {}
 
   return (
     <div
@@ -44,4 +44,4 @@ const FragranceDraftHeading = () => {
   )
 }
 
-export default FragranceDraftHeading
+export default DraftHeading

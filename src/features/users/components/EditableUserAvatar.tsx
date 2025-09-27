@@ -1,48 +1,25 @@
 import React, { useRef, useState } from 'react'
-import { type IUserSummary } from '../types'
+import type { IUserPreview } from '../types'
 import UserAvatar from './UserAvatar'
 import { FiEdit2 } from 'react-icons/fi'
-import { usePollAvatarStatus } from '../hooks/usePollAvatarStatus'
-import { useUpdateUserAvatar } from '../hooks/useUpdateUserAvatar'
 import ErrorFeedback from '@/components/ErrorFeedback'
 import clsx from 'clsx'
 import Spinner from '@/components/Spinner'
-import { useToastMessage } from '@/hooks/useToastMessage'
-import { usePresignedUpload } from '@/hooks/usePresignedUpload'
+import { useSetMyAvatar } from '../hooks/useSetMyAvatar'
 
 export interface EditableUserAvatarProps {
-  user: IUserSummary
+  user: IUserPreview
 }
 
 const EditableUserAvatar = (props: EditableUserAvatarProps) => {
   const { user } = props
 
-  const { upload } = usePresignedUpload()
-  const { toastMessage } = useToastMessage()
-  const { start, stop } = usePollAvatarStatus()
-  const { updateUserAvatar } = useUpdateUserAvatar()
+  const { setAvatarWithFile } = useSetMyAvatar()
 
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
-
-  const handlePollAvatarStatus = () => {
-    start((me) => {
-      if (me?.avatarStatus === 'READY' || me?.avatarStatus === 'FAILED') {
-        setIsLoading(false)
-        stop()
-      }
-
-      if (me?.avatarStatus === 'FAILED') {
-        setError('Something went wrong uploading this file')
-      }
-
-      if (me?.avatarStatus === 'READY') {
-        toastMessage('Picture saved')
-      }
-    })
-  }
 
   const handleUpdateUserAvatar = async (file: File) => {
     if (isLoading) return
@@ -50,21 +27,17 @@ const EditableUserAvatar = (props: EditableUserAvatarProps) => {
     setError(null)
     setIsLoading(true)
 
-    const fileName = file.name
-    const contentType = file.type
-    const contentSize = file.size
-
-    await updateUserAvatar({ id: user.id, fileName, contentType, contentSize })
-      .andThen(presigned => upload(presigned, file))
+    await setAvatarWithFile(file)
       .match(
         () => {
-          handlePollAvatarStatus()
+          //
         },
         () => {
-          setIsLoading(false)
           setError('Something went wrong uploading this file')
         }
       )
+
+    setIsLoading(false)
   }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,28 +58,29 @@ const EditableUserAvatar = (props: EditableUserAvatarProps) => {
       className='flex flex-col items-center'
     >
       <div
-        className='relative'
+        className='relative w-full'
       >
         <button
           onClick={handleOnEdit}
-          className='relative'
+          className='relative border rounded-full overflow-hidden group cursor-pointer w-full'
         >
+          <UserAvatar
+            user={user}
+          />
+
           <div
             className={clsx(
-              isLoading && 'opacity-30'
+              'absolute inset-0 group-hover:bg-dark4/10',
+              isLoading && 'bg-dark4/50'
             )}
-          >
-            <UserAvatar
-              user={user}
-            />
-          </div>
+          />
 
           {isLoading && (
             <div
               className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
             >
               <Spinner
-                size={20}
+                size={10}
               />
             </div>
           )}

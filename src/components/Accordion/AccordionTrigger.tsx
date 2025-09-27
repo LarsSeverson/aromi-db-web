@@ -10,7 +10,7 @@ export const AccordionTrigger = (
     <Accordion.Trigger
       className={clsx(
         'group relative flex w-full items-baseline justify-between gap-4',
-        'py-2 pr-1 pl-3 text-left',
+        'text-left',
         'hover:bg-surface focus-visible:z-1 focus-visible:outline',
         className
       )}

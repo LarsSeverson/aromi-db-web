@@ -2,6 +2,7 @@ export interface NavItem {
   label: string
   href: string
   badge?: string
+  children?: NavItem[]
 }
 
 export interface NavSection {
@@ -40,7 +41,13 @@ export const NAV: NavSection[] = [
       },
       {
         label: 'Drafts',
-        href: '/me/drafts'
+        href: '/me/drafts',
+        children: [
+          { label: 'Fragrances', href: '/drafts/fragrances' },
+          { label: 'Brands', href: '/drafts/brands' },
+          { label: 'Accords', href: '/drafts/accords' },
+          { label: 'Notes', href: '/drafts/notes' }
+        ]
       }
     ]
   }

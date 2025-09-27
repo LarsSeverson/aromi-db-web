@@ -1,9 +1,9 @@
 import SelectInput from '@/components/SelectInput'
 import { CONCENTRATION_OPTIONS } from '../types'
-import { type Concentration } from '@/generated/graphql'
+import type { Concentration } from '@/generated/graphql'
 import { Field } from '@base-ui-components/react'
 import React, { useState } from 'react'
-import { useFragranceDraftContext } from '../contexts/FragranceDraftContext'
+import { useFragranceRequestDraftContext } from '../context/FragranceRequestDraftContext'
 import { useDebounce } from '@/hooks/useDebounce'
 
 const DEFAULT_CONCENTRATION = CONCENTRATION_OPTIONS[0]
@@ -15,14 +15,14 @@ export interface DraftConcentrationInputProps {
 const DraftConcentrationInput = (props: DraftConcentrationInputProps) => {
   const { concentration } = props
 
-  const { updateDraft } = useFragranceDraftContext()
+  const { updateRequest } = useFragranceRequestDraftContext()
 
   const [value, setValue] = useState(concentration ?? DEFAULT_CONCENTRATION.value)
   const [, setSelected] = useState(CONCENTRATION_OPTIONS.find(opt => opt.value === concentration) ?? DEFAULT_CONCENTRATION)
 
-  const handleUpdateDraft = useDebounce(
+  const handleupdateRequest = useDebounce(
     (concentration: Concentration | null) => {
-      void updateDraft({ concentration })
+      void updateRequest({ concentration })
     }
   )
 
@@ -32,7 +32,7 @@ const DraftConcentrationInput = (props: DraftConcentrationInputProps) => {
 
     setValue(newSelected.value)
     setSelected(newSelected)
-    handleUpdateDraft(newSelected.value)
+    handleupdateRequest(newSelected.value)
   }
 
   return (

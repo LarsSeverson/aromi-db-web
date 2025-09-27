@@ -9,7 +9,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "gen:css": "npx tailwindcss -i \"$PWD/src/styles/input.css\" -o \"$PWD/src/styles/output.css\" --watch",
+    "gen:css": "npx @tailwindcss/cli -i \"$PWD/src/styles/input.css\" -o \"$PWD/src/styles/output.css\" --watch",
     "gen:gql": "graphql-codegen --config src/scripts/codegen.ts"
   },
   "dependencies": {
@@ -40,6 +40,7 @@
     "@graphql-codegen/fragment-matcher": "^6.0.0",
     "@graphql-codegen/typescript-react-apollo": "^4.3.3",
     "@stylistic/eslint-plugin": "^5.4.0",
+    "@tailwindcss/cli": "^4.1.13",
     "@tailwindcss/vite": "^4.1.13",
     "@tanstack/eslint-plugin-router": "^1.114.29",
     "@tanstack/react-router-devtools": "^1.114.27",

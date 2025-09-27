@@ -4,10 +4,9 @@ import { Form } from '@base-ui-components/react'
 import EmailInput from './EmailInput'
 import PasswordInput from './PasswordInput'
 import { Link } from '@tanstack/react-router'
-import { useAuthContext } from '../contexts/AuthContext'
+import { useAuthContext } from '../context/AuthContext'
 import { getFieldErrors } from '@/utils/validation'
 import { LogInSchema } from '../utils/validation'
-import { extractGraphQLError } from '@/utils/error'
 import SubmitButton from '@/components/SubmitButton'
 
 export interface InformationLogInStepProps {
@@ -42,13 +41,11 @@ const InformationLogInStep = (props: InformationLogInStepProps) => {
             window.location.reload()
           },
           error => {
-            const code = error.graphQLErrors?.[0].extensions?.code
-
-            if (['NOT_CONFIRMED'].includes(code as string)) {
+            if (['NOT_CONFIRMED'].includes(error.code)) {
               onNotConfirmed(email, password)
             }
 
-            setError(extractGraphQLError(error))
+            setError(error.message)
           }
         )
     }

@@ -2,19 +2,19 @@ import React from 'react'
 import DraftTraitInput from './DraftTraitInput'
 import { GENDER_OPTIONS } from '../types'
 import GenderSvg from '@/features/fragrances/components/GenderSvg'
-import { useFragranceDraftContext } from '../contexts/FragranceDraftContext'
-import { useFragranceDraftTrait } from '../hooks/useFragranceDraftTrait'
+import { useFragranceRequestDraftContext } from '../context/FragranceRequestDraftContext'
 import { useDebounce } from '@/hooks/useDebounce'
-import { type SegmentedVoteLineOption } from '@/components/SegmentedVoteLine'
+import type { SegmentedVoteLineOption } from '@/components/SegmentedVoteLine'
+import { useFragranceRequestTrait } from '../hooks/useFragranceRequestTrait'
 
 const DraftGenderSection = () => {
-  const { id, updateTrait } = useFragranceDraftContext()
-  const { trait, loading } = useFragranceDraftTrait(id, 'GENDER')
+  const { id, setTrait } = useFragranceRequestDraftContext()
+  const { trait, isLoading } = useFragranceRequestTrait(id, 'GENDER')
   const defaultScore = trait?.selectedOption?.score
 
   const handleUpdateTrait = useDebounce(
     (score: number) => {
-      void updateTrait({ score, traitType: 'GENDER' })
+      void setTrait({ score, traitType: 'GENDER' })
     }
   )
 
@@ -23,7 +23,7 @@ const DraftGenderSection = () => {
     handleUpdateTrait(score)
   }
 
-  if (loading) return null
+  if (isLoading) return null
 
   return (
     <section

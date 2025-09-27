@@ -1,30 +1,16 @@
-import { type ConfirmSignUpInput } from '@/generated/graphql'
+import type { ConfirmSignUpInput } from '@/generated/graphql'
 import { CONFIRM_SIGN_UP_MUTATION } from '../graphql/mutations'
-import { useMutation } from "@apollo/client/react";
-import { ResultAsync } from 'neverthrow'
-import { toApolloError } from '@/utils/error'
+import { useMutation } from '@apollo/client/react'
+import { wrapQuery } from '@/utils/util'
 
 export const useConfirmSignUp = () => {
-  const [
-    confirmSignUpInner,
-    { data, loading, error }
-  ] = useMutation(CONFIRM_SIGN_UP_MUTATION)
+  const [confirmSignUpInner] = useMutation(CONFIRM_SIGN_UP_MUTATION)
 
   const confirmSignUp = (
     input: ConfirmSignUpInput
   ) => {
-    return ResultAsync
-      .fromPromise(
-        confirmSignUpInner({ variables: { input } }),
-        toApolloError
-      )
+    return wrapQuery(confirmSignUpInner({ variables: { input } })).map(data => data.confirmSignUp)
   }
 
-  return {
-    data,
-    loading,
-    error,
-
-    confirmSignUp
-  }
+  return { confirmSignUp }
 }

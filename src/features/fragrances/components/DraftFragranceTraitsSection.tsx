@@ -6,18 +6,18 @@ import ProjectionSvg from '@/features/fragrances/components/ProjectionSvg'
 import ComplexitySvg from '@/features/fragrances/components/ComplexitySvg'
 import BalanceSvg from '@/features/fragrances/components/BalanceSvg'
 import AppealSvg from '@/features/fragrances/components/AppealSvg'
-import { useFragranceDraftContext } from '../contexts/FragranceDraftContext'
-import { useFragranceDraftTraits } from '../hooks/useFragranceDraftTraits'
-import { type SegmentedVoteLineOption } from '@/components/SegmentedVoteLine'
+import type { SegmentedVoteLineOption } from '@/components/SegmentedVoteLine'
 import { useDebounce } from '@/hooks/useDebounce'
+import { useFragranceRequestDraftContext } from '../context/FragranceRequestDraftContext'
+import { useFragranceRequest } from '../hooks/useFragranceRequest'
 
 const DraftFragranceTraitsSection = () => {
-  const { id, updateTrait } = useFragranceDraftContext()
-  const { traits, loading } = useFragranceDraftTraits(id)
+  const { id, setTrait } = useFragranceRequestDraftContext()
+  const { fragranceRequest, isLoading } = useFragranceRequest(id)
 
   const traitMap = useMemo(
-    () => new Map(traits?.map(t => [t.traitType, t])),
-    [traits]
+    () => new Map(fragranceRequest?.traits?.map(t => [t.traitType, t])),
+    [fragranceRequest]
   )
 
   const defaultValues = useMemo(
@@ -33,31 +33,31 @@ const DraftFragranceTraitsSection = () => {
 
   const handleUpdateLongevity = useDebounce(
     (score: number) => {
-      void updateTrait({ score, traitType: 'LONGEVITY' })
+      void setTrait({ score, traitType: 'LONGEVITY' })
     }
   )
 
   const handleUpdateProjection = useDebounce(
     (score: number) => {
-      void updateTrait({ score, traitType: 'PROJECTION' })
+      void setTrait({ score, traitType: 'PROJECTION' })
     }
   )
 
   const handleUpdateBalance = useDebounce(
     (score: number) => {
-      void updateTrait({ score, traitType: 'BALANCE' })
+      void setTrait({ score, traitType: 'BALANCE' })
     }
   )
 
   const handleUpdateComplexity = useDebounce(
     (score: number) => {
-      void updateTrait({ score, traitType: 'COMPLEXITY' })
+      void setTrait({ score, traitType: 'COMPLEXITY' })
     }
   )
 
   const handleUpdateAppeal = useDebounce(
     (score: number) => {
-      void updateTrait({ score, traitType: 'APPEAL' })
+      void setTrait({ score, traitType: 'APPEAL' })
     }
   )
 
@@ -86,7 +86,7 @@ const DraftFragranceTraitsSection = () => {
     handleUpdateAppeal(score)
   }
 
-  if (loading) return null
+  if (isLoading) return null
 
   return (
     <section

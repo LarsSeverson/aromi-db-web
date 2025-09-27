@@ -8,7 +8,7 @@ export const AccordionPanel = (props: React.ComponentProps<typeof Accordion.Pane
     <Accordion.Panel
       className={clsx(
         'h-[var(--accordion-panel-height)] overflow-hidden text-base text-dark3',
-        'transition-[height] ease-out data-[ending-style]:h-0 data-[starting-style]:h-0',
+        'transition-[height] ease-out data-[ending-style]:h-0 data-[starting-style]:h-0 p-[1px]',
         className
       )}
       {...rest}

@@ -144,7 +144,7 @@ export const FRAGRANCE_NOTES_LAYER_QUERY = gql(/* GraphQL */`
   }
 `)
 
-/* Fragrance Edits*/
+/* Fragrance Edits */
 export const FRAGRANCE_EDIT_QUERY = gql(/* GraphQL */`
   query FragranceEditQuery(
     $id: ID!
@@ -230,6 +230,20 @@ export const FRAGRANCE_REQUEST_NOTES_QUERY = gql(/* GraphQL */`
 
       baseNotes: notes(layer: BASE) {
         ...FragranceRequestNoteFragment
+      }
+    }
+  }
+`)
+
+export const FRAGRANCE_REQUEST_TRAIT_QUERY = gql(/* GraphQL */`
+  query FragranceRequestTraitQuery (
+    $id: ID!
+    $type: TraitTypeEnum!
+  ) {
+    fragranceRequest(id: $id) {
+      ...FragranceRequestPreviewFragment
+      trait(type: $type) {
+        ...FragranceRequestTraitFragment
       }
     }
   }

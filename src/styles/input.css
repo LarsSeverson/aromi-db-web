@@ -1,10 +1,57 @@
-@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap');
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
-@tailwind base;
-@tailwind components;
+@import "tailwindcss";
+
 @tailwind utilities;
+
+@theme {
+  --color-background: #ffffff;
+  --color-background2: #f6f6f6;
+  --color-background3: #eeeeee;
+  --color-background4: #dddddd;
+  --color-background5: #f9f9fa;
+  
+  --color-surface: #f2f2f2;
+  --color-surface2: #e5e5e5;
+  --color-surface3: #d9d9d9;
+  --color-surface4: #cccccc;
+  
+  --color-dark: #000000;
+  --color-dark2: #1a1a1a;
+  --color-dark3: #2c2c2c;
+  --color-dark4: #404040;
+  
+  --color-primary: #C6471D;
+  --color-primary2: #b2401a;
+  --color-primary3: #9e3917;
+  --color-primary4: #8b3214;
+  --color-primary5: #772b11;
+  --color-primary6: #63240f;
+  --color-primary-hover: #b0431e;
+  
+  --font-inter: "Inter", sans-serif;
+  --font-jp: "Noto Sans JP", sans-serif;
+  
+  --text-md: 0.92rem;
+  
+  --shadow-symmetrical: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+@plugin "tailwind-scrollbar" {
+  preferredStrategy: "pseudoelements";
+}
+
+@layer utilities {
+  .shadow-sym {
+    box-shadow: var(--shadow-symmetrical);
+  }
+}
+
+@utility text-md {
+  font-size: var(--text-md);
+}
 
 html, body {
   @apply bg-background;
@@ -15,9 +62,7 @@ html, body {
 }
 
 * {
-  @apply border-surface;
-  /* @apply bg-inherit; */
-  @apply font-inter;
+  @apply border-surface2 font-inter;
 }
 
 input {
@@ -25,7 +70,7 @@ input {
 }
 
 *:focus-visible {
-  @apply outline outline-2 outline-primary outline-offset-[-1px];
+  @apply outline-2 outline-primary outline-offset-[-1px];
 }
 
 @keyframes blink {

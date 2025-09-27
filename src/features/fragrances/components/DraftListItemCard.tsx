@@ -1,5 +1,5 @@
 import React from 'react'
-import { type IFragranceDraftPreview } from '../types'
+import type { IFragranceDraftPreview } from '../types'
 import clsx from 'clsx'
 import { Link } from '@tanstack/react-router'
 import ProgressiveImage from '@/components/ProgressiveImage'
@@ -43,12 +43,12 @@ const DraftListItemCard = (props: DraftListItemCardProps) => {
                 src={url}
                 alt=''
               />
-              )
+            )
             : (
               <TbPerfume
                 size={28}
               />
-              )}
+            )}
         </div>
 
         <div

@@ -1,9 +1,9 @@
 import clsx from 'clsx'
 import React, { useState } from 'react'
 import { TbLayoutSidebarRightFilled } from 'react-icons/tb'
-import FragranceDraftsSidebarList from './FragranceDraftsSidebarList'
+import DraftsSidebarList from './DraftsSidebarList'
 
-const FragranceDraftsSidebar = () => {
+const DraftsSidebar = () => {
   const [isExpanded, setIsExpanded] = useState(true)
 
   const handleOnExpandClick = () => {
@@ -45,11 +45,11 @@ const FragranceDraftsSidebar = () => {
         <div
           className='p-2'
         >
-          <FragranceDraftsSidebarList />
+          <DraftsSidebarList />
         </div>
       )}
     </div>
   )
 }
 
-export default FragranceDraftsSidebar
+export default DraftsSidebar

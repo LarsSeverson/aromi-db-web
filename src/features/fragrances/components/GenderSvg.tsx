@@ -1,5 +1,5 @@
+import type { SvgProps } from '@/components/Svg'
 import React from 'react'
-import { type SvgProps } from '../../../components/Svg'
 
 const GenderSvg = (props: SvgProps) => {
   const { width = 32, height = 32, color = 'white' } = props

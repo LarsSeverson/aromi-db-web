@@ -1,24 +1,24 @@
 import React from 'react'
-import FragranceDraftHeading from '../components/FragranceDraftHeading'
+import DraftHeading from '../components/DraftHeading'
 import { Form } from '@base-ui-components/react'
 import DraftImageSection from '../components/DraftImageSection'
 import Divider from '@/components/Divider'
 import SubmitButton from '@/components/SubmitButton'
 import DraftInfoSection from '../components/DraftInfoSection'
-import { useFragranceDraftContext } from '../contexts/FragranceDraftContext'
 import DraftGenderSection from '../components/DraftGenderSection'
 import DraftFragranceAccordsSection from '../components/DraftFragranceAccordsSection'
 import DraftFragranceNotesSection from '../components/DraftFragranceNotesSection'
 import DraftFragranceTraitsSection from '../components/DraftFragranceTraitsSection'
+import { useFragranceRequestDraftContext } from '../context/FragranceRequestDraftContext'
 
-const FragranceDraftPage = () => {
-  const { id } = useFragranceDraftContext()
+const FragranceRequestDraftPage = () => {
+  const { id } = useFragranceRequestDraftContext()
 
   return (
     <div
       className='flex flex-col gap-5'
     >
-      <FragranceDraftHeading />
+      <DraftHeading />
 
       <Form
         key={id}
@@ -78,4 +78,4 @@ const FragranceDraftPage = () => {
   )
 }
 
-export default FragranceDraftPage
+export default FragranceRequestDraftPage

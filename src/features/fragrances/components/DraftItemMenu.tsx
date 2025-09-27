@@ -4,9 +4,9 @@ import { Menu } from '@base-ui-components/react'
 import React, { useState } from 'react'
 import { HiDotsHorizontal } from 'react-icons/hi'
 import { useNavigate } from '@tanstack/react-router'
-import { useFragranceDrafts } from '../hooks/useFragranceDrafts'
-import { useDeleteFragranceDraft } from '../hooks/useDeleteFragranceDraft'
 import ConfirmationDialog from '@/components/ConfirmationDialog'
+import { useMyFragranceRequests } from '@/features/users'
+import { useDeleteFragranceRequest } from '../hooks/useDeleteFragranceRequest'
 
 export interface DraftItemMenuProps {
   id: string
@@ -16,16 +16,16 @@ const DraftItemMenu = (props: DraftItemMenuProps) => {
   const { id } = props
 
   const navigate = useNavigate()
-  const { fragranceDrafts } = useFragranceDrafts()
-  const { deleteDraft } = useDeleteFragranceDraft()
+  const { fragranceRequests } = useMyFragranceRequests({ status: 'DRAFT' })
+  const { deleteRequest } = useDeleteFragranceRequest()
 
   const [showConfirmDialog, setShowConfirmDialog] = useState(false)
 
   const handleOnConfirmDelete = () => {
     setShowConfirmDialog(false)
-    void deleteDraft({ id })
+    void deleteRequest({ id })
 
-    const gotoDraft = fragranceDrafts.find(d => d.id !== id)
+    const gotoDraft = fragranceRequests.find(d => d.id !== id)
     if (gotoDraft != null) {
       void navigate({ to: '/drafts/fragrance/$id', params: { id: gotoDraft.id } })
     } else {

@@ -8,24 +8,23 @@ import { useConfirmForgotPassword } from './useConfirmForgotPassword'
 import { useSignUp } from './useSignUp'
 import { useConfirmSignUp } from './useConfirmSignUp'
 import { useResendSignUpCode } from './useResendSignUpCode'
-import { type LogInInput, type AuthTokenPayload } from '@/generated/graphql'
+import type { LogInInput, AuthTokenPayload } from '@/generated/graphql'
 import { useTimer } from '@/hooks/useTimer'
 import { okAsync } from 'neverthrow'
 
 const useAuth = () => {
-  const payload = useRef<AuthTokenPayload | undefined>(null)
   const { start, clear } = useTimer()
 
+  const payload = useRef<AuthTokenPayload | undefined>(null)
+  const hasInitializedInner = useRef(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [hasInitialized, setHasInitialized] = useState(false)
 
   const {
-    loading: refreshLoading,
     refresh: refreshInner
   } = useRefresh()
 
   const {
-    loading: logInLoading,
     logIn: logInInner
   } = useLogIn()
 
@@ -110,9 +109,11 @@ const useAuth = () => {
   }
 
   const initialize = () => {
-    if (hasInitialized) {
+    if (hasInitializedInner.current) {
       return okAsync(payload.current)
     }
+
+    hasInitializedInner.current = true
 
     return refresh()
       .andTee(() => {
@@ -136,7 +137,6 @@ const useAuth = () => {
     payload,
     isAuthenticated,
     hasInitialized,
-    loading: logInLoading || refreshLoading,
 
     initialize,
     logIn,

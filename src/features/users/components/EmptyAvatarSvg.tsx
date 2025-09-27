@@ -1,4 +1,4 @@
-import { type SvgProps } from '@/components/Svg'
+import type { SvgProps } from '@/components/Svg'
 import React from 'react'
 
 const EmptyAvatarSvg = (props: SvgProps) => {

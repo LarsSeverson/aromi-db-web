@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react'
-import { type useMe } from '../hooks/useMe'
+import type { useMe } from '../hooks/useMe'
 
 export type UseMeReturn = ReturnType<typeof useMe>
 export const MyContext = createContext<UseMeReturn | null>(null)

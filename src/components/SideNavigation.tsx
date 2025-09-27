@@ -1,11 +1,11 @@
+import NewRequestMenu from '@/features/fragrances/components/NewRequestMenu'
 import { NAV } from '@/utils/nav'
-import NewRequestMenu from '@/features/fragranceDrafts/components/NewRequestMenu'
-import { Link, useRouterState } from '@tanstack/react-router'
 import clsx from 'clsx'
 import React from 'react'
+import SideNavigationItem from './SideNavigationItem'
+import { AccordionRoot } from './Accordion/AccordionRoot'
 
 const SideNavigation = () => {
-  const currentPath = useRouterState().location.pathname
 
   return (
     <nav
@@ -33,9 +33,9 @@ const SideNavigation = () => {
 
           {NAV
             .map(section => (
-              <div
+              <AccordionRoot
                 key={section.heading}
-                className='px-3 py-4'
+                className='px-3 py-3'
               >
                 <div
                   className='px-2 pb-2 text-md font-semibold tracking-wide text-light'
@@ -43,38 +43,13 @@ const SideNavigation = () => {
                   {section.heading}
                 </div>
 
-                <ul
-                  className='flex flex-col gap-1'
-                >
-                  {section
-                    .items
-                    .map(item => {
-                      const active = currentPath === item.href
-
-                      return (
-                        <li
-                          key={item.href}
-                          className='list-none box-border'
-                        >
-                          <Link
-                            to={item.href}
-                            aria-current={active ? 'page' : undefined}
-                            data-active={active ?? undefined}
-                            className={clsx(
-                              'flex items-center justify-between rounded-md px-3 ml-4 py-[6.5px] text-sm text-light',
-                              'hover:bg-background2 hover:outline hover:outline-1 hover:outline-surface2',
-                              active && 'bg-background2 text-foreground outline outline-1 outline-surface2'
-                            )}
-                          >
-                            <span>
-                              {item.label}
-                            </span>
-                          </Link>
-                        </li>
-                      )
-                    })}
-                </ul>
-              </div>
+                {section.items.map(item => (
+                  <SideNavigationItem
+                    key={item.href}
+                    {...item}
+                  />
+                ))}
+              </AccordionRoot>
             ))}
         </div>
       </div>

@@ -1,15 +1,14 @@
 import DropZone from '@/components/DropZone/DropZone'
 import React, { useState } from 'react'
-import { extractGraphQLError, extractGraphQLErrorStatuses } from '@/utils/error'
-import { useCreateFragranceDraftWithImage } from '../hooks/useCreateFragranceDraftWithImage'
 import ProgressSpinner from '@/components/ProgressSpinner'
 import { MdErrorOutline } from 'react-icons/md'
 import clsx from 'clsx'
 import { useNavigate } from '@tanstack/react-router'
+import { useCreateFragranceRequest } from '../hooks/useCreateFragranceRequest'
 
 const NewDraftImageSection = () => {
   const navigate = useNavigate()
-  const { createDraftWithImage } = useCreateFragranceDraftWithImage()
+  const { createRequestWithImage } = useCreateFragranceRequest()
 
   const [isLoading, setIsLoading] = useState(false)
   const [loadingProgress, setLoadingProgress] = useState(0)
@@ -23,16 +22,14 @@ const NewDraftImageSection = () => {
     setIsLoading(true)
     setError(null)
 
-    await createDraftWithImage({ file, onUploadProgress: handleOnUploadProgress })
+    await createRequestWithImage(file, handleOnUploadProgress)
       .match(
         draft => {
           void navigate({ to: '/drafts/fragrance/$id', params: { id: draft.id } })
         },
         error => {
-          const statuses = extractGraphQLErrorStatuses(error)
-
-          if (statuses[0] === 400) {
-            setError(extractGraphQLError(error))
+          if (error.status === 400) {
+            setError(error.message)
             return
           }
 
@@ -65,8 +62,8 @@ const NewDraftImageSection = () => {
         icon={
           error != null
             ? <MdErrorOutline
-                size={26}
-              />
+              size={26}
+            />
             : undefined
         }
       />

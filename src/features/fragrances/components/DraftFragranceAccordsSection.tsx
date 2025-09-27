@@ -4,50 +4,9 @@ import { AccordionItem } from '@/components/Accordion/AccordionItem'
 import { AccordionPanel } from '@/components/Accordion/AccordionPanel'
 import { AccordionRoot } from '@/components/Accordion/AccordionRoot'
 import { AccordionTrigger } from '@/components/Accordion/AccordionTrigger'
-import { useAccords } from '@/features/accords/hooks/useAccords'
-import clsx from 'clsx'
-import React, { useMemo, useState } from 'react'
-import DraftAccordsGrid from './DraftAccordsGrid'
+import React from 'react'
 
 const DraftFragranceAccordsSection = () => {
-  const {
-    data: accords,
-
-    loading,
-    loadingMore,
-    hasMore,
-
-    loadMore
-  } = useAccords()
-
-  const [isExpanded, setIsExpanded] = useState(false)
-
-  const trimmed = useMemo(
-    () => isExpanded ? accords : accords.slice(0, 24),
-    [isExpanded, accords]
-  )
-
-  const canShowMore = useMemo(
-    () => hasMore || (!hasMore && !isExpanded),
-    [hasMore, isExpanded]
-  )
-
-  const handeOnShowMore = () => {
-    setIsExpanded(true)
-    void loadMore()
-  }
-
-  const handleOnNotHasMore = () => {
-    setIsExpanded(prev => !prev)
-  }
-
-  const handleOnShowMoreOrNotHasMore = () => {
-    if (!hasMore) {
-      handleOnNotHasMore()
-    } else {
-      handeOnShowMore()
-    }
-  }
 
   return (
     <section
@@ -74,22 +33,6 @@ const DraftFragranceAccordsSection = () => {
           <AccordionPanel
             className='w-full flex flex-col'
           >
-            <DraftAccordsGrid
-              accords={trimmed}
-              isLoading={loading || loadingMore}
-            />
-
-            <button
-              type='button'
-              className={clsx(
-                'font-semibold text-md border self-center min-w-52',
-                'px-3 py-2 rounded-sm mt-3 self-center',
-                hasMore && 'hover:bg-surface'
-              )}
-              onClick={handleOnShowMoreOrNotHasMore}
-            >
-              {canShowMore ? 'Show More' : 'Show Less'}
-            </button>
           </AccordionPanel>
         </AccordionItem>
       </AccordionRoot>

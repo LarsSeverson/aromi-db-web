@@ -1,11 +1,11 @@
 import React from 'react'
 import { createFileRoute } from '@tanstack/react-router'
-import FragranceDraftPage from '@/features/fragrances/pages/FragranceDraftPage'
+import FragranceRequestDraftPage from '@/features/fragrances/pages/FragranceRequestDraftPage'
 
 export const Route = createFileRoute('/drafts/fragrance/$id/')({
   component: RouteComponent
 })
 
 function RouteComponent () {
-  return <FragranceDraftPage />
+  return <FragranceRequestDraftPage />
 }

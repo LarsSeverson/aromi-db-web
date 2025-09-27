@@ -7,7 +7,6 @@ import AuthDialogHeading from './AuthDialogHeading'
 import PasswordInput from '@/features/auth/components/PasswordInput'
 import EmailInput from './EmailInput'
 import { Link } from '@tanstack/react-router'
-import { extractGraphQLError } from '@/utils/error'
 import SubmitButton from '@/components/SubmitButton'
 
 export interface InformationSignUpStepProps {
@@ -42,7 +41,7 @@ const InformationSignUpStep = (props: InformationSignUpStepProps) => {
             onNotConfirmed(email, password)
           },
           error => {
-            setError(extractGraphQLError(error))
+            setError(error.message)
           }
         )
     }

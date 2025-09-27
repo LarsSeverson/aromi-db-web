@@ -32,14 +32,14 @@ const AppHeader = () => {
             <AccountMenu
               user={me}
             />
-            )
+          )
           : (
             <>
               <LogInDialog />
 
               <SignUpDialog />
             </>
-            )}
+          )}
       </div>
 
     </header>

@@ -1,5 +1,5 @@
 import React from 'react'
-import NewFragranceDraftPage from '@/features/fragrances/pages/NewFragranceDraftPage'
+import NewFragranceRequestDraftPage from '@/features/fragrances/pages/NewFragranceRequestDraftPage'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/new/fragrance/')({
@@ -7,5 +7,5 @@ export const Route = createFileRoute('/new/fragrance/')({
 })
 
 function RouteComponent () {
-  return <NewFragranceDraftPage />
+  return <NewFragranceRequestDraftPage />
 }

@@ -1,10 +1,10 @@
 import React from 'react'
-import { type IUserSummary } from '../types'
 import { Menu } from '@base-ui-components/react'
 import UserAvatar from './UserAvatar'
 import MenuPopup from '@/components/MenuPopup'
 import LogOutItem from './LogOutItem'
 import AccountInfoItem from './AccountInfoItem'
+import type { IUserSummary } from '../types'
 
 export interface AccountMenuProps {
   user: IUserSummary
@@ -16,7 +16,7 @@ const AccountMenu = (props: AccountMenuProps) => {
   return (
     <Menu.Root>
       <Menu.Trigger
-        className='h-full'
+        className='h-full border rounded-full overflow-hidden'
       >
         <UserAvatar
           user={user}

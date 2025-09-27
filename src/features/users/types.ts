@@ -1,3 +1,4 @@
-import { type User } from '@/generated/graphql'
+import type { UserFragmentFragment, UserPreviewFragmentFragment } from '@/generated/graphql'
 
-export interface IUserSummary extends Omit<User, ''> {}
+export type IUserPreview = UserPreviewFragmentFragment
+export type IUserSummary = UserFragmentFragment

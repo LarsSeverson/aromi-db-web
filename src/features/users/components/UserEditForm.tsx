@@ -1,39 +1,37 @@
-import React, { useState } from 'react'
-import { type IUserSummary } from '../types'
+import React, { useRef, useState } from 'react'
 import UserAttribute from './UserAttribute'
 import TextButton from '@/components/TextButton'
 import EditableUserAvatar from './EditableUserAvatar'
 import clsx from 'clsx'
 import { Form } from '@base-ui-components/react'
 import TextInput from '@/components/TextInput'
-import { useUpdateUser } from '../hooks/useUpdateUser'
-import { extractGraphQLError } from '@/utils/error'
+import { useUpdateMe } from '../hooks/useUpdateMe'
 import { useToastMessage } from '@/hooks/useToastMessage'
 import BackButton from '@/components/BackButton'
 import ErrorFeedback from '@/components/ErrorFeedback'
+import { useMyContext } from '../context/MyContext'
 
 export interface UserEditFormProps {
-  user: IUserSummary
   onDone?: () => void
 }
 
 const UserEditForm = (props: UserEditFormProps) => {
-  const { user, onDone } = props
-  const { id, username, email } = user
+  const { onDone } = props
+
+  const { me } = useMyContext()
+  const defaultUsername = useRef(me?.username ?? '').current
 
   const { toastMessage } = useToastMessage()
-  const { updateUser } = useUpdateUser()
+  const { update } = useUpdateMe()
 
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [hasInteracted, setHasInteracted] = useState(false)
 
-  const handleUpdateUser = async (
-    newUsername: string
-  ) => {
+  const handleUpdateUser = async (newUsername: string) => {
     setIsLoading(true)
 
-    await updateUser({ id, username: newUsername })
+    await update({ username: newUsername })
       .match(
         () => {
           toastMessage('Username updated')
@@ -41,7 +39,7 @@ const UserEditForm = (props: UserEditFormProps) => {
           setError(null)
         },
         error => {
-          setError(extractGraphQLError(error))
+          setError(error.message)
         }
       )
 
@@ -60,6 +58,8 @@ const UserEditForm = (props: UserEditFormProps) => {
     void handleUpdateUser(newUsername)
   }
 
+  if (me == null) return null
+
   return (
     <div
       className='w-full flex flex-col gap-5 items-center'
@@ -73,10 +73,10 @@ const UserEditForm = (props: UserEditFormProps) => {
       </div>
 
       <div
-        className='max-w-60'
+        className='max-w-60 w-full'
       >
         <EditableUserAvatar
-          user={user}
+          user={me}
         />
       </div>
 
@@ -91,7 +91,7 @@ const UserEditForm = (props: UserEditFormProps) => {
         <TextInput
           label='Username'
           placeholder='Your new username'
-          defaultValue={username}
+          defaultValue={defaultUsername}
           onValueChange={() => {
             setHasInteracted(true)
           }}
@@ -102,7 +102,7 @@ const UserEditForm = (props: UserEditFormProps) => {
         >
           <UserAttribute
             label='Email'
-            value={email}
+            value={me.email}
           />
         </div>
 

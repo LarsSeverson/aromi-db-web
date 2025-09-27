@@ -1,12 +1,11 @@
 import React from 'react'
 import { client } from '@/utils/client'
-import { toApolloError } from '@/utils/error'
-import { FRAGRANCE_DRAFT_SHELL_QUERY } from '@/features/fragranceDrafts/graphql/queries'
 import { createFileRoute } from '@tanstack/react-router'
-import { ResultAsync } from 'neverthrow'
 import topbar from 'topbar'
-import { FragranceDraftProvider } from '@/features/fragranceDrafts/contexts/FragranceDraftProvider'
-import FragranceDraftLayout from '@/features/fragranceDrafts/layouts/FragranceDraftLayout'
+import { FRAGRANCE_REQUEST_QUERY } from '@/features/fragrances/graphql/queries'
+import { wrapQuery } from '@/utils/util'
+import { FragranceRequestDraftProvider } from '@/features/fragrances/context/FragranceRequestDraftProvider'
+import FragranceRequestDraftLayout from '@/features/fragrances/layouts/FragranceRequestDraftLayout'
 
 export const Route = createFileRoute('/drafts/fragrance/$id')({
   loader: async ({ params }) => {
@@ -14,14 +13,13 @@ export const Route = createFileRoute('/drafts/fragrance/$id')({
 
     topbar.show()
 
-    const res = await ResultAsync
-      .fromPromise(
-        client.query({
-          query: FRAGRANCE_DRAFT_SHELL_QUERY,
-          variables: { id }
-        }),
-        toApolloError
-      )
+    const res = await wrapQuery(
+      client.query({
+        query: FRAGRANCE_REQUEST_QUERY,
+        variables: { id }
+      })
+    )
+      .map(data => data.fragranceRequest)
 
     topbar.hide()
 
@@ -29,23 +27,23 @@ export const Route = createFileRoute('/drafts/fragrance/$id')({
       throw res.error
     }
 
-    const shell = res.value.data.fragranceDraft
+    const request = res.value
 
-    return { shell }
+    return { request }
   },
   component: RouteComponent
 })
 
 function RouteComponent () {
-  const { shell } = Route.useLoaderData()
-  const { id, version } = shell
+  const { request } = Route.useLoaderData()
+  const { id, version } = request
 
   return (
-    <FragranceDraftProvider
+    <FragranceRequestDraftProvider
       id={id}
       initialVersion={version}
     >
-      <FragranceDraftLayout />
-    </FragranceDraftProvider>
+      <FragranceRequestDraftLayout />
+    </FragranceRequestDraftProvider>
   )
 }

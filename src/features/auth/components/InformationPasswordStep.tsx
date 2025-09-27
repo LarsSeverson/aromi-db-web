@@ -2,7 +2,7 @@ import { Form } from '@base-ui-components/react'
 import React, { useState } from 'react'
 import EmailInput from './EmailInput'
 import SubmitButton from '@/components/SubmitButton'
-import { useAuthContext } from '../contexts/AuthContext'
+import { useAuthContext } from '../context/AuthContext'
 import { extractGraphQLError } from '@/utils/error'
 import ErrorFeedback from '@/components/ErrorFeedback'
 

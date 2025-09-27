@@ -1,27 +1,21 @@
 import React, { useState } from 'react'
-import { type IUserSummary } from '../types'
-import { useMyContext } from '../contexts/MyContext'
+import type { IUserPreview } from '../types'
 import UserPreview from '../components/UserPreview'
 import UserEditForm from '../components/UserEditForm'
 
 export interface UserPageProps {
-  user: IUserSummary
+  user: IUserPreview
 }
 
 const UserPage = (props: UserPageProps) => {
   const { user } = props
 
-  const { me } = useMyContext()
-
   const [isEditing, setIsEditing] = useState(false)
-
-  const isMyProfile = me?.id === user.id
 
   const onRenderPageContent = () => {
     if (isEditing) {
       return (
         <UserEditForm
-          user={user}
           onDone={() => { setIsEditing(false) }}
         />
       )
@@ -30,7 +24,6 @@ const UserPage = (props: UserPageProps) => {
     return (
       <UserPreview
         user={user}
-        isMyProfile={isMyProfile}
         onEdit={() => { setIsEditing(true) }}
       />
     )

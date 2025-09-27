@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { createRootRouteWithContext } from '@tanstack/react-router'
 import MainLayout from '@/layouts/MainLayout'
-import { type IUserSummary } from '@/features/users'
-import { type UseRouterUtilsReturn } from '@/hooks/useRouterUtils'
+import type { IUserSummary } from '@/features/users'
+import type { UseRouterUtilsReturn } from '@/hooks/useRouterUtils'
 
 interface RouterContext {
   me: IUserSummary | undefined

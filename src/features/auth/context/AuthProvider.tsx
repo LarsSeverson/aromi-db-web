@@ -1,6 +1,6 @@
-import useAuth from '@/features/auth/hooks/useAuth'
 import React, { useEffect } from 'react'
 import { AuthContext } from './AuthContext'
+import useAuth from '../hooks/useAuth'
 
 interface AuthProviderProps {
   children: React.ReactNode

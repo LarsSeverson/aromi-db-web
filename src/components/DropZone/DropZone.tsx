@@ -6,7 +6,7 @@ import { Field } from '@base-ui-components/react'
 import DropZoneSkeleton from './DropZoneSkeleton'
 
 export interface DropZoneProps {
-  defaultUrl?: string
+  defaultUrl?: string | null
   text?: string
   subtext?: string
   isDisabled?: boolean

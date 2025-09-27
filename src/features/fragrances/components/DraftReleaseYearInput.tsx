@@ -3,7 +3,7 @@ import { Field } from '@base-ui-components/react'
 import clsx from 'clsx'
 import React, { useState } from 'react'
 import { DEFAULT_RELEASE_YEAR, MAX_RELEASE_YEAR, MIN_RELEASE_YEAR, RELEASE_YEAR_PLACEHOLDER, ValidReleaseYear } from '../types'
-import { useFragranceDraftContext } from '../contexts/FragranceDraftContext'
+import { useFragranceRequestDraftContext } from '../context/FragranceRequestDraftContext'
 import { useDebounce } from '@/hooks/useDebounce'
 
 export interface DraftReleaseYearInputProps {
@@ -13,15 +13,15 @@ export interface DraftReleaseYearInputProps {
 const DraftReleaseYearInput = (props: DraftReleaseYearInputProps) => {
   const { releaseYear } = props
 
-  const { updateDraft } = useFragranceDraftContext()
+  const { updateRequest } = useFragranceRequestDraftContext()
 
   const [value, setValue] = useState(releaseYear ?? DEFAULT_RELEASE_YEAR)
 
-  const handleUpdateDraft = useDebounce(
+  const handleupdateRequest = useDebounce(
     (releaseYear: number) => {
       const { data, success } = ValidReleaseYear.safeParse(releaseYear)
       if (success) {
-        void updateDraft({ releaseYear: data })
+        void updateRequest({ releaseYear: data })
       }
     }
   )
@@ -30,7 +30,7 @@ const DraftReleaseYearInput = (props: DraftReleaseYearInputProps) => {
     if (value == null) return
 
     setValue(value)
-    handleUpdateDraft(value)
+    handleupdateRequest(value)
   }
 
   return (

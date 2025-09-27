@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useAuthContext } from '../contexts/AuthContext'
+import { useAuthContext } from '../context/AuthContext'
 import { extractGraphQLError } from '@/utils/error'
 import { Form } from '@base-ui-components/react'
 import CodeInput from './CodeInput'

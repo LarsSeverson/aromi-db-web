@@ -1,20 +1,23 @@
 import clsx from 'clsx'
 import React from 'react'
+import { HiChevronRight } from 'react-icons/hi'
+import type { IconBaseProps } from 'react-icons/lib'
 
-export const AccordionIcon = (props: React.ComponentProps<'svg'>) => {
-  const { className, ...rest } = props
+export const AccordionIcon = (props: IconBaseProps) => {
   return (
-    <svg
-      viewBox='0 0 16 16'
-      aria-hidden
+    <div
       className={clsx(
-        'mr-2 size-4 shrink-0 transition-all ease-out',
-        'group-data-[panel-open]:rotate-45 group-data-[panel-open]:scale-110',
-        className
+        'group-data-[panel-open]:rotate-90 h-full flex items-center justify-center',
+        'transition-transform ease-in-out duration-100'
       )}
-      {...rest}
     >
-      <path d='M7 1h2v6h6v2H9v6H7V9H1V7h6z' fill='currentColor' />
-    </svg>
+      <HiChevronRight
+        {...props}
+        className={clsx(
+          props.className
+        )}
+        size={18}
+      />
+    </div>
   )
 }

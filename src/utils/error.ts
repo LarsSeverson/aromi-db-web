@@ -3,6 +3,7 @@ import { errAsync, okAsync } from 'neverthrow'
 
 export interface ServerErrorInfo {
   message: string
+  code: string
   status: number
 }
 
@@ -29,21 +30,22 @@ export const getApolloErrorMessage = (error: unknown) => {
 export const getServerErrorInfo = (
   error: unknown
 ): ServerErrorInfo => {
-  if (error == null) return { message: 'Unknown error', status: 500 }
+  if (error == null) return { message: 'Unknown error', code: 'UNKNOWN', status: 500 }
 
   if (CombinedGraphQLErrors.is(error)) {
     const first = error.errors.at(0)
     return {
       message: first?.message ?? 'Unknown server error',
+      code: (first?.extensions?.code as string) ?? 'UNKNOWN',
       status: (first?.extensions?.status as number) ?? 500
     }
   }
 
   if (error instanceof Error) {
-    return { message: error.message, status: 500 }
+    return { message: error.message, code: 'UNKNOWN', status: 500 }
   }
 
-  return { message: 'Something went wrong', status: 500 }
+  return { message: 'Something went wrong', code: 'UNKNOWN', status: 500 }
 }
 
 export const checkNullFetchResponse = <T>(res: T) => {

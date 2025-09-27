@@ -4,7 +4,7 @@ import NewDraftImageSection from '../components/NewDraftImageSection'
 import NewDraftInfoSection from '../components/NewDraftInfoSection'
 import { Fieldset, Form } from '@base-ui-components/react'
 
-const NewFragranceDraftPage = () => {
+const NewFragranceRequestDraftPage = () => {
   return (
     <div
       className='flex flex-col gap-5'
@@ -44,4 +44,4 @@ const NewFragranceDraftPage = () => {
   )
 }
 
-export default NewFragranceDraftPage
+export default NewFragranceRequestDraftPage

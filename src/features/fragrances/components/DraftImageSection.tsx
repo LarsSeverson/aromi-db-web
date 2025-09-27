@@ -3,14 +3,13 @@ import React, { useState } from 'react'
 import ProgressSpinner from '@/components/ProgressSpinner'
 import { MdErrorOutline } from 'react-icons/md'
 import clsx from 'clsx'
-import { useFragranceDraftContext } from '../contexts/FragranceDraftContext'
-import { useFragranceDraftPreview } from '../hooks/useFragranceDraftPreview'
-import { extractGraphQLError, extractGraphQLErrorStatuses } from '@/utils/error'
+import { useFragranceRequestDraftContext } from '../context/FragranceRequestDraftContext'
+import { useFragranceRequest } from '../hooks/useFragranceRequest'
 
 const DraftImageSection = () => {
-  const { id, updateImage } = useFragranceDraftContext()
-  const { preview, loading: isDraftLoading } = useFragranceDraftPreview(id)
-  const { image } = preview ?? {}
+  const { id, setImage } = useFragranceRequestDraftContext()
+  const { fragranceRequest, isLoading: isRequestLoading } = useFragranceRequest(id)
+  const { image } = fragranceRequest ?? {}
   const { url } = image ?? {}
 
   const [isLoading, setIsLoading] = useState(false)
@@ -27,15 +26,14 @@ const DraftImageSection = () => {
     setIsLoading(true)
     setError(null)
 
-    await updateImage({ file, onUploadProgress: handleOnUploadProgress })
+    await setImage({ file, onUploadProgress: handleOnUploadProgress })
       .match(
         () => {
           // Image updated
         },
         error => {
-          const statuses = extractGraphQLErrorStatuses(error)
-          if (statuses[0] === 400) {
-            setError(extractGraphQLError(error))
+          if (error.status === 400) {
+            setError(error.message)
             return
           }
 
@@ -59,7 +57,7 @@ const DraftImageSection = () => {
         defaultUrl={url}
         isDisabled={isLoading}
         showPreview={showPreview}
-        showSkeleton={isDraftLoading}
+        showSkeleton={isRequestLoading}
         accept='image/png,image/jpeg,image/webp'
         onFile={handleOnFile}
         subtext={error ?? undefined}
@@ -70,8 +68,8 @@ const DraftImageSection = () => {
         icon={
           error != null
             ? <MdErrorOutline
-                size={26}
-              />
+              size={26}
+            />
             : undefined
         }
       />

@@ -3,8 +3,7 @@ import CodeInput from './CodeInput'
 import Spinner from '@/components/Spinner'
 import clsx from 'clsx'
 import { Form } from '@base-ui-components/react'
-import { useAuthContext } from '../contexts/AuthContext'
-import { extractGraphQLError } from '@/utils/error'
+import { useAuthContext } from '../context/AuthContext'
 import SubmitButton from '@/components/SubmitButton'
 import ErrorFeedback from '@/components/ErrorFeedback'
 
@@ -43,7 +42,7 @@ const ConfirmSignUpStep = (props: ConfirmSignUpStepProps) => {
           window.location.reload()
         },
         error => {
-          setError(extractGraphQLError(error))
+          setError(error.message)
         }
       )
 
@@ -65,7 +64,7 @@ const ConfirmSignUpStep = (props: ConfirmSignUpStepProps) => {
           //
         },
         error => {
-          setError(extractGraphQLError(error))
+          setError(error.message)
         }
       )
 
@@ -123,12 +122,12 @@ const ConfirmSignUpStep = (props: ConfirmSignUpStepProps) => {
                 <Spinner
                   size={5}
                 />
-                )
+              )
               : (
                 <span>
-                  {`${isResendDisabled ? 'Email sent!' : 'Resend code'}`}
+                  {isResendDisabled ? 'Email sent!' : 'Resend code'}
                 </span>
-                )}
+              )}
           </button>
         </div>
 

@@ -1,21 +1,21 @@
 import { gql } from '@/generated'
 
-export const UPDATE_USER_MUTATION = gql(/* GraphQL */`
-  mutation UpdateUser(
-    $input: UpdateUserInput!
+export const UPDATE_ME_MUTATION = gql(/* GraphQL */`
+  mutation UpdateMe(
+    $input: UpdateMeInput!
   ) {
-    updateUser(input: $input) {
+    updateMe(input: $input) {
       ...UserFragment
     }
   }
 `)
 
-export const SET_USER_AVATAR_MUTATION = gql(/* GraphQL */`
-  mutation SetUserAvatar(
-    $input: SetUserAvatarInput!
+export const SET_MY_AVATAR_MUTATION = gql(/* GraphQL */`
+  mutation SetMyAvatar(
+    $input: SetMyAvatarInput!
   ) {
-    setUserAvatar(input: $input) {
+    setMyAvatar(input: $input) {
       ...UserFragment
     }
-  } 
+  }
 `)

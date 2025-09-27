@@ -1,24 +1,24 @@
 import React from 'react'
 import DraftNameInput from './DraftNameInput'
-import { useFragranceDraftSummary } from '../hooks/useFragranceDraftSummary'
-import { useFragranceDraftContext } from '../contexts/FragranceDraftContext'
+import { useFragranceRequest } from '../hooks/useFragranceRequest'
+import { useFragranceRequestDraftContext } from '../context/FragranceRequestDraftContext'
 import DraftDescriptionInput from './DraftDescriptionInput'
 import DraftReleaseYearInput from './DraftReleaseYearInput'
 import DraftConcentrationInput from './DraftConcentrationInput'
 import DraftStatusInput from './DraftStatusInput'
 
 const DraftInfoSection = () => {
-  const { id } = useFragranceDraftContext()
-  const { summary, loading } = useFragranceDraftSummary(id)
+  const { id } = useFragranceRequestDraftContext()
+  const { fragranceRequest, isLoading } = useFragranceRequest(id)
   const {
     name,
     description,
     releaseYear,
     concentration,
-    status
-  } = summary ?? {}
+    fragranceStatus
+  } = fragranceRequest ?? {}
 
-  if (loading) {
+  if (isLoading) {
     return null
   }
 
@@ -43,7 +43,7 @@ const DraftInfoSection = () => {
       />
 
       <DraftStatusInput
-        status={status}
+        status={fragranceStatus}
       />
     </section>
   )
