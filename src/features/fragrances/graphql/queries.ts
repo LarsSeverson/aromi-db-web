@@ -83,6 +83,49 @@ export const FRAGRANCE_ACCORDS_QUERY = gql(/* GraphQL */`
 export const FRAGRANCE_NOTES_QUERY = gql(/* GraphQL */`
   query FragranceNotesQuery (
     $id: ID!
+  ) {
+    fragrance(id: $id) {
+      ...FragrancePreviewFragment
+      
+      topNotes: notes(input: { layer: TOP }) {
+        edges {
+          node {
+            ...FragranceNoteFragment
+          }
+        }
+        pageInfo {
+          ...PageInfoFragment
+        }
+      }
+
+      middleNotes: notes(input: { layer: MIDDLE }) {
+        edges {
+          node {
+            ...FragranceNoteFragment
+          }
+        }
+        pageInfo {
+          ...PageInfoFragment
+        }
+      }
+
+      baseNotes: notes(input: { layer: BASE }) {
+        edges {
+          node {
+            ...FragranceNoteFragment
+          }
+        }
+        pageInfo {
+          ...PageInfoFragment
+        }
+      }
+    }
+  }
+`)
+
+export const FRAGRANCE_NOTES_LAYER_QUERY = gql(/* GraphQL */`
+  query FragranceNotesLayerQuery (
+    $id: ID!
     $input: FragranceNotePaginationInput
   ) {
     fragrance(id: $id) {
@@ -157,12 +200,25 @@ export const FRAGRANCE_REQUESTS_QUERY = gql(/* GraphQL */`
   }
 `)
 
+export const FRAGRANCE_REQUEST_ACCORDS_QUERY = gql(/* GraphQL */`
+  query FragranceRequestAccordsQuery (
+    $id: ID!
+  ) {
+    fragranceRequest(id: $id) {
+      ...FragranceRequestPreviewFragment
+      accords {
+        ...AccordFragment
+      }
+    }
+  }
+`)
+
 export const FRAGRANCE_REQUEST_NOTES_QUERY = gql(/* GraphQL */`
   query FragranceRequestNotesQuery (
     $id: ID!
   ) {
     fragranceRequest(id: $id) { 
-      ...FragranceRequestFragment
+      ...FragranceRequestPreviewFragment
       
       topNotes: notes(layer: TOP) {
         ...FragranceRequestNoteFragment

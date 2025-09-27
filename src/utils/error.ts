@@ -1,6 +1,11 @@
 import { CombinedGraphQLErrors, CombinedProtocolErrors, ServerError, ServerParseError } from '@apollo/client'
 import { errAsync, okAsync } from 'neverthrow'
 
+export interface ServerErrorInfo {
+  message: string
+  status: number
+}
+
 export const getApolloErrorMessage = (error: unknown) => {
   if (CombinedGraphQLErrors.is(error)) {
     return error.errors.map(e => e.message).join(', ')
@@ -23,7 +28,7 @@ export const getApolloErrorMessage = (error: unknown) => {
 
 export const getServerErrorInfo = (
   error: unknown
-) => {
+): ServerErrorInfo => {
   if (error == null) return { message: 'Unknown error', status: 500 }
 
   if (CombinedGraphQLErrors.is(error)) {

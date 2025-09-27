@@ -1,5 +1,5 @@
-import { toApolloError } from '@/utils/error'
-import { type PresignedUpload } from '@/generated/graphql'
+import type { PresignedUpload } from '@/generated/graphql'
+import { getServerErrorInfo } from '@/utils/error'
 import axios from 'axios'
 import { ResultAsync } from 'neverthrow'
 
@@ -35,7 +35,7 @@ export const usePresignedUpload = () => {
             }
           }
         ),
-        toApolloError
+        getServerErrorInfo
       )
   }
 

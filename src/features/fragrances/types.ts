@@ -1,9 +1,7 @@
-import { type FragranceDraftSummaryFragment, type FragranceDraftShellFragment, type FragranceDraftPreviewFragment, Concentration, FragranceStatus } from '@/generated/graphql'
+import { Concentration, type FragranceRequestPreviewFragmentFragment, FragranceStatus } from '@/generated/graphql'
 import z from 'zod'
 
-export type IFragranceDraftShell = FragranceDraftShellFragment
-export type IFragranceDraftSummary = FragranceDraftSummaryFragment
-export type IFragranceDraftPreview = FragranceDraftPreviewFragment
+export type IFragranceDraftPreview = FragranceRequestPreviewFragmentFragment
 
 export const DEFAULT_RELEASE_YEAR = 2025
 export const MIN_RELEASE_YEAR = 1800

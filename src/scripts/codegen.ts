@@ -19,9 +19,8 @@ export const config: CodegenConfig = {
         enumsAsConst: true
       }
     }
-  },
-  ignoreNoDocuments: false,
-  allowPartialOutputs: true
+  }
+  // ignoreNoDocuments: false
 }
 
 export default config

@@ -1,18 +1,18 @@
-import type { NotePaginationInput } from '@/generated/graphql'
+import type { FragranceEditPaginationInput } from '@/generated/graphql'
 import { useQuery } from '@apollo/client/react'
-import { NOTES_QUERY } from '../graphql/queries'
+import { FRAGRANCE_EDITS_QUERY } from '../graphql/queries'
 import { flatten, validatePagination } from '@/utils/pagination'
 import { hasNextPage, isStatusLoadingMore, noRes, wrapQuery } from '@/utils/util'
 import { useMemo } from 'react'
 
-export const useNotes = (input?: NotePaginationInput) => {
+export const useFragranceEdits = (input?: FragranceEditPaginationInput) => {
   const {
     data, loading: isLoading, error, networkStatus,
     fetchMore
-  } = useQuery(NOTES_QUERY, { variables: { input } })
+  } = useQuery(FRAGRANCE_EDITS_QUERY, { variables: { input } })
 
   const loadMore = () => {
-    const endCursor = validatePagination(data?.notes.pageInfo, networkStatus)
+    const endCursor = validatePagination(data?.fragranceEdits.pageInfo, networkStatus)
 
     if (endCursor == null) return noRes
 
@@ -23,19 +23,19 @@ export const useNotes = (input?: NotePaginationInput) => {
       }
     }
 
-    return wrapQuery(fetchMore({ variables })).map(data => flatten(data.notes))
+    return wrapQuery(fetchMore({ variables })).map(data => flatten(data.fragranceEdits))
   }
 
-  const notes = useMemo(
-    () => flatten(data?.notes ?? []),
-    [data?.notes]
+  const edits = useMemo(
+    () => flatten(data?.fragranceEdits ?? []),
+    [data?.fragranceEdits]
   )
 
   const isLoadingMore = isStatusLoadingMore(networkStatus)
-  const hasMore = hasNextPage(data?.notes.pageInfo)
+  const hasMore = hasNextPage(data?.fragranceEdits.pageInfo)
 
   return {
-    notes,
+    edits,
 
     isLoading,
     isLoadingMore,

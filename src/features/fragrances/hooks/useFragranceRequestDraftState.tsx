@@ -1,16 +1,18 @@
 import { errAsync, type ResultAsync } from 'neverthrow'
-import { type IFragranceDraftShell } from '../types'
 import { useWithStatus } from '@/hooks/useWithStatus'
 import { useResultAsyncQueue } from '@/hooks/useResultAsyncQueue'
 import { useCallback, useEffect, useRef } from 'react'
+import type { ServerErrorInfo } from '@/utils/error'
+import type { IFragranceDraftPreview } from '../types'
+import type { FragranceRequestPreviewFragmentFragment } from '@/generated/graphql'
 
-export interface UseFragranceDraftStateProps {
+export interface UseFragranceRequestDraftStateProps {
   id: string
   initialVersion: number
-  refresh: () => ResultAsync<IFragranceDraftShell, ApolloError>
+  refresh: () => ResultAsync<IFragranceDraftPreview, ServerErrorInfo>
 }
 
-export const useFragranceDraftState = (props: UseFragranceDraftStateProps) => {
+export const useFragranceRequestDraftState = (props: UseFragranceRequestDraftStateProps) => {
   const { id, initialVersion, refresh } = props
 
   const { status, withStatus, reset } = useWithStatus()
@@ -29,11 +31,11 @@ export const useFragranceDraftState = (props: UseFragranceDraftStateProps) => {
   }, [refresh])
 
   const update = useCallback((
-    op: (prevVersion: number) => ResultAsync<IFragranceDraftShell, ApolloError>
+    op: (prevVersion: number) => ResultAsync<FragranceRequestPreviewFragmentFragment, ServerErrorInfo>
   ) => {
-    return enqueue(() =>
-      withStatus(() =>
-        op(version.current)
+    return enqueue(
+      () => withStatus(
+        () => op(version.current)
           .andTee(ds => { applyVersion(ds.version) })
           .orElse(e => refreshVersion()
             .andThen(() => errAsync(e))

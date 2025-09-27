@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from 'react'
-import { type ResultAsync } from 'neverthrow'
+import type { ResultAsync } from 'neverthrow'
 
 type Status = 'idle' | 'saving' | 'success' | 'error'
 

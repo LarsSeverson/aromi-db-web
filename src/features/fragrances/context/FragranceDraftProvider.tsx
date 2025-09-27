@@ -1,5 +1,5 @@
 import React from 'react'
-import { useFragranceDraft } from '../hooks/useFragranceDraft'
+import { useFragranceRequestDraft } from '../hooks/useFragranceRequestDraft'
 import { FragranceDraftContext } from './FragranceDraftContext'
 
 export interface FragranceDraftProviderProps {
@@ -11,7 +11,7 @@ export interface FragranceDraftProviderProps {
 export const FragranceDraftProvider = (props: FragranceDraftProviderProps) => {
   const { id, initialVersion, children } = props
 
-  const draft = useFragranceDraft({ id, initialVersion })
+  const draft = useFragranceRequestDraft({ id, initialVersion })
 
   return (
     <FragranceDraftContext.Provider

@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react'
-import { type useFragranceDraft } from '../hooks/useFragranceDraft'
+import { type useFragranceRequestDraft } from '../hooks/useFragranceRequestDraft'
 
-export type UseFragranceDraftReturn = ReturnType<typeof useFragranceDraft>
+export type UseFragranceDraftReturn = ReturnType<typeof useFragranceRequestDraft>
 export const FragranceDraftContext = createContext<UseFragranceDraftReturn | null>(null)
 
 export const useFragranceDraftContext = () => {
