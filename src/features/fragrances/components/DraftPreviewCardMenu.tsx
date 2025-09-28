@@ -1,22 +1,20 @@
+import ConfirmationDialog from '@/components/ConfirmationDialog'
 import MenuItem from '@/components/MenuItem'
 import MenuPopup from '@/components/MenuPopup'
 import { Menu } from '@base-ui-components/react'
 import React, { useState } from 'react'
-import { HiDotsHorizontal } from 'react-icons/hi'
-import { useNavigate } from '@tanstack/react-router'
-import ConfirmationDialog from '@/components/ConfirmationDialog'
-import { useMyFragranceRequests } from '@/features/users'
+import { HiDotsVertical } from 'react-icons/hi'
+import type { IFragranceRequestDraftPreview } from '../types'
 import { useDeleteFragranceRequest } from '../hooks/useDeleteFragranceRequest'
 
-export interface DraftItemMenuProps {
-  id: string
+export interface DraftPreviewCardMenuProps {
+  draft: IFragranceRequestDraftPreview
 }
 
-const DraftItemMenu = (props: DraftItemMenuProps) => {
-  const { id } = props
+const DraftPreviewCardMenu = (props: DraftPreviewCardMenuProps) => {
+  const { draft } = props
+  const { id } = draft
 
-  const navigate = useNavigate()
-  const { fragranceRequests } = useMyFragranceRequests({ status: 'DRAFT' })
   const { deleteRequest } = useDeleteFragranceRequest()
 
   const [showConfirmDialog, setShowConfirmDialog] = useState(false)
@@ -24,26 +22,25 @@ const DraftItemMenu = (props: DraftItemMenuProps) => {
   const handleOnConfirmDelete = () => {
     setShowConfirmDialog(false)
     void deleteRequest({ id })
-
-    const gotoDraft = fragranceRequests.find(d => d.id !== id)
-    if (gotoDraft != null) {
-      void navigate({ to: '/drafts/fragrances/$id', params: { id: gotoDraft.id } })
-    } else {
-      void navigate({ to: '/drafts/fragrances' })
-    }
   }
 
   const handleOnDeleteClick = () => {
     setShowConfirmDialog(true)
   }
 
+  const handleOnTriggerClick = (event: React.SyntheticEvent) => {
+    event.stopPropagation()
+    event.preventDefault()
+  }
+
   return (
     <>
       <Menu.Root>
         <Menu.Trigger
-          className='p-2 rounded-lg hover:bg-surface2'
+          className='rounded-md hover:bg-surface2 p-2'
+          onClick={handleOnTriggerClick}
         >
-          <HiDotsHorizontal />
+          <HiDotsVertical />
         </Menu.Trigger>
 
         <Menu.Portal>
@@ -75,4 +72,4 @@ const DraftItemMenu = (props: DraftItemMenuProps) => {
   )
 }
 
-export default DraftItemMenu
+export default DraftPreviewCardMenu

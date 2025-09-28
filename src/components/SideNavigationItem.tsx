@@ -10,9 +10,9 @@ import { AccordionIcon } from './Accordion/AccordionIcon'
 export interface SideNavigationItemProps extends NavItem {}
 
 const SideNavigationItem = (props: SideNavigationItemProps) => {
-  const { label, href, children } = props
+  const { label, href, children, isActive } = props
   const currentPath = useRouterState().location.pathname
-  const active = currentPath === href
+  const active = isActive?.(currentPath) ?? currentPath === href
 
   if (children != null && children.length > 0) {
     return (

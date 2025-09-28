@@ -1,5 +1,5 @@
 import React from 'react'
-import type { IFragranceDraftPreview } from '../types'
+import type { IFragranceRequestDraftPreview } from '../types'
 import clsx from 'clsx'
 import { Link } from '@tanstack/react-router'
 import ProgressiveImage from '@/components/ProgressiveImage'
@@ -7,7 +7,7 @@ import { TbPerfume } from 'react-icons/tb'
 import DraftItemMenu from './DraftItemMenu'
 
 export interface DraftListItemCardProps {
-  draft: IFragranceDraftPreview
+  draft: IFragranceRequestDraftPreview
   isSelected?: boolean
 }
 
@@ -25,7 +25,7 @@ const DraftListItemCard = (props: DraftListItemCardProps) => {
       )}
     >
       <Link
-        to='/drafts/fragrance/$id'
+        to='/drafts/fragrances/$id'
         params={{ id }}
         className={clsx(
           'flex flex-1 gap-2 overflow-hidden'

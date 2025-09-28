@@ -7,7 +7,7 @@ import { wrapQuery } from '@/utils/util'
 import { FragranceRequestDraftProvider } from '@/features/fragrances/context/FragranceRequestDraftProvider'
 import FragranceRequestDraftLayout from '@/features/fragrances/layouts/FragranceRequestDraftLayout'
 
-export const Route = createFileRoute('/drafts/fragrance/$id')({
+export const Route = createFileRoute('/drafts/fragrances/$id')({
   loader: async ({ params }) => {
     const { id } = params
 

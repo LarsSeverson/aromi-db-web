@@ -4,12 +4,12 @@ import { useWithStatus } from '@/hooks/useWithStatus'
 import type { ServerErrorInfo } from '@/utils/error'
 import { errAsync, type ResultAsync } from 'neverthrow'
 import { useCallback, useEffect, useRef } from 'react'
-import type { IFragranceDraftPreview } from '../types'
+import type { IFragranceRequestDraftPreview } from '../types'
 
 export interface UseFragranceRequestDraftStateProps {
   id: string
   initialVersion: number
-  refresh: () => ResultAsync<IFragranceDraftPreview, ServerErrorInfo>
+  refresh: () => ResultAsync<IFragranceRequestDraftPreview, ServerErrorInfo>
 }
 
 export const useFragranceRequestDraftState = (props: UseFragranceRequestDraftStateProps) => {

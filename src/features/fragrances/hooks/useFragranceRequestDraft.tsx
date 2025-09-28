@@ -87,7 +87,7 @@ export const useFragranceRequestDraft = (props: UseFragranceRequestDraftProps) =
 
     return stageImage(stageInput)
       .andThrough(presigned => upload(presigned, file, onUploadProgress))
-      .andThen(presigned => update(() => updateRequest({ assetId: presigned.assetId })))
+      .andThen(presigned => updateRequest({ assetId: presigned.assetId }))
   }
 
   const setTrait = (

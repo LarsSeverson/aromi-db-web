@@ -5,12 +5,18 @@ import { flatten, validateSearchPagination } from '@/utils/pagination'
 import { noRes } from '@/utils/error'
 import { hasNextPage, isStatusLoadingMore, wrapQuery } from '@/utils/util'
 import { useMemo } from 'react'
+import type { IBrandPreview } from '../types'
 
 export const useSearchBrands = (input?: SearchInput) => {
   const {
-    data, loading: isLoading, error, networkStatus,
+    data, previousData, loading: isLoading, error, networkStatus,
     fetchMore, refetch
-  } = useQuery(SEARCH_BRANDS_QUERY, { variables: { input } })
+  } = useQuery(
+    SEARCH_BRANDS_QUERY,
+    {
+      variables: { input }
+    }
+  )
 
   const loadMore = () => {
     const endOffset = validateSearchPagination(data?.searchBrands.pageInfo, networkStatus)
@@ -27,12 +33,12 @@ export const useSearchBrands = (input?: SearchInput) => {
     return wrapQuery(fetchMore({ variables })).map(data => flatten(data.searchBrands))
   }
 
-  const refresh = () => {
-    return wrapQuery(refetch()).map(data => data.searchBrands)
+  const refresh = (input?: SearchInput) => {
+    return wrapQuery(refetch({ input })).map(data => data.searchBrands)
   }
 
-  const brands = useMemo(
-    () => flatten(data?.searchBrands ?? []),
+  const brands: IBrandPreview[] = useMemo(
+    () => flatten(data?.searchBrands ?? previousData?.searchBrands ?? []),
     [data?.searchBrands]
   )
 

@@ -6,6 +6,7 @@ import DraftDescriptionInput from './DraftDescriptionInput'
 import DraftReleaseYearInput from './DraftReleaseYearInput'
 import DraftConcentrationInput from './DraftConcentrationInput'
 import DraftStatusInput from './DraftStatusInput'
+import DraftBrandInput from './DraftBrandInput'
 
 const DraftInfoSection = () => {
   const { id } = useFragranceRequestDraftContext()
@@ -15,7 +16,8 @@ const DraftInfoSection = () => {
     description,
     releaseYear,
     concentration,
-    fragranceStatus
+    fragranceStatus,
+    brand
   } = fragranceRequest ?? {}
 
   if (isLoading) {
@@ -24,10 +26,14 @@ const DraftInfoSection = () => {
 
   return (
     <section
-      className='flex flex-col gap-5 w-full h-full'
+      className='flex flex-col gap-5 w-full h-full min-w-0'
     >
       <DraftNameInput
         name={name}
+      />
+
+      <DraftBrandInput
+        brand={brand}
       />
 
       <DraftDescriptionInput

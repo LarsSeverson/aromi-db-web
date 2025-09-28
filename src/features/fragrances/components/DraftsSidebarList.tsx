@@ -4,7 +4,8 @@ import DraftListItemCard from './DraftListItemCard'
 import { useMyFragranceRequests } from '@/features/users'
 
 const DraftsSidebarList = () => {
-  const { id } = useParams({ from: '/drafts/fragrance/$id/', shouldThrow: false }) ?? {}
+  // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
+  const { id } = useParams({ from: '/drafts/fragrances/$id/', shouldThrow: false }) ?? {}
   const { fragranceRequests } = useMyFragranceRequests({ status: 'DRAFT' })
 
   const selectedRequest = useMemo(

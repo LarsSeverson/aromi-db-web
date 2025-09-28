@@ -16,7 +16,7 @@ export interface ConfirmationDialogProps extends Dialog.Root.Props {
 const ConfirmationDialog = (props: ConfirmationDialogProps) => {
   const {
     text = 'Are you sure?',
-    subtext = "You'll lose any edits you've made. This can't be undone!",
+    subtext = 'You\'ll lose any edits you\'ve made. This can\'t be undone!',
     cancelText = 'Cancel',
     confirmText = 'Delete',
     onConfirm,
@@ -32,6 +32,7 @@ const ConfirmationDialog = (props: ConfirmationDialogProps) => {
 
         <DialogPopup
           className='flex flex-col gap-5'
+          onClick={(e) => { e.stopPropagation() }}
         >
           <Dialog.Title
             className='text-xl text-center '

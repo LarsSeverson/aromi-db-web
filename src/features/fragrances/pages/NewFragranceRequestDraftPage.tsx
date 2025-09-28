@@ -27,7 +27,11 @@ const NewFragranceRequestDraftPage = () => {
       <Form
         className='flex flex-wrap max-w-4xl min-w-96 self-center w-full gap-10 '
       >
-        <NewDraftImageSection />
+        <div
+          className='flex-1 flex flex-col gap-8'
+        >
+          <NewDraftImageSection />
+        </div>
 
         <Fieldset.Root
           disabled

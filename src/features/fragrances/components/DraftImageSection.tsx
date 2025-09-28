@@ -53,36 +53,40 @@ const DraftImageSection = () => {
     <section
       className='flex-1 relative'
     >
-      <DropZone
-        defaultUrl={url}
-        isDisabled={isLoading}
-        showPreview={showPreview}
-        showSkeleton={isRequestLoading}
-        accept='image/png,image/jpeg,image/webp'
-        onFile={handleOnFile}
-        subtext={error ?? undefined}
-        className={clsx(
-          isLoading && 'bg-opacity-50 bg-black',
-          error != null && 'bg-red-800 bg-opacity-90 text-white'
-        )}
-        icon={
-          error != null
-            ? <MdErrorOutline
-              size={26}
-            />
-            : undefined
-        }
-      />
+      <div
+        className='relative'
+      >
+        <DropZone
+          defaultUrl={url}
+          isDisabled={isLoading}
+          showPreview={showPreview}
+          showSkeleton={isRequestLoading}
+          accept='image/png,image/jpeg,image/webp'
+          onFile={handleOnFile}
+          subtext={error ?? undefined}
+          className={clsx(
+            isLoading && 'opacity-50 bg-black',
+            error != null && 'bg-red-800 bg-opacity-90 text-white'
+          )}
+          icon={
+            error != null
+              ? <MdErrorOutline
+                size={26}
+              />
+              : undefined
+          }
+        />
 
-      {isLoading && (
-        <div
-          className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
-        >
-          <ProgressSpinner
-            percent={loadingProgress}
-          />
-        </div>
-      )}
+        {isLoading && (
+          <div
+            className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
+          >
+            <ProgressSpinner
+              percent={loadingProgress}
+            />
+          </div>
+        )}
+      </div>
     </section>
   )
 }

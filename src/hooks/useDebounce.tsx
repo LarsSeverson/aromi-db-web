@@ -5,8 +5,8 @@ import { useEffect, useRef } from 'react'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const useDebounce = <T extends (...args: any[]) => void>(
   fn: T,
-  deps: React.DependencyList = [],
-  delay: number = 500
+  delay = 500,
+  deps: React.DependencyList = []
 ) => {
   const fnRef = useRef(fn)
 

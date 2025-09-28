@@ -3,6 +3,7 @@ export interface NavItem {
   href: string
   badge?: string
   children?: NavItem[]
+  isActive?: (path: string) => boolean
 }
 
 export interface NavSection {
@@ -41,9 +42,13 @@ export const NAV: NavSection[] = [
       },
       {
         label: 'Drafts',
-        href: '/me/drafts',
+        href: '/drafts',
         children: [
-          { label: 'Fragrances', href: '/drafts/fragrances' },
+          {
+            label: 'Fragrances',
+            href: '/drafts/fragrances',
+            isActive: (path: string) => path.startsWith('/drafts/fragrances')
+          },
           { label: 'Brands', href: '/drafts/brands' },
           { label: 'Accords', href: '/drafts/accords' },
           { label: 'Notes', href: '/drafts/notes' }

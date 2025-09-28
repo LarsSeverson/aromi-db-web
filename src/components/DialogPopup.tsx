@@ -13,7 +13,7 @@ const DialogPopup = (props: DialogPopupProps) => {
     <Dialog.Popup
       className={clsx(
         'fixed -mt-8 max-w-[calc(100vw-3rem)] rounded-lg p-6',
-        'bg-background outline outline-1 outline-surface2',
+        'bg-background outline-1 outline-surface2',
         'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2',
         'transition-all duration-150',
         'data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0',
